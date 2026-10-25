@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f1e9">
+  <meta name="description" content="NT10STORE — moda, estilo e personalidade.">
+  <title>NT10STORE — Vista seu estilo</title>
+  <link rel="icon" href="/assets/produtos/logo.png">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="topline">
+    <a href="#inicio" class="top-brand">NT10STORE</a>
+    <span>MODA · ESTILO · PERSONALIDADE</span>
+  </div>
+
+  <header class="header">
+    <a href="#inicio" class="brand" aria-label="NT10STORE início">
+      <img src="/assets/produtos/logo.png" alt="NT10STORE"
+           onerror="this.style.display='none'">
+      <span>NT10STORE</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a class="nav-link active" href="#inicio">Início</a>
+      <a class="nav-link" href="#colecao">Coleção</a>
+      <a class="nav-link" href="#destaques">Destaques</a>
+      <a class="nav-link" href="#sobre">Sobre nós</a>
+    </nav>
+
+    <button class="bag-button" id="openCart" aria-label="Abrir sacola">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 8h14l1 13H4L5 8Z"/>
+        <path d="M9 9V6a3 3 0 0 1 6 0v3"/>
+      </svg>
+      <span>Sacola</span>
+      <span class="bag-count" id="cartCount">0</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <p class="eyebrow">NOVA COLEÇÃO · N10</p>
+        <h1>Vista seu estilo.<br><span>Marque presença.</span></h1>
+        <p class="hero-description">
+          Encontre sua próxima peça e monte um visual que combina com você.
+        </p>
+        <a class="primary-button" href="#colecao">
+          Explorar coleção <span aria-hidden="true">↗</span>
+        </a>
+        <p class="availability"><span></span> Consulte as peças disponíveis</p>
+      </div>
+
+      <div class="hero-carousel" id="heroCarousel">
+        <div class="hero-slides" id="heroSlides">
+          <div class="hero-slide is-active">
+            <img src="/assets/produtos/IMG-20261025-WA0001.jpg" alt="Destaque da coleção N10">
+          </div>
+          <div class="hero-slide">
+            <img src="/assets/produtos/IMG-20261025-WA0003.jpg" alt="Outra peça da coleção N10">
+          </div>
+          <div class="hero-slide">
+            <img src="/assets/produtos/IMG-20261025-WA0005.jpg" alt="Estilo N10">
+          </div>
+        </div>
+        <button class="hero-arrow hero-prev" id="heroPrev" aria-label="Imagem anterior">‹</button>
+        <button class="hero-arrow hero-next" id="heroNext" aria-label="Próxima imagem">›</button>
+        <div class="hero-dots" id="heroDots" aria-label="Selecionar imagem"></div>
+        <span class="hero-stamp">NT10STORE / SEU ESTILO</span>
+      </div>
+    </section>
+
+    <section class="collection section-wrap" id="colecao">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">ESCOLHIDOS PARA VOCÊ</p>
+          <h2>Nossa coleção <span id="productCount">(0)</span></h2>
+          <p class="section-subtitle">Explore as peças e toque em um produto para ver os detalhes.</p>
+        </div>
+        <label class="search-box">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="10.8" cy="10.8" r="6.8"/>
+            <path d="m16 16 5 5"/>
+          </svg>
+          <input id="searchInput" type="search" placeholder="Buscar peça..." autocomplete="off">
+        </label>
+      </div>
+
+      <div class="filter-bar">
+        <div class="category-list" id="categoryList">
+          <button class="category-chip active" data-category="Todos">Todos</button>
+        </div>
+        <label class="sort-control">
+          <span>Ordenar:</span>
+          <select id="sortSelect">
+            <option value="featured">Destaques</option>
+            <option value="name">Nome</option>
+            <option value="price-asc">Menor preço</option>
+            <option value="price-desc">Maior preço</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+        <div class="loading-state">Carregando coleção...</div>
+      </div>
+      <p class="empty-state" id="emptyState" hidden>Nenhuma peça encontrada. Tente outra busca.</p>
+    </section>
+
+    <section class="store-location" id="localizacao">
+      <div class="location-heading">
+        <p class="eyebrow">VISITE-NOS</p>
+        <h2>Estamos por aqui.</h2>
+        <p>Confira nossa localização e trace sua rota até nós.</p>
+      </div>
+      <div class="location-map">
+        <iframe
+          title="Localização da NT10STORE em mapa de satélite"
+          src="https://maps.google.com/maps?q=-5.7795076%2C-35.5334663&t=k&z=18&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <a class="map-link"
+         href="https://www.google.com/maps/@-5.7795076,-35.5334663,18z/data=!3m1!1e3"
+         target="_blank" rel="noopener noreferrer">
+        COMO CHEGAR <span aria-hidden="true">↗</span>
+      </a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a href="#inicio" class="footer-brand">NT10STORE</a>
+    <span class="footer-tagline">MODA · ESTILO · PERSONALIDADE</span>
+
+    <div class="footer-socials" aria-label="Redes sociais">
+      <a href="https://www.instagram.com/ntstoree0/"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Instagram da NT10STORE" title="Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"
+                fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="12" cy="12" r="4" fill="none"
+                  stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="17.5" cy="6.7" r="1.2" fill="currentColor"/>
+        </svg>
+      </a>
+      <a href="https://wa.me/558491485772"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="WhatsApp da NT10STORE" title="WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.2 11.8a8.2 8.2 0 0 1-12.1 7.2L3 20l1.1-4.9a8.2 8.2 0 1 1 16.1-3.3Z"
+                fill="none" stroke="currentColor" stroke-width="1.7"
+                stroke-linejoin="round"/>
+          <path d="M8.5 7.7c-.3.4-.7.8-.6 1.5.2 1.4 2.3 4 4.2 4.9.7.3 1.4.5 1.9.2l1.1-1.1-2.2-1.1-.9.9c-.9-.4-1.8-1.3-2.2-2.2l.8-.9-1.1-2.2Z"
+                fill="currentColor"/>
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Detalhes do produto -->
+  <div class="overlay" id="detailOverlay" aria-hidden="true">
+    <section class="detail-panel" role="dialog" aria-modal="true" aria-labelledby="detailName">
+      <button class="icon-button close-button" id="closeDetail" aria-label="Fechar detalhes">×</button>
+      <div class="detail-layout">
+        <div class="detail-gallery">
+          <button class="gallery-main" id="zoomTrigger" aria-label="Ampliar imagem do produto">
+            <img id="detailImage" src="" alt="">
+            <span class="zoom-hint"><span>⌕</span> Toque para ampliar</span>
+          </button>
+          <div class="detail-thumbnails" id="detailThumbnails"></div>
+        </div>
+        <div class="detail-info">
+          <p class="eyebrow" id="detailCategory">NT10STORE / COLEÇÃO</p>
+          <h2 id="detailName">Produto</h2>
+          <p class="detail-price" id="detailPrice">Consulte o preço</p>
+          <p class="detail-description" id="detailDescription"></p>
+          <label class="size-label" for="sizeSelect">Tamanho</label>
+          <div class="size-row">
+            <select id="sizeSelect">
+              <option value="">Selecionar tamanho</option>
+              <option value="P">P</option><option value="M">M</option>
+              <option value="G">G</option><option value="GG">GG</option>
+              <option value="Único">Único</option>
+            </select>
+          </div>
+          <p class="detail-availability"><span></span> Disponibilidade confirmada pelo WhatsApp</p>
+          <button class="primary-button full-button" id="detailAdd">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
+            Adicionar à sacola
+          </button>
+          <button class="outline-button full-button" id="detailWhatsApp">Consultar pelo WhatsApp ↗</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Zoom de imagem -->
+  <div class="zoom-overlay" id="zoomOverlay" aria-hidden="true">
+    <button class="zoom-close" id="zoomClose" aria-label="Fechar zoom">×</button>
+    <button class="zoom-nav zoom-left" id="zoomPrev" aria-label="Foto anterior">‹</button>
+    <img id="zoomImage" src="" alt="Imagem ampliada do produto">
+    <button class="zoom-nav zoom-right" id="zoomNext" aria-label="Próxima foto">›</button>
+    <p class="zoom-caption" id="zoomCaption">NT10STORE</p>
+  </div>
+
+  <!-- Sacola -->
+  <div class="overlay cart-overlay" id="cartOverlay" aria-hidden="true">
+    <section class="cart-panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <div class="cart-header">
+        <div>
+          <p class="eyebrow">NT10STORE / SEU PEDIDO</p>
+          <h2 id="cartTitle">Sua sacola <span id="cartTitleCount">(0)</span></h2>
+        </div>
+        <button class="icon-button" id="closeCart" aria-label="Fechar sacola">×</button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-empty" id="cartEmpty">
+        <div class="empty-bag">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
+        </div>
+        <h3>Sua sacola está vazia</h3>
+        <p>Adicione suas peças favoritas para montar seu pedido.</p>
+        <button class="outline-button" id="continueShopping">Explorar coleção</button>
+      </div>
+      <div class="cart-footer" id="cartFooter">
+        <label for="customerName">Seu nome (opcional)</label>
+        <input id="customerName" type="text" maxlength="80" placeholder="Como podemos te chamar?">
+        <div class="cart-total"><span>Total dos produtos</span><strong id="cartTotal">A consultar</strong></div>
+        <p class="cart-note">Preços e disponibilidade serão confirmados pela loja.</p>
+        <button class="primary-button full-button" id="checkoutButton">Enviar pedido pelo WhatsApp ↗</button>
+        <button class="text-button" id="clearCart">Limpar sacola</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/js/app.js" defer></script>
+</body>
+</html>

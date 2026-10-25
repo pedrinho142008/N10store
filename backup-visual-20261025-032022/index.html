@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ee">
+  <meta name="description" content="N10STORE — moda e estilo.">
+  <title>N10STORE | Sua próxima peça</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/app.js" defer></script>
+</head>
+<body>
+  <div class="announcement">N10STORE <span>MODA • ESTILO • PERSONALIDADE</span></div>
+
+  <header class="header" id="inicio">
+    <a class="brand" href="#inicio">
+      <img src="/assets/produtos/logo.png" alt="N10STORE">
+    </a>
+
+    <nav class="menu" aria-label="Menu principal">
+      <a class="active" href="#inicio">Início</a>
+      <a href="#catalogo">Coleção</a>
+      <a href="#destaques">Destaques</a>
+      <a href="#sobre">Sobre nós</a>
+    </nav>
+
+    <button id="openCart" class="bag-button" type="button">
+      <span class="bag-icon">▢</span> Sacola <span id="cartCount" class="bag-count">0</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="hero" id="destaques">
+      <div class="hero-copy">
+        <span class="eyebrow">NOVA COLEÇÃO · N10</span>
+        <h1>Vista seu estilo.<br><span>Marque presença.</span></h1>
+        <p>Encontre sua próxima peça e monte um visual que combina com você.</p>
+        <a href="#catalogo" class="hero-button">Explorar coleção <span>↗</span></a>
+        <div class="hero-footnote"><span class="status-dot"></span> Confira as peças disponíveis</div>
+      </div>
+      <a class="hero-photo" href="#catalogo" aria-label="Ver coleção de roupas">
+        <img src="/assets/produtos/IMG-20261025-WA0001.jpg" alt="Peça da coleção N10STORE"
+          onerror="this.style.display='none'">
+        <span class="photo-caption">N10STORE / SEU ESTILO</span>
+      </a>
+    </section>
+
+    <section class="catalog" id="catalogo">
+      <div class="catalog-heading">
+        <div>
+          <span class="eyebrow">ESCOLHIDOS PARA VOCÊ</span>
+          <h2>Nossa coleção <span id="productCount" class="product-count"></span></h2>
+          <p class="section-description">Explore as peças e toque em um produto para ver os detalhes.</p>
+        </div>
+        <label class="search">
+          <span>⌕</span>
+          <input id="search" type="search" maxlength="80" placeholder="Buscar peça..." aria-label="Buscar produto">
+        </label>
+      </div>
+
+      <div class="catalog-toolbar">
+        <span class="catalog-label">ROUPAS <span>—</span> COLEÇÃO ATUAL</span>
+        <label class="sort-label">Ordenar:
+          <select id="sort">
+            <option value="featured">Destaques</option>
+            <option value="name">Nome</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="products" class="products" aria-live="polite">
+        <p>Carregando produtos...</p>
+      </div>
+    </section>
+
+    <section class="about" id="sobre">
+      <div class="about-mark">N10</div>
+      <div>
+        <span class="eyebrow">SOBRE A N10STORE</span>
+        <h2>Seu jeito de vestir.<br>Seu jeito de ser.</h2>
+        <p>Gostou de uma peça? Consulte os preços, tamanhos e disponibilidade diretamente com a gente pelo WhatsApp.</p>
+      </div>
+      <a href="#catalogo" class="about-link">Conhecer coleção ↗</a>
+    </section>
+  </main>
+
+  <footer>
+    <a href="#inicio" class="footer-brand">N10STORE</a>
+    <span>Moda e estilo.</span>
+    <a href="#inicio">Voltar ao início ↑</a>
+  </footer>
+
+  <!-- Detalhes do produto -->
+  <div id="detailOverlay" class="overlay" hidden>
+    <button class="overlay-bg" data-close-detail aria-label="Fechar detalhes"></button>
+    <section class="detail-panel" role="dialog" aria-modal="true" aria-labelledby="detailName">
+      <button id="closeDetail" class="close-button" aria-label="Fechar">×</button>
+      <div class="detail-image">
+        <img id="detailImage" src="" alt="">
+      </div>
+      <div class="detail-content">
+        <span class="eyebrow">N10STORE / ROUPAS</span>
+        <h2 id="detailName">Produto</h2>
+        <p id="detailDescription"></p>
+        <div id="detailPrice" class="detail-price">Consulte o preço</div>
+        <div class="detail-info">
+          <span>Disponibilidade</span>
+          <strong>Confirme pelo WhatsApp</strong>
+        </div>
+        <div class="detail-actions">
+          <button id="detailAdd" class="secondary-button">Adicionar à sacola</button>
+          <button id="detailBuy" class="primary-button">Comprar pelo WhatsApp ↗</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Sacola -->
+  <div id="cartOverlay" class="overlay" hidden>
+    <button class="overlay-bg" data-close-cart aria-label="Fechar sacola"></button>
+    <section class="cart-panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <div class="cart-heading">
+        <div>
+          <span class="eyebrow">N10STORE / SEU PEDIDO</span>
+          <h2 id="cartTitle">Sua sacola</h2>
+        </div>
+        <button id="closeCart" class="close-button" aria-label="Fechar">×</button>
+      </div>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="cart-bottom">
+        <label for="customerName">Seu nome (opcional)</label>
+        <input id="customerName" maxlength="80" placeholder="Como podemos te chamar?">
+        <button id="checkout" class="primary-button">Enviar pedido pelo WhatsApp ↗</button>
+        <button id="clearCart" class="clear-button">Limpar sacola</button>
+        <p class="small-note">Preços e disponibilidade serão confirmados no atendimento.</p>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+</body>
+</html>

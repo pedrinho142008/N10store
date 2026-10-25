@@ -1,0 +1,28 @@
+# Dependências instaladas
+node_modules/
+
+# Segredos e variáveis de ambiente
+.env
+.env.*
+!.env.example
+
+# Backups e versões antigas
+*.bak
+*.bak-*
+*.bugado
+*.bugado-*
+*.old
+*.orig
+*~
+
+# Logs e temporários
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.cache/
+.tmp/
+temp/
+
+# Configurações locais de ferramentas
+.vercel/
