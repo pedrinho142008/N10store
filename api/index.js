@@ -163,18 +163,20 @@ app.post("/api/admin/login", configured, (req, res) => {
     return res.status(401).json({ error: "Usuário ou senha incorretos." });
   }
 
+  const secureCookie = process.env.NODE_ENV === "production" ? "; Secure" : "";
   res.setHeader(
     "Set-Cookie",
-    `${COOKIE}=${encodeURIComponent(createToken())}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${SESSION_MS / 1000}`
+    `${COOKIE}=${encodeURIComponent(createToken())}; HttpOnly${secureCookie}; SameSite=Lax; Path=/; Max-Age=${SESSION_MS / 1000}`
   );
 
   res.json({ ok: true });
 });
 
 app.post("/api/admin/logout", (req, res) => {
+  const secureCookie = process.env.NODE_ENV === "production" ? "; Secure" : "";
   res.setHeader(
     "Set-Cookie",
-    `${COOKIE}=; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=0`
+    `${COOKIE}=; HttpOnly${secureCookie}; SameSite=Lax; Path=/; Max-Age=0`
   );
 
   res.json({ ok: true });
@@ -480,6 +482,10 @@ app.get("/admin/", (req, res) => {
 });
 
 app.get("/admin/painel", (req, res) => {
+  if (!tokenIsValid(getCookie(req, COOKIE))) {
+    return res.redirect(302, "/admin");
+  }
+  res.set("Cache-Control", "no-store");
   res.sendFile(path.join(PUBLIC, "admin", "index.html"));
 });
 
