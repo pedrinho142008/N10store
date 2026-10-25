@@ -23,8 +23,9 @@ async function api(url, options = {}) {
   const data = await response.json().catch(() => ({}));
 
   if (response.status === 401) {
-    location.href = "/admin";
-    throw new Error("Sessão encerrada.");
+    const error = new Error("Sua sessão expirou. Entre novamente em /admin.");
+    error.auth = true;
+    throw error;
   }
 
   if (!response.ok) throw new Error(data.error || "Erro na requisição.");
@@ -306,12 +307,14 @@ $("#exportSales").onclick = async () => {
 (async () => {
   try {
     const status = await api("/api/admin/status");
+
     if (!status.authenticated) {
-      location.href = "/admin";
+      location.replace("/admin");
       return;
     }
+
     await loadSummary();
-  } catch {
-    location.href = "/admin";
+  } catch (error) {
+    toast(error.message || "Não foi possível verificar sua sessão.");
   }
 })();
