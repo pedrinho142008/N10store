@@ -466,6 +466,11 @@ app.get("/api/admin/summary", configured, adminOnly, async (req, res) => {
 
 app.use(express.static(PUBLIC, { extensions: ["html"] }));
 
+
+app.get("/admin.html", (req, res) => {
+  res.redirect(302, "/admin");
+});
+
 app.get("/admin", (req, res) => {
   res.sendFile(path.join(PUBLIC, "admin", "login.html"));
 });
