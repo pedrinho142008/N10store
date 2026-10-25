@@ -26,3 +26,6 @@ temp/
 
 # Configurações locais de ferramentas
 .vercel/
+
+# Backups locais — não publicar na Vercel
+backup-*/
