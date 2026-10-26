@@ -340,97 +340,72 @@ app.post("/api/admin/login", configured, async (req, res) => {
   }
 });
 
+async function callAdminUsersFunction(method, body) {
+  let base = env("SUPABASE_URL").replace(/\/+$/, "");
+  if (base && !/^https?:\/\//i.test(base)) base = "https://" + base;
+
+  const secret = env("N10_ADMIN_FUNCTION_SECRET");
+  if (!base || !secret) {
+    throw new Error("Integração admin-users não configurada na Vercel.");
+  }
+
+  const response = await fetch(`${base}/functions/v1/admin-users`, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      "x-internal-secret": secret
+    },
+    body: body === undefined ? undefined : JSON.stringify(body)
+  });
+
+  const text = await response.text();
+  let data = {};
+
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    data = {};
+  }
+
+  if (!response.ok) {
+    console.error("Edge Function admin-users:", response.status, data);
+    const error = new Error(
+      data.error || "Não foi possível concluir a operação de administradores."
+    );
+    error.status = response.status;
+    throw error;
+  }
+
+  return data;
+}
+
 app.get("/api/admin/users", configured, adminOnly, async (req, res) => {
   try {
-    const users = await supabase(
-      "n10_admin_usernames",
-      "select=id,username,display_name,created_at&order=created_at.desc"
-    );
-    res.json({ users: Array.isArray(users) ? users : [] });
+    const data = await callAdminUsersFunction("GET");
+    return res.json({ users: Array.isArray(data.users) ? data.users : [] });
   } catch (error) {
     console.error("Falha ao listar administradores:", error.message);
-    res.status(500).json({ error: "Não foi possível listar administradores." });
+    return res.status(error.status || 502).json({
+      error: error.message || "Não foi possível listar administradores."
+    });
   }
 });
 
 app.post("/api/admin/users", configured, adminOnly, async (req, res) => {
-  const username = String(req.body?.username || "").trim();
-  const displayName = String(req.body?.display_name || "").trim();
-  const email = String(req.body?.email || "").trim().toLowerCase();
-  const password = String(req.body?.password || "");
-
-  if (!/^[A-Za-z0-9_]{3,30}$/.test(username))
-    return res.status(400).json({ error: "Usuário: use 3 a 30 letras, números ou _." });
-  if (displayName.length < 2 || displayName.length > 80)
-    return res.status(400).json({ error: "Informe um nome entre 2 e 80 caracteres." });
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-    return res.status(400).json({ error: "Informe um e-mail válido." });
-  if (password.length < 8 || password.length > 72)
-    return res.status(400).json({ error: "A senha deve ter entre 8 e 72 caracteres." });
-
-  let base = env("SUPABASE_URL").replace(/\/+$/, "");
-  if (!/^https?:\/\//i.test(base)) base = "https://" + base;
-  let userId = "";
-
   try {
-    const duplicate = await supabase(
-      "n10_admin_usernames",
-      "select=id&username=eq." + encodeURIComponent(username) + "&limit=1"
-    );
-    if (Array.isArray(duplicate) && duplicate.length)
-      return res.status(409).json({ error: "Esse usuário já existe." });
-
-    const response = await fetch(`${base}/auth/v1/admin/users`, {
-      method: "POST",
-      headers: {
-        apikey: env("SUPABASE_SERVICE_ROLE_KEY"),
-        Authorization: `Bearer ${env("SUPABASE_SERVICE_ROLE_KEY")}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        email_confirm: true,
-        user_metadata: { name: displayName },
-        app_metadata: { role: "admin" }
-      })
+    const data = await callAdminUsersFunction("POST", {
+      username: req.body?.username,
+      display_name: req.body?.display_name,
+      email: req.body?.email,
+      password: req.body?.password
     });
 
-    const data = await response.json().catch(() => ({}));
-    const user = data.user || data;
-    userId = String(user.id || "");
-
-    if (!response.ok || !userId) {
-      const msg = String(data.msg || data.message || data.error_description || "");
-      if (response.status === 422 || /already|registered|exists/i.test(msg))
-        return res.status(409).json({ error: "Esse e-mail já está cadastrado." });
-      console.error("Supabase criação de administrador:", response.status, msg);
-      return res.status(502).json({ error: "O Supabase não conseguiu criar a conta." });
-    }
-
-    try {
-      await supabase("n10_admin_usernames", "", {
-        method: "POST",
-        headers: { Prefer: "return=minimal" },
-        body: { user_id: userId, username, display_name: displayName }
-      });
-    } catch (error) {
-      await fetch(`${base}/auth/v1/admin/users/${encodeURIComponent(userId)}`, {
-        method: "DELETE",
-        headers: {
-          apikey: env("SUPABASE_SERVICE_ROLE_KEY"),
-          Authorization: `Bearer ${env("SUPABASE_SERVICE_ROLE_KEY")}`
-        }
-      }).catch(() => {});
-      if (/duplicate|unique|already exists/i.test(error.message))
-        return res.status(409).json({ error: "Usuário ou e-mail já cadastrado." });
-      throw error;
-    }
-
-    res.status(201).json({ ok: true, user: { username, display_name: displayName } });
+    return res.status(201).json(data);
   } catch (error) {
     console.error("Falha ao cadastrar administrador:", error.message);
-    res.status(500).json({ error: "Não foi possível cadastrar o administrador." });
+    return res.status(error.status || 502).json({
+      error: error.message || "Não foi possível cadastrar o administrador."
+    });
   }
 });
 
