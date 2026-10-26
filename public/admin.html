@@ -1826,7 +1826,7 @@ $("pImagesFiles").addEventListener("change",()=>previewProductFiles("pImagesFile
 $("categoryForm").addEventListener("submit",addCategory);
 $("brandForm").addEventListener("submit",addBrand);
 $("productBrandFilter").addEventListener("change",renderProducts);
-$("addCustomer").onclick=openCustomer;
+if ($("addCustomer")) $("addCustomer").onclick=openCustomer;
 $("customerForm").addEventListener("submit",saveCustomer);
 $("productSearch").addEventListener("input",renderProducts);
 $("productFilter").addEventListener("change",renderProducts);
