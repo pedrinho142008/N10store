@@ -266,20 +266,45 @@ app.post("/api/admin/login", configured, async (req, res) => {
     let role = "";
 
     if (!adminEmails().includes(email)) {
-      if (!/^[A-Za-z0-9_]{3,30}$/.test(login)) {
+      let rows = [];
+
+      if (/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(login)) {
+        // Localiza a conta pelo e-mail e exige que ela esteja cadastrada
+        // na tabela de administradores.
+        const listResponse = await fetch(
+          `${base}/auth/v1/admin/users?page=1&per_page=1000`,
+          {
+            headers: {
+              apikey: env("SUPABASE_SERVICE_ROLE_KEY"),
+              Authorization: `Bearer ${env("SUPABASE_SERVICE_ROLE_KEY")}`
+            }
+          }
+        );
+
+        const listData = await listResponse.json().catch(() => ({}));
+        const authUsers = Array.isArray(listData.users) ? listData.users : [];
+        const matched = authUsers.find(
+          u => String(u.email || "").trim().toLowerCase() === email
+        );
+
+        if (matched?.id) {
+          rows = await supabase(
+            "n10_admin_usernames",
+            "select=user_id&user_id=eq." + encodeURIComponent(matched.id) + "&limit=1"
+          );
+        }
+      } else if (/^[A-Za-z0-9_]{3,30}$/.test(login)) {
+        rows = await supabase(
+          "n10_admin_usernames",
+          "select=user_id&username=eq." + encodeURIComponent(login) + "&limit=1"
+        );
+      }
+
+      if (!Array.isArray(rows) || rows.length !== 1 || !rows[0].user_id) {
         return res.status(401).json({ error: "Usuário ou senha incorretos." });
       }
 
-      const rows = await supabase(
-        "n10_admin_usernames",
-        "select=user_id,username&username=eq." + encodeURIComponent(login) + "&limit=1"
-      );
-
-      if (!Array.isArray(rows) || rows.length !== 1) {
-        return res.status(401).json({ error: "Usuário ou senha incorretos." });
-      }
-
-      userId = String(rows[0].user_id || "");
+      userId = String(rows[0].user_id);
       const adminUser = await getSupabaseAdminUser(userId);
 
       if (!adminUser || adminUser.app_metadata?.role !== "admin") {
