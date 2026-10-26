@@ -416,6 +416,33 @@ app.get("/api/admin/users", configured, adminOnly, async (req, res) => {
   }
 });
 
+
+app.delete("/api/admin/users/:id", configured, adminOnly, async (req, res) => {
+  try {
+    const token = getCookie(req, COOKIE);
+    const payload = JSON.parse(
+      Buffer.from(token.split(".")[0], "base64url").toString("utf8")
+    );
+
+    if (String(payload.userId || "") === String(req.params.id || "")) {
+      return res.status(400).json({
+        error: "Você não pode excluir a própria conta durante esta sessão."
+      });
+    }
+
+    const data = await callAdminUsersFunction("DELETE", {
+      user_id: req.params.id
+    });
+
+    return res.json(data);
+  } catch (error) {
+    console.error("Falha ao excluir administrador:", error.message);
+    return res.status(error.status || 502).json({
+      error: error.message || "Não foi possível excluir o administrador."
+    });
+  }
+});
+
 app.post("/api/admin/users", configured, adminOnly, async (req, res) => {
   try {
     const data = await callAdminUsersFunction("POST", {

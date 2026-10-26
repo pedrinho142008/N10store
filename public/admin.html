@@ -1088,9 +1088,12 @@ async function api(url, options={}){
     if(url.includes("/api/admin/login")){
       throw new Error(data?.error || "Usuário ou senha incorretos.");
     }
+    if(url === "/api/admin/users"){
+      throw new Error(data?.error || "A API recusou o cadastro por falta de autorização. Faça login novamente e tente outra vez.");
+    }
     $("app").classList.add("hidden");
     $("loginScreen").classList.remove("hidden");
-    throw new Error("Sua sessão expirou. Entre novamente.");
+    throw new Error(data?.error || "Sua sessão expirou. Entre novamente.");
   }
   if(!response.ok)throw new Error(data?.error||data?.message||`Erro HTTP ${response.status}`);
   return data;
@@ -1749,8 +1752,34 @@ async function loadAdminUsers(){
           <strong>${esc(u.display_name||u.username)}</strong>
           <div class="muted small">@${esc(u.username)}</div>
         </div>
-        <span class="pill">Administrador</span>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span class="pill">Administrador</span>
+          <button class="danger" type="button"
+            data-delete-admin="${esc(u.user_id)}"
+            data-delete-name="${esc(u.username)}">Excluir</button>
+        </div>
       </div>`).join("");
+
+    box.querySelectorAll("[data-delete-admin]").forEach(button => {
+      button.addEventListener("click", async () => {
+        const id = button.dataset.deleteAdmin;
+        const username = button.dataset.deleteName;
+
+        if (!confirm(`Deseja realmente excluir o administrador @${username}? Essa ação não pode ser desfeita.`)) return;
+
+        button.disabled = true;
+        try {
+          await api("/api/admin/users/" + encodeURIComponent(id), {
+            method: "DELETE"
+          });
+          toast("Administrador excluído com sucesso.");
+          await loadAdminUsers();
+        } catch (error) {
+          alert(error.message || "Não foi possível excluir o administrador.");
+          button.disabled = false;
+        }
+      });
+    });
   }catch(error){
     box.innerHTML=`<div class="empty">${esc(error.message||"Falha ao carregar administradores.")}</div>`;
   }
