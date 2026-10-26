@@ -268,7 +268,7 @@ app.post("/api/admin/login", configured, async (req, res) => {
     if (!adminEmails().includes(email)) {
       let rows = [];
 
-      if (/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(login)) {
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(login)) {
         // Localiza a conta pelo e-mail e exige que ela esteja cadastrada
         // na tabela de administradores.
         const listResponse = await fetch(
