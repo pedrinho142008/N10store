@@ -2355,3 +2355,63 @@ h1, h2, h3, p { margin-top: 0; }
   #colecao .filter-options .sort-control { padding: 8px; }
   #colecao .filter-options .sort-control select { font-size: 11px; }
 }
+
+/* CORREÇÃO: textos completos nos filtros e categorias */
+#colecao .category-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: auto;
+  min-width: max-content;
+  max-width: none;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  padding: 10px 15px;
+  box-sizing: border-box;
+}
+
+#colecao .filter-options {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-width: 0;
+}
+
+#colecao .filter-options .sort-control {
+  min-width: 0;
+  overflow: visible;
+}
+
+#colecao .filter-options .sort-control span {
+  display: block;
+  width: 100%;
+  overflow: visible;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+#colecao .filter-options .sort-control select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  box-sizing: border-box;
+}
+
+#colecao .filter-options .sort-control select option {
+  white-space: normal;
+}
+
+@media (max-width: 360px) {
+  #colecao .category-chip {
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+
+  #colecao .filter-options {
+    gap: 7px;
+  }
+}
