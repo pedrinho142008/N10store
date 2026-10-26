@@ -1873,8 +1873,11 @@ $("adminUserForm").addEventListener("submit",async e=>{
   const button=$("createAdminButton");
   const errorBox=$("adminUserError");
   button.disabled=true;
-  errorBox.textContent="";
+  errorBox.textContent="Diagnóstico: clique recebido; preparando requisição…";
+  console.info("[CADASTRO ADMIN] submit recebido");
   try{
+    console.info("[CADASTRO ADMIN] enviando POST /api/admin/users");
+    errorBox.textContent="Diagnóstico: enviando cadastro para a API…";
     await api("/api/admin/users",{
       method:"POST",
       body:JSON.stringify({
@@ -1884,11 +1887,13 @@ $("adminUserForm").addEventListener("submit",async e=>{
         password:$("adminPassword").value
       })
     });
+    errorBox.textContent="Diagnóstico: API respondeu sucesso; atualizando lista…";
     $("adminUserForm").reset();
     toast("Administrador criado com sucesso.");
     await loadAdminUsers();
   }catch(error){
-    errorBox.textContent=error.message||"Não foi possível criar a conta.";
+    console.error("[CADASTRO ADMIN] falha:",error);
+    errorBox.textContent="Falha no cadastro: "+(error.message||"erro desconhecido");
   }finally{
     button.disabled=false;
   }
