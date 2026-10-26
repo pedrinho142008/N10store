@@ -7,6 +7,8 @@ const state = {
   query: '',
   sort: 'featured',
   selectedBrand: 'Todas',
+  categories: [],
+  selectedCategory: 'Todos',
   cart: loadCart(),
   selectedProduct: null
 };
@@ -71,9 +73,12 @@ function renderProducts() {
   let products = state.products.filter(p => {
     const text = `${p.name || ''} ${p.category || ''} ${p.brand || ''} ${p.description || ''}`.toLocaleLowerCase('pt-BR');
     const matchesQuery = text.includes(query);
+    const normalize = value => String(value || '').trim().toLocaleLowerCase('pt-BR');
+    const matchesCategory = state.selectedCategory === 'Todos' ||
+      normalize(p.category) === normalize(state.selectedCategory);
     const matchesBrand = state.selectedBrand === 'Todas' ||
-      String(p.brand || '').toLocaleLowerCase('pt-BR') === state.selectedBrand.toLocaleLowerCase('pt-BR');
-    return matchesQuery && matchesBrand;
+      normalize(p.brand) === normalize(state.selectedBrand);
+    return matchesQuery && matchesBrand && matchesCategory;
   });
 
   if (state.sort === 'name') {
@@ -404,6 +409,72 @@ function checkoutCart() {
   openWhatsApp(lines.join('\n'));
 }
 
+
+async function loadCategories() {
+  const list = $('#categoryList');
+  if (!list) return;
+
+  try {
+    const response = await fetch('/api/catalogs', { cache: 'no-store' });
+    if (!response.ok) throw new Error('Falha ao carregar categorias.');
+    const data = await response.json();
+    state.categories = Array.isArray(data) ? data.filter(c => c && c.active !== false) : [];
+  } catch (error) {
+    console.error('Erro ao carregar categorias:', error);
+    state.categories = [];
+  }
+
+  renderCategories();
+}
+
+function renderCategories() {
+  const list = $('#categoryList');
+  if (!list) return;
+
+  const names = [...new Set(state.categories
+    .map(c => String(c.name || '').trim())
+    .filter(Boolean))];
+
+  list.replaceChildren();
+
+  const all = document.createElement('button');
+  all.type = 'button';
+  all.className = 'category-chip';
+  all.textContent = 'Todos';
+  all.dataset.category = 'Todos';
+  list.append(all);
+
+  names.forEach(name => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'category-chip';
+    button.textContent = name;
+    button.dataset.category = name;
+    list.append(button);
+  });
+
+  if (!names.includes(state.selectedCategory) && state.selectedCategory !== 'Todos') {
+    state.selectedCategory = 'Todos';
+  }
+
+  list.querySelectorAll('.category-chip').forEach(button => {
+    const active = button.dataset.category === state.selectedCategory;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', String(active));
+  });
+
+  if (list.dataset.ready !== '1') {
+    list.dataset.ready = '1';
+    list.addEventListener('click', event => {
+      const button = event.target.closest('.category-chip');
+      if (!button || !list.contains(button)) return;
+      state.selectedCategory = button.dataset.category || 'Todos';
+      renderCategories();
+      renderProducts();
+    });
+  }
+}
+
 function populateBrandFilter() {
   const select = $('#brandFilter');
   if (!select) return;
@@ -679,6 +750,7 @@ async function init() {
     ) : [];
 
     populateBrandFilter();
+    await loadCategories();
     renderProducts();
     renderCart();
   } catch (error) {

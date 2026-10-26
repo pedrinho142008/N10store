@@ -2252,3 +2252,60 @@ h1, h2, h3, p { margin-top: 0; }
   }
   #colecao .filter-toggle { padding: 0 12px; }
 }
+
+/* N10STORE: categorias visíveis e responsivas */
+#colecao .category-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 5px 2px 9px;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+#colecao .category-chip {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  border: 1px solid #e5ded2;
+  border-radius: 999px;
+  padding: 9px 15px;
+  background: #fffdf9;
+  color: #6f6a61;
+  font-size: 12px;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+#colecao .category-chip:hover {
+  background: #f1e9dc;
+  border-color: #d7c5a7;
+}
+
+#colecao .category-chip.active {
+  background: #75582c;
+  border-color: #75582c;
+  color: #fff;
+  font-weight: 700;
+}
+
+#colecao .category-list::-webkit-scrollbar {
+  height: 4px;
+}
+
+#colecao .category-list::-webkit-scrollbar-thumb {
+  background: #d7c5a7;
+  border-radius: 999px;
+}
+
+@media (min-width: 900px) {
+  #colecao .category-list {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+}
