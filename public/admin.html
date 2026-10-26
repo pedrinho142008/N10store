@@ -1874,6 +1874,18 @@ async function loadAdminUsers(){
   }
 }
 
+
+// DIAGNÓSTICO VISÍVEL DO CADASTRO
+$("createAdminButton").addEventListener("click",()=>{
+  const box=$("adminUserError");
+  if(box) box.textContent="Diagnóstico: botão clicado. Aguardando envio do formulário…";
+},true);
+
+$("adminUserForm").addEventListener("submit",()=>{
+  const box=$("adminUserError");
+  if(box) box.textContent="Diagnóstico: evento submit recebido.";
+},true);
+
 $("adminUserForm").addEventListener("submit",async e=>{
   e.preventDefault();
   const button=$("createAdminButton");
