@@ -1729,9 +1729,14 @@ async function checkSession(){
       renderOverview();
       return true;
     }
-    console.warn("[DIAG LOGIN] checkSession(): authenticated falso");
+    console.warn("[DIAG LOGIN] status retornou:", data);
     $("app").classList.add("hidden");
     $("loginScreen").classList.remove("hidden");
+    $("loginError").textContent =
+      "DIAGNÓSTICO: a API respondeu authenticated=" +
+      String(data?.authenticated) +
+      " | configured=" + String(data?.configured) +
+      ". A sessão não foi reconhecida.";
     return false;
   }catch(e){
     console.error("[DIAG LOGIN] checkSession(): erro",e);
