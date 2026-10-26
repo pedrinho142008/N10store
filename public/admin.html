@@ -1163,7 +1163,13 @@ async function api(url, options={}){
   try{data=raw?JSON.parse(raw):null}catch{data=raw}
   if(response.status===401){
     if(url.includes("/api/admin/login")){
-      throw new Error(data?.error || "Usuário ou senha incorretos.");
+      console.error("[LOGIN DIAGNOSTICO]", {
+        status: response.status,
+        error: data?.error || null
+      });
+      throw new Error(
+        `Diagnóstico do login: HTTP ${response.status} — ${data?.error || "sem detalhe"}`
+      );
     }
     if(url === "/api/admin/users"){
       throw new Error(data?.error || "A API recusou o cadastro por falta de autorização. Faça login novamente e tente outra vez.");
