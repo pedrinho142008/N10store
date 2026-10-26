@@ -1180,6 +1180,7 @@ async function api(url, options={}){
     if(url === "/api/admin/users"){
       throw new Error(data?.error || "A API recusou o cadastro por falta de autorização. Faça login novamente e tente outra vez.");
     }
+    console.warn("[DIAG LOGIN] api(): resposta 401 em", url);
     $("app").classList.add("hidden");
     $("loginScreen").classList.remove("hidden");
     throw new Error(data?.error || "Sua sessão expirou. Entre novamente.");
@@ -1728,11 +1729,14 @@ async function checkSession(){
       renderOverview();
       return true;
     }
+    console.warn("[DIAG LOGIN] checkSession(): authenticated falso");
     $("app").classList.add("hidden");
     $("loginScreen").classList.remove("hidden");
     return false;
   }catch(e){
+    console.error("[DIAG LOGIN] checkSession(): erro",e);
     console.error("Falha ao verificar sessão administrativa:",e);
+    console.warn("[DIAG LOGIN] checkSession(): ocultando painel após exceção");
     $("app").classList.add("hidden");
     $("loginScreen").classList.remove("hidden");
     $("loginError").textContent="Não foi possível verificar a sessão. Tente novamente.";
