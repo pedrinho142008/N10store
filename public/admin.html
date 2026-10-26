@@ -884,6 +884,42 @@ th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8p
 }
 </style>
 
+
+<style>
+/* N10STORE: interação sem flash azul */
+button,
+[role="button"],
+a,
+input[type="button"],
+input[type="submit"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"] {
+  outline-color: transparent;
+}
+
+button:focus:not(:focus-visible),
+[role="button"]:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+input:focus:not(:focus-visible) {
+  outline: none !important;
+  box-shadow: none;
+}
+
+/* Mantém indicação de foco para teclado */
+button:focus-visible,
+[role="button"]:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid #b49a7b;
+  outline-offset: 2px;
+}
+</style>
+
 </head>
 <body>
 
@@ -960,7 +996,7 @@ th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8p
 
     <section class="page" id="page-products">
       <div class="eyebrow">CATÁLOGO</div>
-      <div class="between"><div><h1>Seus produtos ✿</h1><p class="subtitle">Cadastre, edite e organize o que aparece na loja.</p></div><button class="primary" id="newProduct">＋ Adicionar produto</button></div>
+      <div class="between"><div><h1>Seus produtos </h1><p class="subtitle">Cadastre, edite e organize o que aparece na loja.</p></div><button class="primary" id="newProduct">＋ Adicionar produto</button></div>
       <div class="toolbar"><input id="productSearch" placeholder="Buscar produto pelo nome..."><select id="productFilter" style="max-width:190px"><option value="all">Todos os produtos</option><option value="available">Disponíveis</option><option value="unavailable">Indisponíveis</option><option value="promotion">Em promoção</option></select>
           <select id="productBrandFilter" style="max-width:190px">
             <option value="all">Todas as marcas</option>
