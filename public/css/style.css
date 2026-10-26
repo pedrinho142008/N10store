@@ -439,7 +439,7 @@ h1, h2, h3, p { margin-top: 0; }
 }
 
 
-/* N10STORE IMAGE VIEWER */
+/* NT10STORE IMAGE VIEWER */
 .zoom-overlay {
   box-sizing: border-box;
   overscroll-behavior: contain;
@@ -463,7 +463,7 @@ h1, h2, h3, p { margin-top: 0; }
 .zoom-overlay > img.zoomed { cursor: grab; }
 .zoom-overlay > img.dragging { cursor: grabbing; }
 
-/* N10STORE — enquadramento da foto dentro do produto aberto */
+/* NT10STORE — enquadramento da foto dentro do produto aberto */
 .detail-gallery {
   min-width: 0;
   width: 100%;
@@ -560,7 +560,7 @@ h1, h2, h3, p { margin-top: 0; }
 }
 
 
-/* N10STORE — sacola: estilo final */
+/* NT10STORE — sacola: estilo final */
 .header #openCart.bag-button {
   appearance: none;
   -webkit-appearance: none;
@@ -635,7 +635,7 @@ h1, h2, h3, p { margin-top: 0; }
   }
 }
 
-/* N10STORE — itens da sacola de compras */
+/* NT10STORE — itens da sacola de compras */
 .cart-items {
   padding: 10px 22px 22px;
   flex: 1;
@@ -781,7 +781,7 @@ h1, h2, h3, p { margin-top: 0; }
   .cart-footer { padding-left: 16px; padding-right: 16px; }
 }
 
-/* N10STORE — botão de adicionar à sacola nos cards */
+/* NT10STORE — botão de adicionar à sacola nos cards */
 .product-card .mini-bag,
 .mini-bag {
   display: inline-flex;
@@ -844,7 +844,7 @@ h1, h2, h3, p { margin-top: 0; }
   }
 }
 
-/* N10STORE — botão + Sacola dos cards de produtos */
+/* NT10STORE — botão + Sacola dos cards de produtos */
 .card-actions .add-button {
   display: inline-flex;
   align-items: center;
@@ -1020,7 +1020,7 @@ h1, h2, h3, p { margin-top: 0; }
 
 
 
-/* N10STORE — identidade streetwear autoral */
+/* NT10STORE — identidade streetwear autoral */
 .top-brand,
 .brand span,
 .footer-brand {
@@ -1226,7 +1226,7 @@ h1, h2, h3, p { margin-top: 0; }
   .footer-socials a { width: 42px; height: 42px; }
 }
 
-/* N10STORE — identidade premium */
+/* NT10STORE — identidade premium */
 .brand span {
   font-family: "Cormorant Garamond", Georgia, serif !important;
   font-size: 25px !important;
@@ -1257,7 +1257,7 @@ h1, h2, h3, p { margin-top: 0; }
   }
 }
 
-/* N10STORE — tipografia premium no cabeçalho */
+/* NT10STORE — tipografia premium no cabeçalho */
 .header .brand span {
   font-family: "Cormorant Garamond", Georgia, serif !important;
   font-size: 29px !important;
@@ -1274,7 +1274,7 @@ h1, h2, h3, p { margin-top: 0; }
   }
 }
 
-/* N10STORE — tipografia limpa, sem efeitos */
+/* NT10STORE — tipografia limpa, sem efeitos */
 .header .brand span {
   font-family: Georgia, "Times New Roman", serif !important;
   font-size: 29px !important;
@@ -1294,7 +1294,7 @@ h1, h2, h3, p { margin-top: 0; }
   }
 }
 
-/* N10STORE — preto com dourado suave */
+/* NT10STORE — preto com dourado suave */
 .header .brand span {
   background: linear-gradient(
     90deg,
@@ -1312,7 +1312,7 @@ h1, h2, h3, p { margin-top: 0; }
   transition: none !important;
 }
 
-/* N10STORE — texto preto simples */
+/* NT10STORE — texto preto simples */
 .header .brand span {
   color: #000000 !important;
   background: none !important;
@@ -1341,7 +1341,7 @@ h1, h2, h3, p { margin-top: 0; }
   content: none !important;
 }
 
-/* Correção definitiva da escrita N10STORE */
+/* Correção definitiva da escrita NT10STORE */
 .header .brand span,
 .header .brand span::first-letter {
   font-family: Georgia, "Times New Roman", serif !important;
@@ -1365,3 +1365,824 @@ h1, h2, h3, p { margin-top: 0; }
     font-size: 25px !important;
   }
 }
+
+/* NT10STORE — correção definitiva de imagens cortadas na home */
+.product-photo img,
+.product-image img,
+.hero-photo img,
+.detail-image img,
+.modal-image img,
+.product-card img,
+.carousel img,
+.product-carousel img {
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
+/* Preserva as dimensões dos cards e centraliza as fotos */
+.product-photo,
+.product-image,
+.detail-image,
+.modal-image,
+.product-carousel {
+  overflow: hidden;
+}
+
+/* Evita deformação e mantém as imagens dentro dos seus espaços */
+.product-photo img,
+.product-image img,
+.hero-photo img,
+.detail-image img,
+.modal-image img,
+.product-card img,
+.carousel img,
+.product-carousel img {
+  max-width: 100%;
+}
+
+/* Imagens de destaque também ficam totalmente visíveis */
+.hero-photo img {
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+/* NT10STORE — padronização visual das fotos na vitrine */
+.product-card .product-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 4.35;
+  overflow: hidden;
+  padding: 12px;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.product-card .product-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  object-fit: contain !important;
+  object-position: center !important;
+  transform: none !important;
+}
+
+/* Não amplia a imagem de forma desigual ao interagir com o card */
+.product-card:hover .product-image img {
+  transform: none !important;
+}
+
+/* Mantém o mesmo padrão em telas menores */
+@media (max-width: 600px) {
+  .product-card .product-image {
+    aspect-ratio: 3 / 3.7;
+    padding: 8px;
+  }
+
+  .product-card .product-image img {
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+}
+
+/* NT10STORE — ajuste final das imagens dos produtos */
+.product-card .product-image {
+  display: block !important;
+  position: relative;
+  width: 100%;
+  padding: 0 !important;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #fff;
+}
+
+.product-card .product-image img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0;
+  min-height: 0;
+  padding: 0 !important;
+  margin: 0 !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  transform: none !important;
+}
+
+.product-card:hover .product-image img {
+  transform: none !important;
+}
+
+@media (max-width: 600px) {
+  .product-card .product-image {
+    aspect-ratio: 3 / 3.7;
+  }
+}
+
+
+/* N10_PROMO_STYLES */
+.n10-promo-preview[hidden] { display: none !important; }
+#productModal .n10-promo-preview {
+  box-sizing: border-box; padding: 15px; border-radius: 16px;
+  border: 1px solid #ead7b4;
+  background: linear-gradient(135deg, #fffaf0, #f7edda);
+  color: #49351e;
+}
+.n10-promo-kicker {
+  display: block; margin-bottom: 10px; font-size: 10px;
+  font-weight: 800; letter-spacing: 1px;
+}
+.n10-promo-values {
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px;
+}
+.n10-promo-values del, .n10-promo-old-price {
+  color: #887d70; font-size: 12px;
+}
+.n10-promo-values strong {
+  color: #8c3f35; font-size: 20px; font-weight: 800;
+}
+.n10-promo-discount {
+  display: inline-block; padding: 5px 9px; border-radius: 20px;
+  background: #8c3f35; color: #fff; font-size: 10px; font-weight: 800;
+}
+.n10-promo-preview small {
+  display: block; margin-top: 9px; color: #76634d; font-size: 11px;
+}
+.n10-promo-preview.is-invalid { border-color: #e7c9c1; background: #fff7f4; }
+.product-image .n10-home-promo-badge {
+  background: #8c3f35; color: white; font-weight: 800;
+  letter-spacing: .3px; box-shadow: 0 3px 12px #0002;
+}
+.product-card.n10-home-promo { border-color: #dfc29a; }
+.n10-promo-price-wrap {
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 10px;
+}
+.n10-promo-price-wrap .price,
+.n10-promo-price-wrap .n10-promo-current-price {
+  margin: 0; color: #8c3f35; font-weight: 800;
+}
+.n10-promo-price-wrap .n10-promo-old-price { font-size: 11px; }
+
+
+/* NT10STORE — identificação de produtos sem estoque na vitrine pública */
+.product-card.out-of-stock {
+  border-color: #c9c9c9;
+  background: #efefef;
+}
+
+.product-card.out-of-stock .product-image {
+  position: relative;
+  isolation: isolate;
+  background: #dedede !important;
+}
+
+.product-card.out-of-stock .product-image img {
+  filter: grayscale(1);
+  opacity: .62;
+}
+
+.product-card.out-of-stock .product-image::after {
+  content: "SEM ESTOQUE";
+  position: absolute;
+  z-index: 5;
+  top: 43%;
+  left: -20%;
+  width: 140%;
+  padding: 11px 0;
+  background: #343434;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  transform: rotate(-32deg);
+  pointer-events: none;
+  box-shadow: 0 3px 12px #0003;
+}
+
+.product-card.out-of-stock .product-info {
+  background: #efefef;
+}
+
+.product-card.out-of-stock .product-name,
+.product-card.out-of-stock .product-category,
+.product-card.out-of-stock .product-description,
+.product-card.out-of-stock .product-price {
+  color: #777 !important;
+}
+
+/* ===== NT10STORE — BUSCA E FILTROS REFINADOS ===== */
+
+#colecao .section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+#colecao .section-heading > div {
+  min-width: 0;
+}
+
+#colecao .search-box {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(100%, 340px);
+  min-width: 220px;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid #e7e0d6;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(40, 32, 20, .045);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+#colecao .search-box svg {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 19px;
+  fill: none;
+  stroke: #88765e;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#colecao .search-box input {
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+#colecao .search-box input::placeholder {
+  color: #999187;
+  opacity: 1;
+}
+
+#colecao .search-box:focus-within {
+  border-color: #b49a73;
+  box-shadow: 0 0 0 4px rgba(180, 154, 115, .13);
+}
+
+#colecao .filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 14px;
+  margin-bottom: 24px;
+  border: 1px solid #eee8df;
+  border-radius: 18px;
+  background: #faf8f5;
+}
+
+#colecao .category-list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 100%;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+#colecao .sort-control {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  flex: 1 1 180px;
+  min-height: 46px;
+  padding: 0 13px;
+  border: 1px solid #e8e0d5;
+  border-radius: 13px;
+  background: #fff;
+  font-size: 12px;
+}
+
+#colecao .sort-control span {
+  flex: 0 0 auto;
+  color: #777168;
+  font-size: 12px;
+}
+
+#colecao .sort-control select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: 190px;
+  min-height: 42px;
+  padding: 0 20px 0 4px;
+  border: 0;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #29251f;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Celulares */
+@media (max-width: 600px) {
+  #colecao .section-heading {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 20px;
+  }
+
+  #colecao .search-box {
+    width: 100%;
+    min-width: 0;
+    height: 50px;
+    border-radius: 15px;
+  }
+
+  #colecao .search-box input {
+    font-size: 14px;
+  }
+
+  #colecao .filter-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 10px;
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  #colecao .category-list {
+    grid-column: 1 / -1;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 2px 0 7px;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #colecao .category-list > * {
+    flex: 0 0 auto;
+  }
+
+  #colecao .sort-control {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 4px;
+    min-height: 65px;
+    padding: 8px 10px;
+    border-radius: 12px;
+  }
+
+  #colecao .sort-control span {
+    font-size: 11px;
+  }
+
+  #colecao .sort-control select {
+    max-width: 100%;
+    min-height: 30px;
+    padding-left: 0;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  #colecao .filter-bar {
+    gap: 8px;
+    padding: 9px;
+  }
+
+  #colecao .sort-control {
+    padding: 7px;
+  }
+
+  #colecao .sort-control select {
+    font-size: 11px;
+  }
+}
+
+
+/* ===== NT10STORE — BUSCA E FILTROS REFINADOS ===== */
+
+#colecao .section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+#colecao .section-heading > div {
+  min-width: 0;
+}
+
+#colecao .search-box {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(100%, 340px);
+  min-width: 220px;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid #e7e0d6;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(40, 32, 20, .045);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+#colecao .search-box svg {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 19px;
+  fill: none;
+  stroke: #88765e;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#colecao .search-box input {
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+#colecao .search-box input::placeholder {
+  color: #999187;
+  opacity: 1;
+}
+
+#colecao .search-box:focus-within {
+  border-color: #b49a73;
+  box-shadow: 0 0 0 4px rgba(180, 154, 115, .13);
+}
+
+#colecao .filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 14px;
+  margin-bottom: 24px;
+  border: 1px solid #eee8df;
+  border-radius: 18px;
+  background: #faf8f5;
+}
+
+#colecao .category-list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 100%;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+#colecao .sort-control {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  flex: 1 1 180px;
+  min-height: 46px;
+  padding: 0 13px;
+  border: 1px solid #e8e0d5;
+  border-radius: 13px;
+  background: #fff;
+  font-size: 12px;
+}
+
+#colecao .sort-control span {
+  flex: 0 0 auto;
+  color: #777168;
+  font-size: 12px;
+}
+
+#colecao .sort-control select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: 190px;
+  min-height: 42px;
+  padding: 0 20px 0 4px;
+  border: 0;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #29251f;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Celulares */
+@media (max-width: 600px) {
+  #colecao .section-heading {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 20px;
+  }
+
+  #colecao .search-box {
+    width: 100%;
+    min-width: 0;
+    height: 50px;
+    border-radius: 15px;
+  }
+
+  #colecao .search-box input {
+    font-size: 14px;
+  }
+
+  #colecao .filter-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 10px;
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  #colecao .category-list {
+    grid-column: 1 / -1;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 2px 0 7px;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #colecao .category-list > * {
+    flex: 0 0 auto;
+  }
+
+  #colecao .sort-control {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 4px;
+    min-height: 65px;
+    padding: 8px 10px;
+    border-radius: 12px;
+  }
+
+  #colecao .sort-control span {
+    font-size: 11px;
+  }
+
+  #colecao .sort-control select {
+    max-width: 100%;
+    min-height: 30px;
+    padding-left: 0;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  #colecao .filter-bar {
+    gap: 8px;
+    padding: 9px;
+  }
+
+  #colecao .sort-control {
+    padding: 7px;
+  }
+
+  #colecao .sort-control select {
+    font-size: 11px;
+  }
+}
+
+
+/* ===== NT10STORE — BUSCA E FILTROS REFINADOS ===== */
+
+#colecao .section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+#colecao .section-heading > div {
+  min-width: 0;
+}
+
+#colecao .search-box {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(100%, 340px);
+  min-width: 220px;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid #e7e0d6;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(40, 32, 20, .045);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+#colecao .search-box svg {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 19px;
+  fill: none;
+  stroke: #88765e;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#colecao .search-box input {
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+#colecao .search-box input::placeholder {
+  color: #999187;
+  opacity: 1;
+}
+
+#colecao .search-box:focus-within {
+  border-color: #b49a73;
+  box-shadow: 0 0 0 4px rgba(180, 154, 115, .13);
+}
+
+#colecao .filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 14px;
+  margin-bottom: 24px;
+  border: 1px solid #eee8df;
+  border-radius: 18px;
+  background: #faf8f5;
+}
+
+#colecao .category-list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 100%;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+#colecao .sort-control {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 0;
+  flex: 1 1 180px;
+  min-height: 46px;
+  padding: 0 13px;
+  border: 1px solid #e8e0d5;
+  border-radius: 13px;
+  background: #fff;
+  font-size: 12px;
+}
+
+#colecao .sort-control span {
+  flex: 0 0 auto;
+  color: #777168;
+  font-size: 12px;
+}
+
+#colecao .sort-control select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: 190px;
+  min-height: 42px;
+  padding: 0 20px 0 4px;
+  border: 0;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #29251f;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Celulares */
+@media (max-width: 600px) {
+  #colecao .section-heading {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 20px;
+  }
+
+  #colecao .search-box {
+    width: 100%;
+    min-width: 0;
+    height: 50px;
+    border-radius: 15px;
+  }
+
+  #colecao .search-box input {
+    font-size: 14px;
+  }
+
+  #colecao .filter-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 10px;
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  #colecao .category-list {
+    grid-column: 1 / -1;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 2px 0 7px;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #colecao .category-list > * {
+    flex: 0 0 auto;
+  }
+
+  #colecao .sort-control {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 4px;
+    min-height: 65px;
+    padding: 8px 10px;
+    border-radius: 12px;
+  }
+
+  #colecao .sort-control span {
+    font-size: 11px;
+  }
+
+  #colecao .sort-control select {
+    max-width: 100%;
+    min-height: 30px;
+    padding-left: 0;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  #colecao .filter-bar {
+    gap: 8px;
+    padding: 9px;
+  }
+
+  #colecao .sort-control {
+    padding: 7px;
+  }
+
+  #colecao .sort-control select {
+    font-size: 11px;
+  }
+}
+
+
+/* NT10STORE — garantir nome visível no cabeçalho */
+.topline .top-brand {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #111 !important;
+  -webkit-text-fill-color: #111 !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  text-decoration: none !important;
+}
+
+.header .brand span {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+
+/* Ocultar a faixa superior da marca */
+.topline { display: none !important; }

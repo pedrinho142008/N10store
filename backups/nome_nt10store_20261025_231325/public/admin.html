@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0b0b">
+<title>Painel administrativo | N10STORE</title>
+<style>
+:root {
+  --bg:#0b0b0b;
+  --surface:#131313;
+  --soft:#202020;
+  --gold:#d9b56d;
+  --gold-2:#f0d49b;
+  --text:#f6f3eb;
+  --muted:#a6a39b;
+  --line:#2b2b2b;
+  --green:#478667;
+  --red:#ff7777;
+  --shadow:0 8px 28px #6f3b4d0b;
+  --radius:20px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
+.hidden{display:none!important}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(23px,4vw,31px);letter-spacing:-.8px;margin-bottom:8px}
+h2{font-size:19px;margin-bottom:7px}
+h3{font-size:15px}
+button,.btn{border:0;border-radius:13px;padding:11px 15px;font-weight:650;transition:.18s}
+button:active{transform:scale(.98)}
+.primary{background:var(--gold);color:white}
+.primary:hover{background:var(--gold-2)}
+.secondary{background:var(--soft);color:var(--gold-2)}
+.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.danger{background:#1313130f0;color:var(--red)}
+input,select,textarea{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:#131313;color:var(--text);outline:none;min-width:0}
+input:focus,select:focus,textarea:focus{border-color:#d9b56d;box-shadow:0 0 0 3px #d9b56d1a}
+textarea{resize:vertical;min-height:90px}
+label{display:grid;gap:7px;font-size:13px;font-weight:650;color:#d0c8b8}
+.field{display:grid;gap:7px}
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.between{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);min-width:0}
+.grid{display:grid;gap:16px}
+#loginScreen{min-height:100dvh;display:grid;place-items:center;padding:22px}
+.login-card{width:min(100%,420px);padding:30px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:850;letter-spacing:1.2px}
+.brand-mark{width:45px;height:45px;object-fit:contain;border-radius:14px;background:var(--soft);padding:5px}
+.brand-fallback{width:45px;height:45px;display:grid;place-items:center;background:var(--soft);border-radius:14px;color:var(--gold);font-size:22px}
+.login-form{display:grid;gap:16px;margin-top:28px}
+#app{min-height:100dvh}
+.sidebar{position:fixed;z-index:10;left:0;top:0;bottom:0;width:252px;padding:24px 17px;background:#131313;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:25px}
+.side-label{font-size:10px;font-weight:800;letter-spacing:1.5px;color:#a6a39b;padding:0 12px}
+.nav{display:grid;gap:7px}
+.nav button{width:100%;text-align:left;display:flex;align-items:center;gap:12px;background:transparent;color:#c5c0b5;padding:13px 14px;font-size:14px}
+.nav button.active{background:var(--soft);color:var(--gold-2)}
+.nav-icon{width:24px;text-align:center;font-size:18px}
+.sidebar-bottom{margin-top:auto}
+.main{margin-left:252px;padding:28px clamp(16px,3vw,40px) 50px;max-width:1600px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:30px}
+.top-user{display:flex;align-items:center;gap:10px}
+.avatar{width:39px;height:39px;border-radius:50%;display:grid;place-items:center;background:var(--soft);color:var(--gold-2);font-weight:800}
+.mobile-head{display:none}
+.page{display:none}
+.page.active{display:block;animation:appear .2s ease}
+@keyframes appear{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.eyebrow{font-size:10px;font-weight:850;letter-spacing:1.6px;color:var(--gold);margin-bottom:10px}
+.subtitle{color:var(--muted);font-size:14px;line-height:1.65;margin-bottom:22px}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin:22px 0}
+.stat-label{font-size:12px;color:var(--muted);margin-bottom:15px}
+.stat-number{font-size:clamp(23px,2.5vw,31px);font-weight:800;letter-spacing:-1px;margin-bottom:7px}
+.stat-icon{float:right;width:36px;height:36px;display:grid;place-items:center;background:var(--soft);border-radius:12px}
+.stat-note{font-size:11px;color:var(--muted);line-height:1.5}
+.two-col{grid-template-columns:minmax(0,1.4fr) minmax(260px,.8fr)}
+.section-head{margin-bottom:18px}
+.product-list{display:grid;gap:11px}
+.product-row{display:flex;align-items:center;gap:13px;padding:11px;border:1px solid var(--line);border-radius:15px;min-width:0}
+.product-row img,.product-thumb{width:62px;height:70px;flex-shrink:0;object-fit:cover;border-radius:12px;background:var(--soft)}
+.product-info{flex:1;min-width:0}
+.product-info strong{display:block;font-size:13px;margin-bottom:5px;overflow-wrap:anywhere}
+.product-info p{margin:0;font-size:12px;color:var(--muted)}
+.product-price{font-weight:800;font-size:14px;white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:30px;background:#eaf5ee;color:var(--green);font-size:10px;font-weight:750}
+.pill.off{background:#252020;color:#a6a39b}
+.pill.promo{background:#30291d;color:var(--gold-2)}
+.content-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+.toolbar input{flex:1;min-width:180px}
+.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+.product-card{overflow:hidden;padding:0;position:relative}
+.product-card.stock-empty{filter:grayscale(1);opacity:.78}
+.product-card .photo-wrap{height:190px;position:relative;overflow:hidden;background:var(--soft)}
+.product-card .photo-wrap .photo{height:100%;width:100%;object-fit:cover;display:block}
+.product-card.stock-empty .photo-wrap:after{
+  content:"SEM ESTOQUE";position:absolute;top:50%;left:50%;
+  width:140%;text-align:center;padding:10px 0;
+  background:#292725eF;color:#fff;font-weight:900;
+  font-size:15px;letter-spacing:2px;
+  transform:translate(-50%,-50%) rotate(-24deg);
+  border-top:2px solid #fff8;border-bottom:2px solid #fff8;
+  text-shadow:0 1px 2px #0008;pointer-events:none
+}
+.product-card.stock-empty .product-body{background:#e7e5e1;color:#68645e}
+.product-card.stock-empty .product-body .muted,
+.product-card.stock-empty .product-body .small{color:#77736d}
+.product-card.stock-empty .product-price,
+.product-card.stock-empty .price-line strong{color:#77736d}
+.product-card .actions button[data-stock]{white-space:normal}
+.product-card .photo-wrap{height:190px}
+
+.product-card .photo{width:100%;height:190px;object-fit:cover;background:var(--soft);display:block}
+.product-card .product-body{padding:15px}
+.product-card h3{margin:11px 0 5px;overflow-wrap:anywhere}
+.product-card .price-line{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:13px 0}
+.product-card .actions{display:flex;gap:7px}
+.product-card .actions button{flex:1;padding:9px 6px;font-size:12px}
+.empty{padding:35px 15px;text-align:center;color:var(--muted);border:1px dashed #45403a;border-radius:16px}
+.empty-icon{font-size:30px;margin-bottom:10px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.span-2{grid-column:span 2}
+.checks{display:flex;gap:17px;flex-wrap:wrap}
+.check{display:flex;align-items:center;gap:8px;font-weight:550}
+.check input{width:auto}
+
+/* Cards responsivos de categorias e marcas */
+.category-list{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:12px;
+  width:100%;
+  min-width:0;
+}
+
+.category-row{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+  width:100%;
+  min-width:0;
+  padding:18px;
+  box-sizing:border-box;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#131313;
+}
+
+.category-symbol{
+  flex:0 0 42px;
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:var(--soft);
+  color:var(--gold-2);
+}
+
+.category-name{
+  flex:1 1 140px;
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+
+.category-name strong{
+  display:block;
+  margin:0 0 7px;
+  line-height:1.4;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+.category-name span{
+  display:block;
+  font-size:12px;
+  line-height:1.6;
+  color:var(--muted);
+  overflow-wrap:anywhere;
+}
+
+.category-row button{
+  flex:0 0 auto;
+  width:auto;
+  min-width:max-content;
+  min-height:42px;
+  max-width:100%;
+  padding:10px 12px;
+  white-space:nowrap;
+  overflow-wrap:normal;
+  word-break:normal;
+}
+
+.category-row{
+  overflow:visible;
+}
+
+.category-list{
+  min-width:0;
+}
+
+@media(max-width:600px){
+  .category-row{
+    grid-template-columns:minmax(0,1fr);
+  }
+
+  .category-symbol{
+    display:none;
+  }
+
+  .category-name{
+    grid-column:1;
+    grid-row:1;
+  }
+
+  .category-row button{
+    width:100%;
+    min-width:0;
+    max-width:100%;
+    box-sizing:border-box;
+    white-space:nowrap;
+    padding:10px 8px;
+    font-size:12px;
+  }
+
+  .category-row button:nth-last-child(2){
+    grid-column:1;
+    grid-row:2;
+  }
+
+  .category-row button:last-child{
+    grid-column:1;
+    grid-row:3;
+  }
+}
+
+@media(max-width:600px){
+  .category-row{
+    display:grid;
+    grid-template-columns:42px minmax(0,1fr);
+    gap:12px;
+    padding:16px;
+  }
+
+  .category-symbol{
+    grid-column:1;
+    grid-row:1;
+    align-self:start;
+  }
+
+  .category-name{
+    grid-column:2;
+    grid-row:1;
+    align-self:center;
+    width:100%;
+  }
+
+  .category-row button{
+    width:100%;
+    min-width:0;
+    min-height:44px;
+    padding:11px 8px;
+    font-size:12px;
+  }
+
+  .category-row button:nth-last-child(2){
+    grid-column:1;
+    grid-row:2;
+  }
+
+  .category-row button:last-child{
+    grid-column:2;
+    grid-row:2;
+  }
+}
+
+@media(max-width:350px){
+  .category-row{
+    padding:12px;
+    gap:9px;
+  }
+
+  .category-row button{
+    font-size:11px;
+    padding:10px 5px;
+  }
+}
+
+.wait-stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:18px}
+.wait-card .stat-number{font-size:27px}
+.status-select{max-width:155px;font-size:12px;padding:9px}
+.table-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:560px}
+th,td{padding:13px 10px;text-align:left;border-bottom:1px solid var(--line);font-size:12px;vertical-align:middle}
+th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
+.modal{position:fixed;inset:0;z-index:50;background:#000000b3;display:none;align-items:center;justify-content:center;padding:16px}
+.modal.open{display:flex}
+.modal-box{background:white;width:min(100%,620px);max-height:90dvh;overflow:auto;border-radius:22px;padding:23px}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}
+.toast{position:fixed;z-index:100;bottom:20px;left:50%;transform:translateX(-50%);background:#191919;color:#131313;padding:12px 18px;border-radius:14px;box-shadow:var(--shadow);font-size:13px;max-width:90%;display:none}
+.note{font-size:12px;color:var(--muted);line-height:1.7;background:#1313138fa;padding:13px;border-radius:13px}
+#menuButton{display:none}
+@media(max-width:1150px){
+ .stats,.wait-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .two-col{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+ .sidebar{transform:translateX(-105%);transition:transform .22s;box-shadow:var(--shadow)}
+ .sidebar.open{transform:translateX(0)}
+ .main{margin-left:0;padding:16px 14px 35px}
+ .mobile-head{display:flex;align-items:center;gap:10px}
+ #menuButton{display:inline-flex}
+ .topbar{margin-bottom:25px}
+ .top-user .user-label{display:none}
+ .card{padding:16px;border-radius:17px}
+ .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+ .product-card .photo-wrap{height:155px}
+ .product-card .product-body{padding:11px}
+ .product-card .actions{flex-direction:column}
+ .product-row{flex-wrap:wrap}
+ .product-price{margin-left:auto}
+ .form-grid{grid-template-columns:1fr}
+ .span-2{grid-column:auto}
+ .stats,.wait-stats{gap:10px}
+ .stat-number{font-size:24px}
+ .stat-icon{width:30px;height:30px}
+ .category-row{padding:12px}
+}
+@media(max-width:370px){
+ .product-grid{grid-template-columns:1fr}
+ .product-card .photo-wrap{height:220px}
+ .stats,.wait-stats{grid-template-columns:1fr 1fr}
+}
+
+/* Ajustes da área de produtos */
+#page-products > .between {
+  margin-bottom: 24px;
+  align-items: flex-start;
+}
+#page-products > .between .primary {
+  flex-shrink: 0;
+}
+#page-products .toolbar {
+  margin-top: 0;
+  gap: 12px;
+}
+@media (max-width: 760px) {
+  #page-products > .between {
+    gap: 16px;
+  }
+  #page-products > .between .primary {
+    width: 100%;
+    justify-content: center;
+  }
+  #page-products .toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  #page-products .toolbar input,
+  #page-products .toolbar select {
+    max-width: none !important;
+    min-width: 0;
+  }
+}
+
+
+/* Organização visual do formulário de produto N10STORE */
+#productModal .modal-box {
+  width: min(760px, calc(100vw - 24px));
+  max-width: 760px;
+  max-height: 90vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: 22px;
+}
+
+#productModal .modal-head {
+  position: sticky;
+  top: -1px;
+  z-index: 5;
+  padding: 18px 20px;
+  margin: -1px 0 8px;
+  background: var(--card, #fff);
+  border-bottom: 1px solid rgba(120, 100, 80, .12);
+}
+
+#productModal .product-form {
+  padding: 12px 20px 20px;
+  gap: 16px;
+  align-items: start;
+}
+
+#productModal .product-form > label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--text, #3d342e);
+}
+
+#productModal .product-form input:not([type="checkbox"]),
+#productModal .product-form select,
+#productModal .product-form textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 11px 13px;
+  border: 1px solid var(--border, #e6ddd5);
+  border-radius: 12px;
+  background: var(--input-bg, #fff);
+  font: inherit;
+  font-weight: 400;
+  outline: none;
+  transition: border-color .18s, box-shadow .18s;
+}
+
+#productModal .product-form input:focus,
+#productModal .product-form select:focus,
+#productModal .product-form textarea:focus {
+  border-color: var(--accent, #a98469);
+  box-shadow: 0 0 0 3px rgba(169, 132, 105, .13);
+}
+
+#productModal .product-form textarea {
+  min-height: 92px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+#productModal #pDescription {
+  min-height: 120px;
+}
+
+#productModal #pImages {
+  min-height: 84px;
+}
+
+#productModal .form-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 9px;
+  padding: 13px 14px;
+  border: 1px solid rgba(169, 132, 105, .17);
+  border-radius: 14px;
+  background: rgba(169, 132, 105, .07);
+}
+
+#productModal .form-section-number {
+  display: grid;
+  place-items: center;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  background: var(--accent, #a98469);
+  color: white;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+#productModal .form-section strong,
+#productModal .form-section small {
+  display: block;
+}
+
+#productModal .form-section strong {
+  font-size: 13px;
+  font-weight: 750;
+}
+
+#productModal .form-section small {
+  margin-top: 3px;
+  color: var(--muted, #81766d);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+#productModal .product-form .checks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 0;
+}
+
+#productModal .product-form .check {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--border, #e6ddd5);
+  border-radius: 12px;
+  background: var(--card, #fff);
+  font-size: 12px;
+}
+
+#productModal .product-form .check input {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+  accent-color: var(--accent, #a98469);
+}
+
+#productModal .product-form > .row {
+  position: sticky;
+  bottom: -1px;
+  z-index: 4;
+  padding: 14px 0 2px;
+  background: var(--card, #fff);
+  border-top: 1px solid rgba(120, 100, 80, .12);
+}
+
+#productModal #saveProduct {
+  min-height: 44px;
+  padding-inline: 20px;
+  border-radius: 12px;
+}
+
+#productModal .product-form [data-close="productModal"] {
+  min-height: 42px;
+  border-radius: 12px;
+}
+
+@media (max-width: 600px) {
+  #productModal .modal-box {
+    width: calc(100vw - 16px);
+    max-height: 94vh;
+    border-radius: 18px;
+  }
+
+  #productModal .modal-head {
+    padding: 15px 14px;
+  }
+
+  #productModal .product-form {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 13px;
+    padding: 10px 14px 16px;
+  }
+
+  #productModal .product-form > .span-2 {
+    grid-column: 1;
+  }
+
+  #productModal .product-form .checks {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #productModal .product-form .check {
+    padding: 11px 12px;
+  }
+
+  #productModal .form-section {
+    margin-top: 7px;
+  }
+
+  #productModal .product-form > .row {
+    gap: 9px;
+  }
+
+  #productModal .product-form > .row button {
+    flex: 1;
+    padding-inline: 10px;
+  }
+}
+
+
+/* N10STORE — tema preto e dourado no formulário de produto */
+#productModal .modal-box {
+  background: #0b0b0b !important;
+  color: #f5f5f5 !important;
+  border: 1px solid #423719 !important;
+  color-scheme: dark;
+}
+
+#productModal .modal-head,
+#productModal .product-form > .row {
+  background: #0b0b0b !important;
+  border-color: #332a16 !important;
+}
+
+#productModal .product-form > label {
+  color: #e8e2d3 !important;
+}
+
+#productModal .product-form input:not([type="checkbox"]),
+#productModal .product-form select,
+#productModal .product-form textarea {
+  background: #141414 !important;
+  color: #f5f5f5 !important;
+  border: 1px solid #393326 !important;
+  color-scheme: dark;
+}
+
+#productModal .product-form input::placeholder,
+#productModal .product-form textarea::placeholder {
+  color: #898477 !important;
+  opacity: 1;
+}
+
+#productModal .product-form input:focus,
+#productModal .product-form select:focus,
+#productModal .product-form textarea:focus {
+  border-color: #d4af37 !important;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, .16) !important;
+}
+
+#productModal .form-section {
+  background: #15130d !important;
+  border-color: #55451c !important;
+  color: #f5f5f5 !important;
+}
+
+#productModal .form-section-number {
+  background: #d4af37 !important;
+  color: #111 !important;
+}
+
+#productModal .form-section strong {
+  color: #e5c65b !important;
+}
+
+#productModal .form-section small {
+  color: #b5aa87 !important;
+}
+
+#productModal .product-form .check {
+  background: #141414 !important;
+  border-color: #393326 !important;
+  color: #e8e2d3 !important;
+}
+
+#productModal .product-form .check input {
+  accent-color: #d4af37 !important;
+}
+
+#productModal .product-form #saveProduct {
+  background: #d4af37 !important;
+  border-color: #d4af37 !important;
+  color: #111 !important;
+}
+
+#productModal .product-form button.ghost,
+#productModal .modal-head button.ghost {
+  background: #171717 !important;
+  border: 1px solid #55451c !important;
+  color: #e5c65b !important;
+}
+
+#productModal .product-form button:hover {
+  filter: brightness(1.08);
+}
+
+#productModal #productFormMessage {
+  color: #c5b77f !important;
+}
+
+
+.image-upload-preview{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.image-upload-preview img{width:88px;height:88px;object-fit:cover;border-radius:12px;border:1px solid var(--border,#e6ddd5)}
+.image-upload-preview .preview-note{font-size:12px;color:var(--muted,#81766d)}
+
+
+/* N10STORE — personalização somente da imagem principal */
+#pImageFile {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid #eadbd0;
+  border-radius: 16px;
+  background: #fffaf6;
+  color: #79685d;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#pImageFile::file-selector-button {
+  margin: 0 10px 0 0;
+  padding: 12px 17px;
+  border: 0;
+  border-radius: 12px;
+  background: #765641;
+  color: #fffaf6;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#pImageFile::file-selector-button:hover {
+  background: #5e4231;
+}
+
+#pImageFile:focus-visible {
+  outline: 3px solid #d9bba5;
+  outline-offset: 3px;
+}
+
+  to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+
+<style>
+/* N10STORE_HIDDEN_FIELDS_FIX */
+#productModal .product-form > label[hidden],
+#productModal .product-form .check[hidden] {
+  display: none !important;
+}
+</style>
+
+</head>
+<body>
+
+<section id="loginScreen">
+  <div class="card login-card">
+    <div class="brand">
+      <img class="brand-mark" src="/assets/produtos/logo.png" alt="N10STORE" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+      <div class="brand-fallback" style="display:none"></div>
+      <div>N10STORE<div class="muted small" style="letter-spacing:0;font-weight:500;margin-top:4px">Painel administrativo</div></div>
+    </div>
+    <div style="margin-top:30px">
+      <div class="eyebrow">PAINEL DE CONTROLE</div>
+      <h1>Bem-vindo à N10STORE </h1>
+      <p class="subtitle">Entre para gerenciar produtos e organizar sua loja.</p>
+    </div>
+    <form id="loginForm" class="login-form">
+      <label>E-mail<input id="username" name="username" type="email" autocomplete="username" required placeholder="Digite seu e-mail"></label>
+      <label>Senha<input id="password" name="password" type="password" autocomplete="current-password" required placeholder="Digite sua senha"></label>
+      <button class="primary" id="loginButton">Entrar na administração </button>
+      <p id="loginError" class="small" style="color:var(--red);margin:0"></p>
+    </form>
+    <p class="muted small" style="margin:22px 0 0">Acesso seguro ao painel administrativo da N10STORE.</p>
+  </div>
+</section>
+
+<div id="app" class="hidden">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <img class="brand-mark" src="/assets/produtos/logo.png" alt="N10STORE" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+      <div class="brand-fallback" style="display:none"></div>
+      <div>N10STORE<div class="muted small" style="letter-spacing:0;font-weight:500;margin-top:4px">Painel administrativo</div></div>
+    </div>
+    <div class="side-label">MENU PRINCIPAL</div>
+    <nav class="nav">
+      <button class="active" data-page="overview"><span class="nav-icon"></span>Visão geral</button>
+      <button data-page="products"><span class="nav-icon">♧</span>Produtos</button>
+      <button data-page="categories"><span class="nav-icon">◇</span>Categorias</button>
+      <button data-page="users"><span class="nav-icon">♙</span>Usuários</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="note">Organize sua loja com carinho. </div>
+      <button class="ghost" id="logoutButton" style="width:100%;margin-top:12px">Sair da conta ↗</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="mobile-head">
+        <button id="menuButton" class="secondary" aria-label="Abrir menu">☰</button>
+        <strong>N10STORE </strong>
+      </div>
+      <div class="muted small" id="topSubtitle">Painel administrativo</div>
+      <div class="top-user"><div class="avatar">N</div><div class="user-label"><strong style="font-size:13px">Administrador</strong><div class="muted small">Acesso protegido</div></div></div>
+    </header>
+
+    <section class="page active" id="page-overview">
+      <div class="eyebrow">PAINEL DE CONTROLE</div>
+      <div class="between">
+        <div><h1>Visão geral </h1><p class="subtitle">Acompanhe os produtos e gerencie sua loja.</p></div>
+        <button class="primary" id="newProductTop">＋ Novo produto</button>
+      </div>
+      <div class="grid stats">
+        <div class="card"><span class="stat-icon">♧</span><div class="stat-label">Produtos cadastrados</div><div class="stat-number" id="statProducts">—</div><div class="stat-note">Itens no catálogo</div></div>
+
+        <div class="card"><span class="stat-icon">♧</span><div class="stat-label">Produtos sem estoque</div><div class="stat-number" id="statOutOfStock">0</div><div class="stat-note">Itens que precisam de reposição</div></div>
+      </div>
+      <div class="grid two-col">
+        <div class="card">
+          <div class="between section-head"><div><h2>Produtos recentes</h2><p class="muted small">Edite preços, fotos e disponibilidade.</p></div><button class="secondary" data-goto="products">Ver todos</button></div>
+          <div class="product-list" id="recentProducts"><div class="empty">Carregando produtos…</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-products">
+      <div class="eyebrow">CATÁLOGO</div>
+      <div class="between"><div><h1>Seus produtos ✿</h1><p class="subtitle">Cadastre, edite e organize o que aparece na loja.</p></div><button class="primary" id="newProduct">＋ Adicionar produto</button></div>
+      <div class="toolbar"><input id="productSearch" placeholder="Buscar produto pelo nome..."><select id="productFilter" style="max-width:190px"><option value="all">Todos os produtos</option><option value="available">Disponíveis</option><option value="unavailable">Indisponíveis</option><option value="promotion">Em promoção</option></select>
+          <select id="productBrandFilter" style="max-width:190px">
+            <option value="all">Todas as marcas</option>
+          </select><span class="muted small" id="productCount"></span></div>
+      <div class="grid product-grid" id="productGrid"><div class="empty">Carregando produtos…</div></div>
+    </section>
+
+    <section class="page" id="page-categories">
+      <div class="eyebrow">ORGANIZAÇÃO DA LOJA</div>
+      <h1>Categorias </h1>
+      <p class="subtitle">Crie e organize as categorias do catálogo.</p>
+      <div class="card" style="margin-bottom:18px">
+        <form id="categoryForm" class="row">
+          <input id="categoryName" required maxlength="100" placeholder="Ex.: Calçados, Bodies, Kits..." style="flex:1;min-width:180px">
+          <button class="primary">＋ Adicionar</button>
+        </form>
+      </div>
+      <div class="card"><div class="category-list" id="categoryList"><div class="empty">Carregando categorias…</div></div><p class="muted small" style="margin:16px 0 0">Ao renomear uma categoria, os produtos vinculados são atualizados. Categorias com produtos vinculados não devem ser excluídas.</p></div>
+
+      <div class="eyebrow" style="margin-top:28px">IDENTIDADE DOS PRODUTOS</div>
+      <h2>Marcas</h2>
+      <p class="subtitle">Cadastre as marcas para associá-las aos produtos e filtrar a vitrine.</p>
+      <div class="card" style="margin-bottom:18px">
+        <form id="brandForm" class="row">
+          <input id="brandName" required maxlength="100" placeholder="Nome da marca" style="flex:1;min-width:180px">
+          <button class="primary" type="submit">＋ Adicionar marca</button>
+        </form>
+      </div>
+      <div class="card">
+        <div class="category-list" id="brandList">
+          <div class="empty">Carregando marcas…</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="page" id="page-users">
+      <div class="eyebrow">ACESSOS</div>
+      <h1>Usuários </h1>
+      <p class="subtitle">Informações da sessão administrativa e do acesso à loja.</p>
+      <div class="card">
+        <div class="row"><div class="avatar">N</div><div><strong>Administrador N10STORE</strong><div class="muted small">Sessão autenticada pela API</div></div><span class="pill" style="margin-left:auto">Sessão ativa</span></div>
+        <div class="note" style="margin-top:18px">A listagem e o gerenciamento de contas de clientes exigem uma API específica de usuários. Esta página não inventa uma lista nem expõe senhas ou chaves secretas.</div>
+        <button class="ghost" id="refreshSession" style="margin-top:15px">Verificar sessão</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="modal" id="productModal">
+  <div class="modal-box">
+    <div class="modal-head"><div><div class="eyebrow">CATÁLOGO</div><h2 id="productModalTitle">Adicionar produto</h2></div><button class="ghost" data-close="productModal">✕</button></div>
+    <form id="productForm" class="form-grid product-form">
+      <div class="span-2 form-section">
+        <span class="form-section-number">01</span>
+        <div><strong>Informações do produto</strong><small>Nome, categoria e marca</small></div>
+      </div>
+      <label>Nome do produto<input id="pName" required maxlength="180" placeholder="Nome do produto"></label>
+      <label>Categoria<select id="pCategory" required><option value="">Selecione uma categoria</option></select></label>
+      <label>Marca<select id="pBrand"><option value="">Sem marca</option></select></label>
+      <div class="span-2 form-section">
+        <span class="form-section-number">02</span>
+        <div><strong>Preço e estoque</strong><small>Defina o valor e a quantidade disponível</small></div>
+      </div>
+      <label>Preço (R$)<input id="pPrice" type="number" min="0" step="0.01" placeholder="0,00"></label>
+      <label id="pOriginalPriceLabel" hidden>Valor do desconto (R$)<input id="pOriginalPrice" type="number" min="0" step="0.01" placeholder="Opcional"></label>
+      <div class="span-2 n10-promo-preview" id="n10PromoPreview" hidden>
+        <span class="n10-promo-kicker">PRÉVIA DA PROMOÇÃO</span>
+        <div class="n10-promo-values">
+          <del id="n10PromoOldPrice"></del>
+          <strong id="n10PromoNewPrice"></strong>
+          <span id="n10PromoDiscount" class="n10-promo-discount"></span>
+        </div>
+        <small id="n10PromoHint"></small>
+      </div>
+      <label>Estoque<input id="pStock" type="number" min="0" step="1" value="1"></label>
+      <div class="span-2 form-section">
+        <span class="form-section-number">03</span>
+        <div><strong>Imagens do produto</strong><small>Imagem principal e fotos adicionais</small></div>
+      </div>
+      <label class="span-2">Imagem principal<input id="pImageFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif"><small>Escolha uma imagem na galeria do celular. Até 5 MB.</small><div id="pImagePreview" class="image-upload-preview"></div><input id="pImage" type="hidden"></label>
+<!-- Campos ocultos mantidos para compatibilidade com o JavaScript -->
+<input id="pImagesFiles" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif" multiple style="display:none">
+<textarea id="pImages" hidden></textarea>
+      
+      <div class="span-2 form-section">
+        <span class="form-section-number">04</span>
+        <div><strong>Descrição e opções</strong><small>Detalhes, tamanhos e variações</small></div>
+      </div>
+      <label class="span-2">Descrição<textarea id="pDescription" placeholder="Detalhes do produto..."></textarea></label>
+      <label class="span-2">Tamanhos ou opções (separados por vírgula)<input id="pSizes" placeholder="P, M, G"></label>
+      <div class="span-2 form-section">
+        <span class="form-section-number">05</span>
+        <div><strong>Configurações da loja</strong><small>Promoção, destaque e disponibilidade</small></div>
+      </div>
+      <div class="span-2 checks">
+        <label class="check" id="pPromotionLabel" hidden><input id="pPromotion" type="checkbox"> Em promoção</label>
+        <label class="check"><input id="pFeatured" type="checkbox"> Destaque</label>
+        <label class="check"><input id="pActive" type="checkbox" checked> Disponível na loja</label>
+      </div>
+      <div class="span-2" id="deleteProductRow" hidden style="margin-top:18px;padding-top:16px;border-top:1px solid #eadfd2">
+        <button type="button" id="deleteProduct" class="danger" style="width:100%;background:#a83232;color:white;border:0;border-radius:12px;padding:13px;font-weight:700">🗑 Excluir produto</button>
+        <small style="display:block;margin-top:7px;color:#81766c">Essa ação remove o produto da loja permanentemente.</small>
+      </div>
+      <div class="span-2 row" style="justify-content:flex-end;margin-top:8px"><button type="button" class="ghost" data-close="productModal">Cancelar</button><button class="primary" id="saveProduct">Salvar produto</button></div>
+      <p class="span-2 muted small" id="productFormMessage"></p>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="customerModal">
+  <div class="modal-box" style="max-width:500px">
+    <div class="modal-head"><div><div class="eyebrow">ATENDIMENTO</div><h2>Adicionar cliente </h2></div><button class="ghost" data-close="customerModal">✕</button></div>
+    <form id="customerForm" class="grid">
+      <label>Nome do cliente<input id="cName" required maxlength="120" placeholder="Nome"></label>
+      <label>WhatsApp / telefone<input id="cPhone" maxlength="40" placeholder="Número para contato"></label>
+      <label>Produto de interesse<select id="cProduct"><option value="">Selecione um produto (opcional)</option></select></label>
+      <label>Observações<textarea id="cNotes" maxlength="1000" placeholder="Tamanho, cor ou detalhes do interesse..."></textarea></label>
+      <label>Status<select id="cStatus"><option value="Aguardando">Aguardando</option><option value="Cliente avisado">Cliente avisado</option><option value="Atendido">Atendido</option></select></label>
+      <div class="row" style="justify-content:flex-end"><button type="button" class="ghost" data-close="customerModal">Cancelar</button><button class="primary">Salvar cliente</button></div>
+    </form>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+"use strict";
+const $ = id => document.getElementById(id);
+const state = { products: [], categories: [], brands: [], editingId: null, wait: [], activePage: "overview" };
+const WAIT_KEY = "n10store_admin_waitlist_v1";
+const money = value => Number.isFinite(Number(value)) && value !== null && value !== ""
+  ? Number(value).toLocaleString("pt-BR",{style:"currency",currency:"BRL"}) : "Preço não informado";
+const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
+const slug = value => String(value).normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+  .toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+function toast(message){
+  const el=$("toast"); el.textContent=message; el.style.display="block";
+  clearTimeout(toast.timer); toast.timer=setTimeout(()=>el.style.display="none",2800);
+}
+async function api(url, options={}){
+  const response=await fetch(url,{
+    credentials:"same-origin",
+    ...options,
+    headers:{"Content-Type":"application/json",...(options.headers||{})}
+  });
+  const raw=await response.text();
+  let data=null;
+  try{data=raw?JSON.parse(raw):null}catch{data=raw}
+  if(response.status===401){
+    if(url.includes("/api/admin/login")){
+      throw new Error(data?.error || "Usuário ou senha incorretos.");
+    }
+    $("app").classList.add("hidden");
+    $("loginScreen").classList.remove("hidden");
+    throw new Error("Sua sessão expirou. Entre novamente.");
+  }
+  if(!response.ok)throw new Error(data?.error||data?.message||`Erro HTTP ${response.status}`);
+  return data;
+}
+function setPage(page){
+  state.activePage=page;
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+page));
+  $("sidebar").classList.remove("open");
+  const titles={overview:"Visão geral",products:"Produtos",categories:"Categorias",users:"Usuários"};
+  $("topSubtitle").textContent=titles[page]||"Painel administrativo";
+  if(page==="products")renderProducts();
+  if(page==="categories")loadCategories();
+  
+}
+function readWait(){
+  try{const data=JSON.parse(localStorage.getItem(WAIT_KEY)||"[]");return Array.isArray(data)?data:[]}catch{return []}
+}
+function saveWait(){localStorage.setItem(WAIT_KEY,JSON.stringify(state.wait))}
+function productName(id){return state.products.find(p=>String(p.id)===String(id))?.name||"Produto não informado"}
+function isAvailable(p){return p.active!==false && Number(p.stock??0)>0}
+function productImage(p){return p.image||p.images?.[0]||""}
+function renderRecent(){
+  const el=$("recentProducts");
+  if(!state.products.length){el.innerHTML='<div class="empty">Nenhum produto cadastrado ainda.</div>';return}
+  el.innerHTML=state.products.slice(0,5).map(p=>`
+    <div class="product-row">
+      ${productImage(p)?`<img src="${esc(productImage(p))}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">`:'<div class="product-thumb"></div>'}
+      <div class="product-info"><strong>${esc(p.name)}</strong><p>${esc(p.category||"Sem categoria")}</p></div>
+      <div class="product-price">${money(p.price)}</div>
+      <button class="ghost" data-edit="${esc(p.id)}">Editar</button>
+    </div>`).join("");
+  el.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editProduct(b.dataset.edit));
+}
+function renderOverview(){
+  state.wait=readWait();
+  $("statProducts").textContent=state.products.length;
+  $("statOutOfStock").textContent=state.products.filter(p=>Number(p.stock??0)<=0).length;
+  renderRecent();
+}
+function renderProducts(){
+  const query=$("productSearch").value.trim().toLocaleLowerCase("pt-BR");
+  const filter=$("productFilter").value;
+  const brandFilter=$("productBrandFilter").value;
+  const list=state.products.filter(p=>{
+    const matches=[p.name,p.category,p.brand,p.description].join(" ").toLocaleLowerCase("pt-BR").includes(query);
+    const matchesBrand=brandFilter==="all"||String(p.brand||"")===brandFilter;
+    if(filter==="available")return matches&&matchesBrand&&isAvailable(p);
+    if(filter==="unavailable")return matches&&matchesBrand&&!isAvailable(p);
+    if(filter==="promotion")return matches&&matchesBrand&&p.promotion===true;
+    return matches&&matchesBrand;
+  });
+  $("productCount").textContent=`${list.length} produto(s)`;
+  const grid=$("productGrid");
+  if(!list.length){grid.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-icon"></div>Nenhum produto encontrado.</div>';return}
+  grid.innerHTML=list.map(p=>{
+    const available=isAvailable(p), image=productImage(p);
+    return `<article class="card product-card ${available ? "" : "stock-empty"}">
+      <div class="photo-wrap">
+        ${image?`<img class="photo" src="${esc(image)}" alt="${esc(p.name)}" loading="lazy" onerror="this.style.display='none'">`:'<div class="photo" style="display:grid;place-items:center;font-size:35px"></div>'}
+      </div>
+      <div class="product-body">
+        <div class="row"><span class="pill ${available?"":"off"}">${available?"Disponível":"Sem estoque"}</span>${p.promotion?'<span class="pill promo">Promoção</span>':""}</div>
+        <h3>${esc(p.name)}</h3><p class="muted small">${esc(p.category||"Sem categoria")}${p.brand?" · "+esc(p.brand):""}</p>
+        <div class="price-line"><strong>${money(p.price)}</strong>${p.original_price?`<del class="muted small">${money(p.original_price)}</del>`:""}</div>
+        <p class="muted small">Estoque: ${Number(p.stock||0)}</p>
+        <div class="actions"><button class="secondary" data-edit="${esc(p.id)}">Editar</button><button class="ghost" data-stock="${esc(p.id)}">${available?"Sem estoque":"Disponibilizar"}</button></div>
+      </div></article>`;
+  }).join("");
+  grid.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editProduct(b.dataset.edit));
+  grid.querySelectorAll("[data-stock]").forEach(b=>b.onclick=()=>toggleAvailability(b.dataset.stock));
+}
+
+function fillBrandSelects(){
+  const productSelect=$("pBrand");
+  const filterSelect=$("productBrandFilter");
+  if(productSelect){
+    const selected=productSelect.value;
+    productSelect.innerHTML='<option value="">Sem marca</option>'+
+      state.brands.filter(b=>b.active!==false).map(b=>
+        `<option value="${esc(b.name)}">${esc(b.name)}</option>`
+      ).join("");
+    productSelect.value=selected;
+  }
+  if(filterSelect){
+    const selected=filterSelect.value||"all";
+    filterSelect.innerHTML='<option value="all">Todas as marcas</option>'+
+      state.brands.map(b=>
+        `<option value="${esc(b.name)}">${esc(b.name)}${b.active===false?" (oculta)":""}</option>`
+      ).join("");
+    filterSelect.value=[...filterSelect.options].some(o=>o.value===selected)?selected:"all";
+  }
+}
+
+async function loadBrands(){
+  try{
+    const data=await api("/api/admin/brands");
+    state.brands=Array.isArray(data)?data:[];
+    renderBrands();
+    fillBrandSelects();
+  }catch(e){
+    const el=$("brandList");
+    if(el)el.innerHTML=`<div class="empty">${esc(e.message)}</div>`;
+  }
+}
+
+function renderBrands(){
+  const el=$("brandList");
+  if(!el)return;
+  if(!state.brands.length){
+    el.innerHTML='<div class="empty">Nenhuma marca cadastrada. Adicione a primeira acima.</div>';
+    return;
+  }
+  el.innerHTML=state.brands.map(b=>{
+    const count=state.products.filter(p=>String(p.brand||"")===String(b.name)).length;
+    return `<div class="category-row">
+      <div class="category-symbol">◇</div>
+      <div class="category-name"><strong>${esc(b.name)}</strong>
+        <span>${count} produto(s) · ${b.active===false?"Oculta":"Ativa"}</span>
+      </div>
+      <button class="secondary" data-brand-rename="${esc(b.id)}">Renomear</button>
+      <button class="ghost" data-brand-toggle="${esc(b.id)}">${b.active===false?"Ativar":"Ocultar"}</button>
+      <button class="danger" data-brand-delete="${esc(b.id)}">Excluir</button>
+    </div>`;
+  }).join("");
+
+  el.querySelectorAll("[data-brand-rename]").forEach(btn=>{
+    btn.onclick=async()=>{
+      const b=state.brands.find(x=>String(x.id)===btn.dataset.brandRename);
+      if(!b)return;
+      const name=prompt("Novo nome da marca:",b.name);
+      if(name===null)return;
+      const clean=name.trim();
+      if(!clean)return toast("Informe o nome da marca.");
+      try{
+        await api("/api/admin/brands",{method:"POST",body:JSON.stringify({...b,name:clean})});
+        // Atualiza a marca dos produtos que usavam o nome anterior.
+        for(const product of state.products){
+          if(String(product.brand||"")===String(b.name)){
+            await api("/api/admin/products",{method:"POST",body:JSON.stringify({...product,brand:clean})});
+          }
+        }
+        await loadProducts();await loadBrands();
+        toast("Marca renomeada.");
+      }catch(e){toast(e.message)}
+    };
+  });
+
+  el.querySelectorAll("[data-brand-toggle]").forEach(btn=>{
+    btn.onclick=async()=>{
+      const b=state.brands.find(x=>String(x.id)===btn.dataset.brandToggle);
+      if(!b)return;
+      try{
+        await api("/api/admin/brands",{method:"POST",body:JSON.stringify({...b,active:b.active===false})});
+        await loadBrands();toast("Marca atualizada.");
+      }catch(e){toast(e.message)}
+    };
+  });
+
+  el.querySelectorAll("[data-brand-delete]").forEach(btn=>{
+    btn.onclick=async()=>{
+      const b=state.brands.find(x=>String(x.id)===btn.dataset.brandDelete);
+      if(!b)return;
+      if(state.products.some(p=>String(p.brand||"")===String(b.name))){
+        return toast("Associe outra marca ou remova a marca dos produtos antes de excluir.");
+      }
+      if(!confirm(`Excluir a marca "${b.name}"?`))return;
+      try{
+        await api("/api/admin/brands/"+encodeURIComponent(b.id),{method:"DELETE"});
+        await loadBrands();toast("Marca excluída.");
+      }catch(e){toast(e.message)}
+    };
+  });
+}
+
+async function addBrand(e){
+  e.preventDefault();
+  const name=$("brandName").value.trim();
+  if(!name)return;
+  try{
+    const id=slug(name);
+    if(state.brands.some(b=>String(b.name).toLocaleLowerCase("pt-BR")===name.toLocaleLowerCase("pt-BR"))){
+      return toast("Essa marca já está cadastrada.");
+    }
+    await api("/api/admin/brands",{method:"POST",body:JSON.stringify({
+      id,name,active:true,sort_order:state.brands.length
+    })});
+    $("brandForm").reset();
+    await loadBrands();
+    toast("Marca cadastrada.");
+  }catch(e){toast(e.message)}
+}
+
+async function loadProducts(){
+  try{
+    const data=await api("/api/admin/products");
+    state.products=Array.isArray(data)?data:(data?.products||[]);
+    renderProducts();renderOverview();fillCustomerProducts();
+  }catch(e){toast(e.message);$("productGrid").innerHTML=`<div class="empty" style="grid-column:1/-1">${esc(e.message)}</div>`}
+}
+
+function populateProductCategories(currentValue=""){
+  const select=$("pCategory");
+  const current=String(currentValue||"").trim();
+  const cats=(state.categories||[]).filter(c=>c.active!==false);
+  const values=cats.map(c=>String(c.name||"").trim()).filter(Boolean);
+  if(current&&!values.some(v=>v.toLowerCase()===current.toLowerCase()))values.push(current);
+  select.innerHTML='<option value="">Selecione uma categoria</option>'+values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join("");
+  select.value=values.find(v=>v.toLowerCase()===current.toLowerCase())||"";
+}
+function previewProductFiles(inputId,previewId){
+  const input=$(inputId),preview=$(previewId);
+  if(!input||!preview)return;
+
+  preview.replaceChildren();
+  const files=Array.from(input.files||[]);
+
+  if(!files.length){
+    const note=document.createElement("span");
+    note.className="preview-note";
+    note.textContent="Nenhuma nova imagem selecionada.";
+    preview.appendChild(note);
+    return;
+  }
+
+  files.forEach((file,index)=>{
+    if(!file.type.startsWith("image/"))return;
+
+    const card=document.createElement("div");
+    card.className="preview-card";
+
+    const img=document.createElement("img");
+    img.alt=file.name;
+    img.src=URL.createObjectURL(file);
+
+    const info=document.createElement("div");
+    info.className="preview-card-info";
+
+    const filename=document.createElement("span");
+    filename.className="preview-filename";
+    filename.textContent=file.name;
+    filename.title=file.name;
+
+    const remove=document.createElement("button");
+    remove.type="button";
+    remove.className="preview-remove";
+    remove.textContent="×";
+    remove.title="Remover "+file.name;
+    remove.setAttribute("aria-label","Remover "+file.name);
+
+    remove.addEventListener("click",()=>{
+      const transfer=new DataTransfer();
+      Array.from(input.files||[]).forEach((selected,i)=>{
+        if(i!==index)transfer.items.add(selected);
+      });
+      input.files=transfer.files;
+      previewProductFiles(inputId,previewId);
+    });
+
+    info.append(filename,remove);
+    card.append(img,info);
+    preview.appendChild(card);
+  });
+}
+async function uploadProductImage(file){
+  if(!file)return null;
+  const allowed=["image/jpeg","image/png","image/webp","image/gif","image/avif"];
+  if(!allowed.includes(file.type))throw new Error("Formato não permitido: "+file.name);
+  if(file.size>5*1024*1024)throw new Error("A imagem "+file.name+" ultrapassa 5 MB.");
+  const data=await new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onerror=()=>reject(new Error("Não foi possível ler "+file.name));
+    reader.onload=()=>resolve(String(reader.result).split(",")[1]||"");
+    reader.readAsDataURL(file);
+  });
+  const result=await api("/api/admin/upload-image",{method:"POST",body:JSON.stringify({filename:file.name,contentType:file.type,data})});
+  if(!result.image)throw new Error("O servidor não retornou a URL da imagem.");
+  return result.image;
+}
+
+/* N10_PROMOTION_EDIT_ONLY */
+function updatePromotionFields(){
+  const isEditing = state.editingId !== null &&
+                    state.editingId !== undefined;
+
+  $("pPromotionLabel").hidden = !isEditing;
+
+  if (!isEditing) {
+    $("pPromotion").checked = false;
+  }
+
+  const activePromotion = isEditing && $("pPromotion").checked;
+
+  $("pOriginalPriceLabel").hidden = !activePromotion;
+
+  const preview = $("n10PromoPreview");
+  if (!preview) return;
+
+  preview.hidden = !activePromotion;
+
+  if (!activePromotion) return;
+
+  const priceText = $("pPrice").value;
+  const discountText = $("pOriginalPrice").value;
+  const price = Number(priceText);
+  const discount = Number(discountText);
+
+  const valid =
+    priceText !== "" &&
+    discountText !== "" &&
+    Number.isFinite(price) &&
+    Number.isFinite(discount) &&
+    price > 0 &&
+    discount > 0 &&
+    discount < price;
+
+  $("n10PromoOldPrice").textContent =
+    priceText !== "" && Number.isFinite(price)
+      ? money(price)
+      : "Preço original";
+
+  $("n10PromoNewPrice").textContent =
+    valid ? money(price - discount) : "Preço promocional";
+
+  if (valid) {
+    const percent = discount / price * 100;
+
+    $("n10PromoDiscount").textContent =
+      percent.toLocaleString("pt-BR", {
+        maximumFractionDigits: 2
+      }) + "% OFF";
+
+    $("n10PromoHint").textContent =
+      "Economia de " + money(discount);
+
+    preview.classList.remove("is-invalid");
+  } else {
+    $("n10PromoDiscount").textContent = "—";
+    $("n10PromoHint").textContent =
+      "Informe um desconto maior que zero e menor que o preço.";
+    preview.classList.add("is-invalid");
+  }
+}
+
+/* N10_PROMO_AUTO_SCROLL */
+$("pPromotion").addEventListener("change", function(){
+  updatePromotionFields();
+
+  if (this.checked) {
+    const target = $("pPrice");
+
+    setTimeout(() => {
+      target?.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => target?.focus({ preventScroll: true }), 350);
+    }, 100);
+  }
+});
+
+$("pPrice").addEventListener("input", updatePromotionFields);
+$("pOriginalPrice").addEventListener("input", updatePromotionFields);
+
+function openProduct(){
+  state.editingId=null;$("deleteProductRow").hidden=true;$("productForm").reset();$("pStock").value="1";$("pActive").checked=true;
+  $("pImage").value="";$("pImages").value="";updatePromotionFields();
+  populateProductCategories("");
+  previewProductFiles("pImageFile","pImagePreview");
+  previewProductFiles("pImagesFiles","pImagesPreview");
+  $("productModalTitle").textContent="Adicionar produto";$("productFormMessage").textContent="";
+  $("productModal").classList.add("open");
+}
+function editProduct(id){
+  const p=state.products.find(x=>String(x.id)===String(id));if(!p)return;
+  state.editingId=p.id;
+  $("deleteProductRow").hidden=false;
+  $("productForm").reset();
+  $("pName").value=p.name||"";populateProductCategories(p.category||"");
+  $("pPrice").value=p.price??"";$("pOriginalPrice").value=p.original_price??"";
+  $("pStock").value=p.stock??0;$("pImage").value=p.image||"";
+  $("pBrand").value=p.brand||"";
+  $("pImages").value=Array.isArray(p.images)?p.images.join("\n"):"";
+  $("pDescription").value=p.description||"";
+  $("pSizes").value=Array.isArray(p.sizes)?p.sizes.join(", "):"";
+  $("pPromotion").checked=!!p.promotion;$("pFeatured").checked=!!p.featured;$("pActive").checked=p.active!==false;updatePromotionFields();
+  previewProductFiles("pImageFile","pImagePreview");
+  previewProductFiles("pImagesFiles","pImagesPreview");
+  $("productModalTitle").textContent="Editar produto";
+  $("productFormMessage").textContent="";
+  $("productModal").classList.add("open");
+}
+async function saveProduct(e){
+  e.preventDefault();
+  const button=$("saveProduct");button.disabled=true;
+  $("productFormMessage").textContent="Preparando imagens e salvando produto…";
+  try{
+    const name=$("pName").value.trim();
+    const category=$("pCategory").value.trim();
+    const price=$("pPrice").value===""?null:Number($("pPrice").value);
+    const original=$("pOriginalPrice").value===""?null:Number($("pOriginalPrice").value);
+    const stock=Number($("pStock").value);
+    if(!name)throw new Error("Informe o nome do produto.");
+    if(!category)throw new Error("Selecione uma categoria cadastrada.");
+    if(price!==null&&(!Number.isFinite(price)||price<0))throw new Error("Preço inválido.");
+    if(original!==null&&(!Number.isFinite(original)||original<0))throw new Error("Preço original inválido.");
+    if(!Number.isInteger(stock)||stock<0)throw new Error("O estoque deve ser um inteiro igual ou maior que zero.");
+
+    const existing=state.products.find(p=>String(p.id)===String(state.editingId));
+    let image=existing?.image||$("pImage").value.trim();
+    let images=Array.isArray(existing?.images)?[...existing.images]:$("pImages").value.split("\n").map(x=>x.trim()).filter(Boolean);
+    const mainFile=$("pImageFile").files?.[0];
+    const extraFiles=Array.from($("pImagesFiles").files||[]);
+    if(mainFile){
+      $("productFormMessage").textContent="Enviando imagem principal…";
+      image=await uploadProductImage(mainFile);
+    }
+    for(let i=0;i<extraFiles.length;i++){
+      $("productFormMessage").textContent=`Enviando foto adicional ${i+1} de ${extraFiles.length}…`;
+      images.push(await uploadProductImage(extraFiles[i]));
+    }
+    images=[...new Set(images.filter(Boolean))];
+    if(!image&&images.length)image=images[0];
+
+    const id=state.editingId||slug(name)+"-"+Date.now().toString(36);
+    const body={
+      id,name,category,brand:$("pBrand").value,price,original_price:original,
+      stock,image,images,
+      sizes:$("pSizes").value.split(",").map(x=>x.trim()).filter(Boolean),
+      description:$("pDescription").value.trim(),
+      promotion:$("pPromotion").checked,
+      featured:$("pFeatured").checked,
+      active:$("pActive").checked
+    };
+    $("productFormMessage").textContent="Salvando produto…";
+    await api("/api/admin/products",{method:"POST",body:JSON.stringify(body)});
+    $("productModal").classList.remove("open");toast("Produto salvo com sucesso.");
+    await loadProducts();
+  }catch(err){$("productFormMessage").textContent=err.message;toast(err.message)}
+  finally{button.disabled=false}
+}
+async function toggleAvailability(id){
+  const p=state.products.find(x=>String(x.id)===String(id));if(!p)return;
+  try{
+    await api("/api/admin/products",{method:"POST",body:JSON.stringify({...p,active:!isAvailable(p),stock:Number(p.stock||0)})});
+    toast("Disponibilidade atualizada.");await loadProducts();
+  }catch(e){toast(e.message)}
+}
+async function loadCategories(){
+  try{
+    state.categories=await api("/api/admin/catalogs");
+    if(!Array.isArray(state.categories))state.categories=[];
+    renderCategories();
+  }catch(e){
+    $("categoryList").innerHTML=`<div class="empty">${esc(e.message)}<br><span class="small">Confira se a API de catálogos está disponível.</span></div>`;
+  }
+}
+function renderCategories(){
+  const el=$("categoryList");
+  if(!state.categories.length){el.innerHTML='<div class="empty">Nenhuma categoria cadastrada.<br>Adicione sua primeira categoria acima.</div>';return}
+  el.innerHTML=state.categories.map(c=>{
+    const count=state.products.filter(p=>String(p.category||"").toLowerCase()===String(c.name||"").toLowerCase()).length;
+    return `<div class="category-row"><div class="category-symbol">◇</div><div class="category-name"><strong>${esc(c.name)}</strong><span>${count} produto(s) vinculado(s) · ${c.active===false?"Oculta":"Ativa"}</span></div><button class="secondary" data-rename="${esc(c.id)}">Renomear</button><button class="ghost" data-cat-toggle="${esc(c.id)}">${c.active===false?"Ativar":"Ocultar"}</button></div>`;
+  }).join("");
+  el.querySelectorAll("[data-rename]").forEach(b=>b.onclick=()=>renameCategory(b.dataset.rename));
+  el.querySelectorAll("[data-cat-toggle]").forEach(b=>b.onclick=()=>toggleCategory(b.dataset.catToggle));
+}
+async function addCategory(e){
+  e.preventDefault();const name=$("categoryName").value.trim();if(!name)return;
+  try{
+    const id=slug(name);
+    await api("/api/admin/catalogs",{method:"POST",body:JSON.stringify({id,name,slug:id,active:true,sort_order:state.categories.length})});
+    $("categoryForm").reset();toast("Categoria adicionada.");await loadCategories();
+  }catch(err){toast(err.message)}
+}
+async function renameCategory(id){
+  const c=state.categories.find(x=>String(x.id)===String(id));if(!c)return;
+  const name=prompt("Novo nome da categoria:",c.name);if(name===null)return;
+  const clean=name.trim();if(!clean)return toast("Informe um nome.");
+  try{
+    await api("/api/admin/catalogs",{method:"POST",body:JSON.stringify({...c,name:clean,slug:slug(clean)})});
+    // Atualiza também a categoria dos produtos associados por nome.
+    const linked=state.products.filter(p=>(p.category||"").toLowerCase()===c.name.toLowerCase());
+    for(const p of linked)await api("/api/admin/products",{method:"POST",body:JSON.stringify({...p,category:clean})});
+    toast("Categoria renomeada.");await loadProducts();await loadCategories();
+  }catch(e){toast(e.message)}
+}
+async function toggleCategory(id){
+  const c=state.categories.find(x=>String(x.id)===String(id));if(!c)return;
+  try{
+    await api("/api/admin/catalogs",{method:"POST",body:JSON.stringify({...c,active:c.active===false})});
+    await loadCategories();toast("Categoria atualizada.");
+  }catch(e){toast(e.message)}
+}
+function fillCustomerProducts(){
+  const select=$("cProduct"),old=select.value;
+  select.innerHTML='<option value="">Selecione um produto (opcional)</option>'+state.products.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join("");
+  select.value=old;
+}
+function openCustomer(){
+  $("customerForm").reset();fillCustomerProducts();$("customerModal").classList.add("open");
+}
+function renderWait(){
+  state.wait=readWait();
+  const all=state.wait;
+  $("waitTotal").textContent=all.length;
+  $("waitPending").textContent=all.filter(x=>x.status==="Aguardando").length;
+  $("waitNotified").textContent=all.filter(x=>x.status==="Cliente avisado").length;
+  $("waitDone").textContent=all.filter(x=>x.status==="Atendido").length;
+  $("statWaiting").textContent=all.filter(x=>x.status==="Aguardando").length;
+  $("statCustomers").textContent=all.length;
+  const query=$("waitSearch").value.trim().toLocaleLowerCase("pt-BR");
+  const list=all.filter(x=>(x.name+" "+x.phone+" "+productName(x.productId)).toLocaleLowerCase("pt-BR").includes(query));
+  const el=$("waitList");
+  if(!list.length){
+    el.innerHTML=`<div class="empty"><div class="empty-icon"></div>${all.length?"Nenhum cliente encontrado.":"A fila de espera está vazia."}<br><button class="primary" id="addFirstCustomer" style="margin-top:15px">Adicionar ${all.length?"cliente":"primeiro cliente"}</button></div>`;
+    return;
+  }
+  el.innerHTML='<div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Produto</th><th>Contato</th><th>Status</th><th>Ação</th></tr></thead><tbody>'+list.map(x=>`<tr><td><strong>${esc(x.name)}</strong><div class="muted small">${esc(x.notes||"")}</div></td><td>${esc(productName(x.productId))}</td><td>${esc(x.phone||"—")}</td><td><select class="status-select" data-status="${esc(x.id)}"><option ${x.status==="Aguardando"?"selected":""}>Aguardando</option><option ${x.status==="Cliente avisado"?"selected":""}>Cliente avisado</option><option ${x.status==="Atendido"?"selected":""}>Atendido</option></select></td><td><button class="danger" data-remove="${esc(x.id)}">Excluir</button></td></tr>`).join("")+'</tbody></table></div>';
+  el.querySelectorAll("[data-status]").forEach(s=>s.onchange=()=>{const x=state.wait.find(a=>a.id===s.dataset.status);if(x){x.status=s.value;saveWait();renderWait();renderOverview();toast("Status atualizado.")}});
+  el.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>{if(!confirm("Excluir este registro da fila?"))return;state.wait=state.wait.filter(x=>x.id!==b.dataset.remove);saveWait();renderWait();renderOverview();toast("Registro excluído.")});
+}
+function saveCustomer(e){
+  e.preventDefault();
+  const name=$("cName").value.trim();if(!name)return;
+  state.wait=readWait();
+  state.wait.unshift({
+    id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),
+    name,phone:$("cPhone").value.trim(),productId:$("cProduct").value,
+    notes:$("cNotes").value.trim(),status:$("cStatus").value,
+    createdAt:new Date().toISOString()
+  });
+  saveWait();$("customerModal").classList.remove("open");
+  renderWait();renderOverview();toast("Cliente adicionado à fila ");
+}
+async function checkSession(){
+  try{
+    const data=await api("/api/admin/status");
+    if(data?.authenticated){
+      $("loginScreen").classList.add("hidden");
+      $("app").classList.remove("hidden");
+      await loadProducts();
+      await loadCategories();
+      await loadBrands();
+      renderOverview();
+      return true;
+    }
+    $("app").classList.add("hidden");
+    $("loginScreen").classList.remove("hidden");
+    return false;
+  }catch(e){
+    console.error("Falha ao verificar sessão administrativa:",e);
+    $("app").classList.add("hidden");
+    $("loginScreen").classList.remove("hidden");
+    $("loginError").textContent="Não foi possível verificar a sessão. Tente novamente.";
+    return false;
+  }
+}
+$("loginForm").addEventListener("submit",async e=>{
+  e.preventDefault();$("loginButton").disabled=true;$("loginError").textContent="";
+  try{
+    await api("/api/admin/login",{method:"POST",body:JSON.stringify({
+      username:$("username").value.trim(),password:$("password").value
+    })});
+    $("password").value="";
+    await checkSession();
+    if(!$("app").classList.contains("hidden"))toast("Bem-vindo ao painel N10STORE ");
+  }catch(err){$("loginError").textContent=err.message}
+  finally{$("loginButton").disabled=false}
+});
+$("logoutButton").onclick=async()=>{
+  try{await api("/api/admin/logout",{method:"POST",body:"{}"})}catch(e){}
+  $("app").classList.add("hidden");$("loginScreen").classList.remove("hidden");toast("Sessão encerrada.");
+};
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>setPage(b.dataset.page));
+document.querySelectorAll("[data-goto]").forEach(b=>b.onclick=()=>setPage(b.dataset.goto));
+document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$(b.dataset.close).classList.remove("open"));
+$("menuButton").onclick=(event)=>{
+  event.stopPropagation();
+  $("sidebar").classList.toggle("open");
+};
+
+document.addEventListener("click",(event)=>{
+  const sidebar=$("sidebar");
+  const button=$("menuButton");
+
+  if(!sidebar || !button || !sidebar.classList.contains("open")) return;
+  if(sidebar.contains(event.target) || button.contains(event.target)) return;
+
+  sidebar.classList.remove("open");
+});
+$("newProduct").onclick=$("newProductTop").onclick=openProduct;
+$("deleteProduct").addEventListener("click", async () => {
+  const id = state.editingId;
+  if (id === null || id === undefined) return;
+
+  const product = state.products.find(p => String(p.id) === String(id));
+  if (!product) {
+    toast("Não encontrei esse produto na lista atual.");
+    return;
+  }
+
+  if (!confirm(`Tem certeza que deseja excluir "${product.name}"? Essa ação não pode ser desfeita.`)) return;
+
+  const button = $("deleteProduct");
+  const saveButton = $("saveProduct");
+  button.disabled = true;
+  saveButton.disabled = true;
+  button.textContent = "Excluindo produto…";
+
+  try {
+    await api("/api/admin/products/" + encodeURIComponent(String(id)), {
+      method: "DELETE"
+    });
+
+    $("productModal").classList.remove("open");
+    state.editingId = null;
+    toast("Produto excluído com sucesso.");
+    await loadProducts();
+  } catch (error) {
+    toast("Não foi possível excluir: " + error.message);
+    button.disabled = false;
+    button.textContent = "🗑 Excluir produto";
+  } finally {
+    saveButton.disabled = false;
+  }
+});
+
+$("productForm").addEventListener("submit",saveProduct);
+
+$("pImageFile").addEventListener("change",()=>previewProductFiles("pImageFile","pImagePreview"));
+$("pImagesFiles").addEventListener("change",()=>previewProductFiles("pImagesFiles","pImagesPreview"));
+
+$("categoryForm").addEventListener("submit",addCategory);
+$("brandForm").addEventListener("submit",addBrand);
+$("productBrandFilter").addEventListener("change",renderProducts);
+$("addCustomer").onclick=openCustomer;
+$("customerForm").addEventListener("submit",saveCustomer);
+$("productSearch").addEventListener("input",renderProducts);
+$("productFilter").addEventListener("change",renderProducts);
+
+$("refreshSession").onclick=async()=>{if(await checkSession())toast("Sessão administrativa ativa.")};
+
+checkSession();
+})();
+</script>
+</body>
+</html>

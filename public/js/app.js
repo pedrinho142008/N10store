@@ -6,6 +6,7 @@ const state = {
   products: [],
   query: '',
   sort: 'featured',
+  selectedBrand: 'Todas',
   cart: loadCart(),
   selectedProduct: null
 };
@@ -67,9 +68,13 @@ function buyProduct(product, qty = 1, size = '') {
 
 function renderProducts() {
   const query = state.query.trim().toLocaleLowerCase('pt-BR');
-  let products = state.products.filter(p =>
-    `${p.name} ${p.category} ${p.description}`.toLocaleLowerCase('pt-BR').includes(query)
-  );
+  let products = state.products.filter(p => {
+    const text = `${p.name || ''} ${p.category || ''} ${p.brand || ''} ${p.description || ''}`.toLocaleLowerCase('pt-BR');
+    const matchesQuery = text.includes(query);
+    const matchesBrand = state.selectedBrand === 'Todas' ||
+      String(p.brand || '').toLocaleLowerCase('pt-BR') === state.selectedBrand.toLocaleLowerCase('pt-BR');
+    return matchesQuery && matchesBrand;
+  });
 
   if (state.sort === 'name') {
     products.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
@@ -93,6 +98,11 @@ function renderProducts() {
     const card = document.createElement('article');
     card.className = 'product-card';
 
+// Produto indisponível conforme o mesmo critério do painel administrativo.
+if (product.active === false || Number(product.stock ?? 0) <= 0) {
+  card.classList.add('out-of-stock');
+}
+
     const imageLink = document.createElement('a');
     imageLink.className = 'product-image';
     imageLink.href = '#';
@@ -115,7 +125,23 @@ function renderProducts() {
 
     const tag = document.createElement('span');
     tag.className = 'product-tag';
-    tag.textContent = product.featured ? 'Destaque' : 'N10 / Roupas';
+
+    const promoOld = Number(product.original_price);
+    const promoPrice = Number(product.price);
+    const promoValid = !!product.promotion &&
+      product.original_price !== null && product.original_price !== undefined &&
+      product.original_price !== "" &&
+      Number.isFinite(promoOld) && Number.isFinite(promoPrice) &&
+      promoOld > 0 && promoPrice >= 0 && promoPrice < promoOld;
+
+    if (promoValid) {
+      const discount = Math.round((promoOld - promoPrice) / promoOld * 100);
+      tag.classList.add('n10-home-promo-badge');
+      tag.textContent = `PROMOÇÃO · ${discount}% OFF`;
+      card.classList.add('n10-home-promo');
+    } else {
+      tag.textContent = product.featured ? 'Destaque' : (product.brand || 'NT10STORE');
+    }
 
     const quickView = document.createElement('span');
     quickView.className = 'quick-view';
@@ -127,7 +153,7 @@ function renderProducts() {
 
     const category = document.createElement('div');
     category.className = 'product-category';
-    category.textContent = 'Roupas';
+    category.textContent = product.category || 'Sem categoria';
 
     const name = document.createElement('h3');
     name.className = 'product-name';
@@ -140,6 +166,18 @@ function renderProducts() {
     const price = document.createElement('p');
     price.className = 'price' + (Number.isFinite(product.price) && product.price > 0 ? '' : ' consult');
     price.textContent = productPrice(product);
+
+    let priceContent = price;
+    if (promoValid) {
+      price.classList.add('n10-promo-current-price');
+      const oldPrice = document.createElement('del');
+      oldPrice.className = 'n10-promo-old-price';
+      oldPrice.textContent = money(promoOld);
+
+      priceContent = document.createElement('div');
+      priceContent.className = 'n10-promo-price-wrap';
+      priceContent.append(price, oldPrice);
+    }
 
     const actions = document.createElement('div');
     actions.className = 'card-actions';
@@ -168,7 +206,7 @@ function renderProducts() {
     name.addEventListener('click', () => showDetails(product.id));
 
     actions.append(add, buy);
-    info.append(category, name, description, price, actions);
+    info.append(category, name, description, priceContent, actions);
     card.append(imageLink, info);
     container.append(card);
   });
@@ -347,7 +385,7 @@ function checkoutCart() {
   if (!state.cart.length) return toast('Adicione uma peça à sacola.');
   const name = $('#customerName').value.trim().slice(0, 80);
   const lines = [
-    'Olá! Vim pelo site da N10STORE e quero consultar estas peças:',
+    'Olá! Vim pelo site da NT10STORE e quero consultar estas peças:',
     '',
     ...(name ? [`Nome: ${name}`, ''] : [])
   ];
@@ -364,6 +402,41 @@ function checkoutCart() {
   });
 
   openWhatsApp(lines.join('\n'));
+}
+
+function populateBrandFilter() {
+  const select = $('#brandFilter');
+  if (!select) return;
+
+  const previous = state.selectedBrand || 'Todas';
+  const brands = [...new Set(state.products
+    .map(p => String(p.brand || '').trim())
+    .filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b, 'pt-BR'));
+
+  select.replaceChildren();
+  const all = document.createElement('option');
+  all.value = 'Todas';
+  all.textContent = 'Todas as marcas';
+  select.append(all);
+
+  brands.forEach(brand => {
+    const option = document.createElement('option');
+    option.value = brand;
+    option.textContent = brand;
+    select.append(option);
+  });
+
+  state.selectedBrand = brands.includes(previous) ? previous : 'Todas';
+  select.value = state.selectedBrand;
+}
+
+const brandFilter = $('#brandFilter');
+if (brandFilter) {
+  brandFilter.addEventListener('change', event => {
+    state.selectedBrand = event.target.value;
+    renderProducts();
+  });
 }
 
 $('#searchInput').addEventListener('input', event => {
@@ -414,7 +487,7 @@ document.addEventListener('keydown', event => {
 });
 
 
-/* N10STORE IMAGE VIEWER */
+/* NT10STORE IMAGE VIEWER */
 (() => {
   const overlay = $('#zoomOverlay');
   const image = $('#zoomImage');
@@ -449,7 +522,7 @@ document.addEventListener('keydown', event => {
     if (!product) return;
     image.src = product.image || $('#detailImage').src;
     image.alt = product.name || 'Imagem do produto';
-    caption.textContent = product.name || 'N10STORE';
+    caption.textContent = product.name || 'NT10STORE';
     overlay.hidden = false;
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden', 'false');
@@ -494,7 +567,7 @@ document.addEventListener('keydown', event => {
     const src = gallery[(index + direction + gallery.length) % gallery.length];
     image.src = src;
     image.alt = product.name || "Imagem do produto";
-    caption.textContent = product.name || "N10STORE";
+    caption.textContent = product.name || "NT10STORE";
     resetZoom();
   }
 
@@ -602,14 +675,19 @@ async function init() {
     state.products = Array.isArray(products) ? products.filter(p =>
       p && typeof p.id === 'string' &&
       typeof p.name === 'string' &&
-      p.category === 'Roupas' &&
       (p.price === null || (Number.isFinite(p.price) && p.price >= 0))
     ) : [];
 
+    populateBrandFilter();
     renderProducts();
     renderCart();
-  } catch {
-    $('#productGrid').textContent = 'Não foi possível carregar a coleção. Verifique se o servidor está funcionando.';
+  } catch (error) {
+    console.error('Erro ao inicializar a vitrine:', error);
+    const container = $('#productGrid');
+    if (container) {
+      container.textContent = 'Erro ao carregar a vitrine: ' +
+        (error && error.message ? error.message : String(error));
+    }
   }
 }
 init();

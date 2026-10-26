@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080808">
+<title>ADM | N10STORE</title>
+<link rel="stylesheet" href="/admin/admin.css">
+<style>.brand-lockup{display:flex;align-items:center;justify-content:center;gap:13px;text-decoration:none;margin:0 auto 28px;width:fit-content}.brand-lockup img{width:62px;height:62px;object-fit:contain;border-radius:15px}.brand-word{font-size:clamp(23px,6vw,30px);font-weight:900;letter-spacing:2px;font-style:italic;color:#f5f1e8}.login-card{width:min(440px,calc(100% - 28px));padding:clamp(24px,6vw,38px);border-radius:26px;box-shadow:0 24px 80px #0008}.login-card input,.login-card button{min-height:48px}.login-card input{width:100%;max-width:100%;box-sizing:border-box}.login-card button{width:100%;border-radius:14px}body.login-page{padding:16px}</style></head>
+<body class="login-page">
+<main class="login-card">
+  <a class="brand brand-lockup" href="/" aria-label="N10STORE - Página inicial"><img src="/assets/produtos/logo.png" alt="N10STORE"><span class="brand-word">N10STORE</span></a>
+  <p class="eyebrow">ÁREA RESTRITA</p>
+  <h1>Bem-vindo de volta</h1>
+  <p class="muted">Entre para administrar sua loja.</p>
+  <form id="loginForm">
+    <label>Usuário
+      <input name="username" autocomplete="username" required>
+    </label>
+    <label>Senha
+      <input name="password" type="password" autocomplete="current-password" required>
+    </label>
+    <button class="gold" type="submit">Entrar no painel</button>
+    <p id="message" class="message"></p>
+  </form>
+  <a class="back" href="/">← Voltar para a loja</a>
+</main>
+<script>
+const form = document.querySelector("#loginForm");
+const message = document.querySelector("#message");
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  message.textContent = "Verificando acesso…";
+
+  const data = new FormData(form);
+
+  try {
+    const response = await fetch("/api/admin/login", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        username: data.get("username"),
+        password: data.get("password")
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) throw new Error(result.error || "Falha no login.");
+
+    location.href = "/admin/painel";
+  } catch (error) {
+    message.textContent = error.message;
+  }
+});
+</script>
+</body>
+</html>

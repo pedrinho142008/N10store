@@ -29,3 +29,6 @@ temp/
 
 # Backups locais — não publicar na Vercel
 backup-*/
+.vercel
+.env*
+n10store-server.log

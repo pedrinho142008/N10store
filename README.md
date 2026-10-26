@@ -1,4 +1,4 @@
-# N10STORE
+# NT10STORE
 
 Loja demonstrativa em Node.js + Express.
 

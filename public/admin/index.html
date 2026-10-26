@@ -1,97 +1,320 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080808">
-<title>Painel ADM | N10STORE</title>
-<link rel="stylesheet" href="/admin/admin.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0b0b">
+  <title>Painel administrativo | NT10STORE</title>
+  <link rel="stylesheet" href="/admin/admin.css">
 </head>
-<body>
-<header class="topbar">
-  <a class="brand" href="/admin/painel">N10<span>STORE</span></a>
-  <div class="top-actions">
-    <span class="admin-label">ADMINISTRADOR</span>
-    <button id="logout" class="ghost">Sair</button>
+<body class="admin-page">
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="/admin/painel">
+        <span class="brand-mark">N</span>
+        <span>N10<span class="gold">STORE</span><small>PAINEL ADMINISTRATIVO</small></span>
+      </a>
+
+      <div class="side-label">MENU PRINCIPAL</div>
+      <nav class="navigation">
+        <button class="nav-item active" data-tab="overview"><span></span> Visão geral</button>
+        <button class="nav-item" data-tab="products"><span>◇</span> Produtos</button>
+        <button class="nav-item" data-tab="categories"><span>▦</span> Categorias</button>
+        <button class="nav-item" data-tab="waitlist"><span>♧</span> Fila de espera</button>
+        <button class="nav-item" data-tab="users"><span>♙</span> Usuários</button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <a class="nav-item store-link" href="/" target="_blank" rel="noopener"><span>↗</span> Ver loja</a>
+        <button class="nav-item logout-button" id="logoutBtn"><span>⇥</span> Sair da conta</button>
+        <div class="sidebar-foot"><span class="status-dot"></span> Painel administrativo</div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+        <div>
+          <div class="eyebrow">NT10STORE / ADMINISTRAÇÃO</div>
+          <h1 id="pageTitle">Visão geral</h1>
+        </div>
+        <div class="top-actions">
+          <span class="admin-pill"><span class="status-dot"></span> Administrador</span>
+          <button class="button button-outline" id="refreshBtn">↻ Atualizar</button>
+        </div>
+      </header>
+
+      <div id="notice" class="notice hidden" role="status"></div>
+
+      <section class="tab-panel active" id="tab-overview">
+        <div class="welcome">
+          <div>
+            <div class="eyebrow gold">CENTRAL DA LOJA</div>
+            <h2>Visão geral <span class="gold"></span></h2>
+            <p>Acompanhe o movimento e os produtos da sua loja.</p>
+          </div>
+          <span class="welcome-mark">N10</span>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <span class="stat-icon">◉</span>
+            <span class="stat-label">Visualizações registradas</span>
+            <strong id="totalViews">—</strong>
+            <small>Eventos registrados pela loja</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-icon">◇</span>
+            <span class="stat-label">Visualizações de produtos</span>
+            <strong id="productViews">—</strong>
+            <small>Acessos às páginas de produtos</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-icon">♙</span>
+            <span class="stat-label">Visitantes identificados</span>
+            <strong id="uniqueVisitors">—</strong>
+            <small>Identificadores únicos registrados</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-icon">▦</span>
+            <span class="stat-label">Produtos cadastrados</span>
+            <strong id="productCount">—</strong>
+            <small>Catálogo administrativo</small>
+          </article>
+        </div>
+
+        <div class="stats-grid stats-grid-small">
+          <article class="stat-card compact">
+            <span class="stat-label">Visualizações hoje</span>
+            <strong id="todayViews">—</strong>
+          </article>
+          <article class="stat-card compact">
+            <span class="stat-label">Visualizações no mês</span>
+            <strong id="monthViews">—</strong>
+          </article>
+          <article class="stat-card compact">
+            <span class="stat-label">Produtos com estoque baixo</span>
+            <strong id="lowStock">—</strong>
+          </article>
+          <article class="stat-card compact">
+            <span class="stat-label">Categorias cadastradas</span>
+            <strong id="categoryCount">—</strong>
+          </article>
+        </div>
+
+        <div class="content-card">
+          <div class="section-heading">
+            <div><h3>Produtos recentes</h3><p>Itens do catálogo da NT10STORE.</p></div>
+            <button class="button button-outline" data-go="products">Ver produtos →</button>
+          </div>
+          <div id="recentProducts" class="recent-products">
+            <div class="empty-state">Carregando produtos...</div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <div class="section-heading">
+            <div><h3>Atividade recente</h3><p>Eventos disponíveis na API de estatísticas.</p></div>
+          </div>
+          <div id="recentActivity" class="activity-list">
+            <div class="empty-state">Carregando atividade...</div>
+          </div>
+          <p class="muted small-text">As estatísticas dependem dos eventos registrados. Elas não representam necessariamente todas as visitas reais da loja.</p>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-products">
+        <div class="section-heading page-section-heading">
+          <div><h2>Produtos</h2><p>Gerencie fotos, preços, estoque e disponibilidade.</p></div>
+          <button class="button button-gold" id="newProductBtn">＋ Novo produto</button>
+        </div>
+
+        <div class="toolbar">
+          <input id="productSearch" type="search" placeholder="Buscar produto..." aria-label="Buscar produto">
+          <select id="productFilter" aria-label="Filtrar produtos">
+            <option value="all">Todos os produtos</option>
+            <option value="active">Disponíveis</option>
+            <option value="inactive">Indisponíveis</option>
+            <option value="low">Estoque baixo</option>
+          </select>
+        </div>
+
+        <div id="productGrid" class="product-grid">
+          <div class="empty-state">Carregando produtos...</div>
+        </div>
+
+        <div class="content-card form-card hidden" id="productEditor">
+          <div class="section-heading">
+            <div><h3 id="productFormTitle">Novo produto</h3><p>Preencha as informações do produto.</p></div>
+            <button class="icon-button" id="closeProductEditor" aria-label="Fechar">✕</button>
+          </div>
+          <form id="productForm">
+            <input type="hidden" id="productId">
+            <div class="form-grid">
+              <label class="field field-wide">Nome do produto *
+                <input id="productName" required maxlength="180" placeholder="Ex.: Camiseta básica">
+              </label>
+              <label class="field">Categoria
+                <input id="productCategory" list="categoryOptions" placeholder="Ex.: Roupas">
+                <datalist id="categoryOptions"></datalist>
+              </label>
+              <label class="field">Preço (R$)
+                <input id="productPrice" type="number" min="0" step="0.01" placeholder="0,00">
+              </label>
+              <label class="field">Preço original (R$)
+                <input id="productOriginalPrice" type="number" min="0" step="0.01" placeholder="Opcional">
+              </label>
+              <label class="field">Estoque
+                <input id="productStock" type="number" min="0" step="1" value="0">
+              </label>
+              <label class="field field-wide">Imagem principal (caminho ou URL)
+                <input id="productImage" maxlength="1500" placeholder="/assets/produtos/imagem.jpg">
+              </label>
+              <label class="field field-wide">Galeria de imagens
+                <textarea id="productImages" rows="3" placeholder="Uma URL ou caminho por linha"></textarea>
+              </label>
+              <label class="field field-wide">Tamanhos ou variações
+                <input id="productSizes" placeholder="P, M, G, GG">
+              </label>
+              <label class="field field-wide">Descrição
+                <textarea id="productDescription" rows="4" placeholder="Descrição do produto"></textarea>
+              </label>
+            </div>
+            <div class="toggle-grid">
+              <label class="check-field"><input id="productPromotion" type="checkbox"> Em promoção</label>
+              <label class="check-field"><input id="productFeatured" type="checkbox"> Produto em destaque</label>
+              <label class="check-field"><input id="productActive" type="checkbox" checked> Produto disponível na loja</label>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="button button-outline" id="cancelProductBtn">Cancelar</button>
+              <button type="submit" class="button button-gold" id="saveProductBtn">Salvar produto</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="tab-categories">
+        <div class="section-heading page-section-heading">
+          <div><h2>Categorias</h2><p>Organize as categorias usadas nos produtos.</p></div>
+          <button class="button button-gold" id="newCategoryBtn">＋ Nova categoria</button>
+        </div>
+
+        <div class="content-card form-card hidden" id="categoryEditor">
+          <div class="section-heading">
+            <div><h3 id="categoryFormTitle">Nova categoria</h3><p>Os produtos podem usar o nome da categoria no catálogo.</p></div>
+            <button class="icon-button" id="closeCategoryEditor" aria-label="Fechar">✕</button>
+          </div>
+          <form id="categoryForm">
+            <input id="categoryId" type="hidden">
+            <div class="form-grid">
+              <label class="field">Nome *
+                <input id="categoryName" required maxlength="100" placeholder="Ex.: Camisetas">
+              </label>
+              <label class="field">Ordem de exibição
+                <input id="categoryOrder" type="number" step="1" value="0">
+              </label>
+              <label class="field field-wide">Descrição
+                <textarea id="categoryDescription" rows="3" maxlength="500" placeholder="Descrição opcional"></textarea>
+              </label>
+            </div>
+            <label class="check-field"><input id="categoryActive" type="checkbox" checked> Categoria ativa</label>
+            <div class="form-actions">
+              <button type="button" class="button button-outline" id="cancelCategoryBtn">Cancelar</button>
+              <button type="submit" class="button button-gold" id="saveCategoryBtn">Salvar categoria</button>
+            </div>
+          </form>
+        </div>
+
+        <div id="categoryGrid" class="category-grid">
+          <div class="empty-state">Carregando categorias...</div>
+        </div>
+        <p class="muted small-text">Ao renomear uma categoria, o painel também tenta atualizar os produtos que usam o nome antigo. Confira os produtos após a operação.</p>
+      </section>
+
+      <section class="tab-panel" id="tab-waitlist">
+        <div class="section-heading page-section-heading">
+          <div><h2>Fila de espera</h2><p>Cadastre clientes e acompanhe o andamento manualmente.</p></div>
+          <button class="button button-gold" id="newWaitlistBtn">＋ Adicionar cliente</button>
+        </div>
+
+        <div class="notice notice-info">A fila é armazenada somente neste navegador/dispositivo. Ela não é sincronizada com o banco de dados nem importa mensagens do WhatsApp.</div>
+
+        <div class="content-card form-card hidden" id="waitlistEditor">
+          <div class="section-heading">
+            <div><h3 id="waitlistFormTitle">Adicionar cliente</h3><p>Preencha os dados que você possui.</p></div>
+            <button class="icon-button" id="closeWaitlistEditor" aria-label="Fechar">✕</button>
+          </div>
+          <form id="waitlistForm">
+            <input type="hidden" id="waitlistId">
+            <div class="form-grid">
+              <label class="field">Nome *
+                <input id="waitlistName" required maxlength="150" placeholder="Nome do cliente">
+              </label>
+              <label class="field">Telefone
+                <input id="waitlistPhone" maxlength="40" placeholder="Telefone ou WhatsApp">
+              </label>
+              <label class="field field-wide">Produto de interesse
+                <input id="waitlistInterest" maxlength="180" placeholder="Produto, tamanho ou variação">
+              </label>
+              <label class="field">Status
+                <select id="waitlistStatus">
+                  <option value="Aguardando">Aguardando</option>
+                  <option value="Cliente avisado">Cliente avisado</option>
+                  <option value="Atendido">Atendido</option>
+                </select>
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="button button-outline" id="cancelWaitlistBtn">Cancelar</button>
+              <button type="submit" class="button button-gold">Salvar cliente</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="stats-grid stats-grid-small">
+          <article class="stat-card compact"><span class="stat-label">Aguardando</span><strong id="waitCount">0</strong></article>
+          <article class="stat-card compact"><span class="stat-label">Cliente avisado</span><strong id="notifiedCount">0</strong></article>
+          <article class="stat-card compact"><span class="stat-label">Atendido</span><strong id="servedCount">0</strong></article>
+        </div>
+        <div class="toolbar">
+          <input id="waitlistSearch" type="search" placeholder="Buscar cliente ou produto..." aria-label="Buscar na fila">
+          <select id="waitlistFilter" aria-label="Filtrar fila">
+            <option value="all">Todos os status</option>
+            <option value="Aguardando">Aguardando</option>
+            <option value="Cliente avisado">Cliente avisado</option>
+            <option value="Atendido">Atendido</option>
+          </select>
+        </div>
+        <div id="waitlistList" class="waitlist-list"></div>
+      </section>
+
+      <section class="tab-panel" id="tab-users">
+        <div class="page-section-heading">
+          <h2>Usuários</h2>
+          <p>Informações da conta que administra a loja.</p>
+        </div>
+        <div class="user-profile content-card">
+          <div class="profile-avatar">N</div>
+          <div><span class="eyebrow gold">CONTA ADMINISTRATIVA</span><h3>NT10STORE</h3><p>Conta administrativa autenticada pelo servidor.</p><span class="status-tag status-active">Sessão autenticada</span></div>
+        </div>
+        <div class="content-card">
+          <h3>Segurança e acesso</h3>
+          <p class="muted">O painel atual utiliza uma conta administrativa configurada no servidor. A senha não é exibida nem alterada diretamente nesta página.</p>
+          <ul class="security-list">
+            <li><span class="status-dot"></span> Autenticação validada pelo servidor</li>
+            <li><span class="status-dot"></span> Acesso administrativo protegido por sessão</li>
+            <li><span class="status-dot"></span> Credenciais mantidas fora do código público</li>
+          </ul>
+          <div class="notice notice-info">A API atual não fornece uma lista de contas de clientes ou múltiplos administradores. Por isso, esta aba mostra a conta administrativa sem inventar usuários inexistentes.</div>
+          <button class="button button-outline" id="userLogoutBtn">Sair da conta</button>
+        </div>
+      </section>
+
+      <footer class="footer">NT10STORE <span>•</span> Painel administrativo</footer>
+    </main>
   </div>
-</header>
 
-<div class="layout">
-<aside class="sidebar">
-  <button class="nav active" data-tab="dashboard">▦ Dashboard</button>
-  <button class="nav" data-tab="products">▣ Produtos</button>
-  <button class="nav" data-tab="sales">▤ Vendas</button>
-  <button class="nav" data-tab="reports">▥ Relatórios</button>
-  <a class="nav" href="/">↗ Ver loja</a>
-</aside>
-
-<main class="content">
-<section id="dashboard" class="tab">
-  <div class="heading">
-    <div><p class="eyebrow">RESUMO DA OPERAÇÃO</p><h1>Dashboard</h1><p class="muted">Dados das vendas registradas no ADM.</p></div>
-    <button id="refresh" class="gold">Atualizar</button>
-  </div>
-  <div class="stats">
-    <article class="stat"><span>Faturamento registrado</span><strong id="revenue">R$ 0,00</strong><small>Total de vendas cadastradas</small></article>
-    <article class="stat"><span>Vendas registradas</span><strong id="salesCount">0</strong><small>Histórico total</small></article>
-    <article class="stat"><span>Faturamento do mês</span><strong id="monthRevenue">R$ 0,00</strong><small id="monthCompare">Comparação mensal</small></article>
-    <article class="stat"><span>Estoque baixo</span><strong id="lowStock">0</strong><small>3 unidades ou menos</small></article>
-  </div>
-  <div class="columns">
-    <article class="panel"><h2>Comparação mensal</h2><div class="compare"><div><span>Mês atual</span><strong id="monthSales">0 vendas</strong></div><div><span>Mês anterior</span><strong id="previousMonthSales">0 vendas</strong></div></div></article>
-    <article class="panel"><h2>Produtos mais vendidos</h2><div id="bestSellers" class="muted">Carregando…</div></article>
-  </div>
-</section>
-
-<section id="products" class="tab hidden">
-  <div class="heading"><div><p class="eyebrow">CATÁLOGO</p><h1>Produtos</h1><p class="muted">Cadastro ligado ao Supabase.</p></div><button id="newProduct" class="gold">+ Novo produto</button></div>
-  <form id="productForm" class="panel form-grid hidden">
-    <h2 class="full">Dados do produto</h2>
-    <label>ID único<input name="id" required placeholder="ex.: camiseta-preta"></label>
-    <label>Nome<input name="name" required></label>
-    <label>Categoria<input name="category" value="Roupas" required></label>
-    <label>Preço atual (R$)<input name="price" type="number" min="0" step=".01"></label>
-    <label>Preço original (R$)<input name="original_price" type="number" min="0" step=".01"></label>
-    <label>Estoque total<input name="stock" type="number" min="0" step="1" value="0"></label>
-    <label class="full">Imagem principal<input name="image" placeholder="/assets/produtos/foto.jpg"></label>
-    <label class="full">Fotos adicionais, uma por linha<textarea name="images" rows="3"></textarea></label>
-    <label class="full">Tamanhos separados por vírgula<input name="sizes" placeholder="P, M, G, GG"></label>
-    <label class="full">Descrição<textarea name="description" rows="3"></textarea></label>
-    <label class="check"><input name="promotion" type="checkbox"> Em promoção</label>
-    <label class="check"><input name="featured" type="checkbox"> Produto em destaque</label>
-    <label class="check"><input name="active" type="checkbox" checked> Ativo na loja</label>
-    <div class="actions full"><button class="gold" type="submit">Salvar produto</button><button id="cancelProduct" class="ghost" type="button">Cancelar</button></div>
-    <p id="productMessage" class="message full"></p>
-  </form>
-  <article class="panel">
-    <label>Buscar produto<input id="productSearch" placeholder="Nome, ID ou categoria"></label>
-    <div class="table-wrap"><table><thead><tr><th>Produto</th><th>Categoria</th><th>Preço</th><th>Estoque</th><th>Status</th><th>Ações</th></tr></thead><tbody id="productRows"><tr><td colspan="6">Carregando…</td></tr></tbody></table></div>
-  </article>
-</section>
-
-<section id="sales" class="tab hidden">
-  <div class="heading"><div><p class="eyebrow">REGISTRO MANUAL</p><h1>Vendas</h1><p class="muted">Registre as vendas confirmadas pelo WhatsApp.</p></div></div>
-  <form id="saleForm" class="panel form-grid">
-    <h2 class="full">Registrar venda concluída</h2>
-    <label>Cliente (opcional)<input name="customer"></label>
-    <label>Pagamento<select name="payment_method"><option>Pix</option><option>Dinheiro</option><option>Cartão</option><option>Transferência</option><option>Outro</option></select></label>
-    <label class="full">Itens em formato JSON<textarea name="items" rows="5" required placeholder='[{"id":"roupa-01","name":"Camiseta","size":"M","qty":1,"price":49.9}]'></textarea></label>
-    <label>Total da venda (R$)<input name="total" type="number" min="0" step=".01" required></label>
-    <label>Observações<input name="notes"></label>
-    <div class="full"><button class="gold" type="submit">Registrar venda</button></div>
-    <p class="muted full">Informe o ID real do produto. Após o registro, o sistema tenta atualizar o estoque.</p>
-    <p id="saleMessage" class="message full"></p>
-  </form>
-  <article class="panel"><h2>Histórico recente</h2><div class="table-wrap"><table><thead><tr><th>Data</th><th>Cliente</th><th>Pagamento</th><th>Itens</th><th>Total</th></tr></thead><tbody id="saleRows"></tbody></table></div></article>
-</section>
-
-<section id="reports" class="tab hidden">
-  <div class="heading"><div><p class="eyebrow">DESEMPENHO</p><h1>Relatórios</h1></div><button id="exportSales" class="gold">Exportar CSV</button></div>
-  <article class="panel"><p id="reportSummary">Carregando…</p><p class="muted">Os relatórios dependem das vendas registradas manualmente.</p></article>
-</section>
-</main>
-</div>
-<div id="toast" class="toast" role="status"></div>
-<script src="/admin/admin.js"></script>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <script src="/admin/admin.js" defer></script>
 </body>
 </html>

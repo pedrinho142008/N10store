@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080808">
+<title>Painel ADM | N10STORE</title>
+<link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/admin/painel">N10<span>STORE</span></a>
+  <div class="top-actions">
+    <span class="admin-label">ADMINISTRADOR</span>
+    <button id="logout" class="ghost">Sair</button>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+  <button class="nav active" data-tab="dashboard">▦ Dashboard</button>
+  <button class="nav" data-tab="products">▣ Produtos</button>
+  <button class="nav" data-tab="sales">▤ Vendas</button>
+  <button class="nav" data-tab="reports">▥ Relatórios</button>
+  <a class="nav" href="/">↗ Ver loja</a>
+</aside>
+
+<main class="content">
+<section id="dashboard" class="tab">
+  <div class="heading">
+    <div><p class="eyebrow">RESUMO DA OPERAÇÃO</p><h1>Dashboard</h1><p class="muted">Dados das vendas registradas no ADM.</p></div>
+    <button id="refresh" class="gold">Atualizar</button>
+  </div>
+  <div class="stats">
+    <article class="stat"><span>Faturamento registrado</span><strong id="revenue">R$ 0,00</strong><small>Total de vendas cadastradas</small></article>
+    <article class="stat"><span>Vendas registradas</span><strong id="salesCount">0</strong><small>Histórico total</small></article>
+    <article class="stat"><span>Faturamento do mês</span><strong id="monthRevenue">R$ 0,00</strong><small id="monthCompare">Comparação mensal</small></article>
+    <article class="stat"><span>Estoque baixo</span><strong id="lowStock">0</strong><small>3 unidades ou menos</small></article>
+  </div>
+  <div class="columns">
+    <article class="panel"><h2>Comparação mensal</h2><div class="compare"><div><span>Mês atual</span><strong id="monthSales">0 vendas</strong></div><div><span>Mês anterior</span><strong id="previousMonthSales">0 vendas</strong></div></div></article>
+    <article class="panel"><h2>Produtos mais vendidos</h2><div id="bestSellers" class="muted">Carregando…</div></article>
+  </div>
+</section>
+
+<section id="products" class="tab hidden">
+  <div class="heading"><div><p class="eyebrow">CATÁLOGO</p><h1>Produtos</h1><p class="muted">Cadastro ligado ao Supabase.</p></div><button id="newProduct" class="gold">+ Novo produto</button></div>
+  <form id="productForm" class="panel form-grid hidden">
+    <h2 class="full">Dados do produto</h2>
+    <label>ID único<input name="id" required placeholder="ex.: camiseta-preta"></label>
+    <label>Nome<input name="name" required></label>
+    <label>Categoria<input name="category" value="Roupas" required></label>
+    <label>Preço atual (R$)<input name="price" type="number" min="0" step=".01"></label>
+    <label>Preço original (R$)<input name="original_price" type="number" min="0" step=".01"></label>
+    <label>Estoque total<input name="stock" type="number" min="0" step="1" value="0"></label>
+    <label class="full">Imagem principal<input name="image" placeholder="/assets/produtos/foto.jpg"></label>
+    <label class="full">Fotos adicionais, uma por linha<textarea name="images" rows="3"></textarea></label>
+    <label class="full">Tamanhos separados por vírgula<input name="sizes" placeholder="P, M, G, GG"></label>
+    <label class="full">Descrição<textarea name="description" rows="3"></textarea></label>
+    <label class="check"><input name="promotion" type="checkbox"> Em promoção</label>
+    <label class="check"><input name="featured" type="checkbox"> Produto em destaque</label>
+    <label class="check"><input name="active" type="checkbox" checked> Ativo na loja</label>
+    <div class="actions full"><button class="gold" type="submit">Salvar produto</button><button id="cancelProduct" class="ghost" type="button">Cancelar</button></div>
+    <p id="productMessage" class="message full"></p>
+  </form>
+  <article class="panel">
+    <label>Buscar produto<input id="productSearch" placeholder="Nome, ID ou categoria"></label>
+    <div class="table-wrap"><table><thead><tr><th>Produto</th><th>Categoria</th><th>Preço</th><th>Estoque</th><th>Status</th><th>Ações</th></tr></thead><tbody id="productRows"><tr><td colspan="6">Carregando…</td></tr></tbody></table></div>
+  </article>
+</section>
+
+<section id="sales" class="tab hidden">
+  <div class="heading"><div><p class="eyebrow">REGISTRO MANUAL</p><h1>Vendas</h1><p class="muted">Registre as vendas confirmadas pelo WhatsApp.</p></div></div>
+  <form id="saleForm" class="panel form-grid">
+    <h2 class="full">Registrar venda concluída</h2>
+    <label>Cliente (opcional)<input name="customer"></label>
+    <label>Pagamento<select name="payment_method"><option>Pix</option><option>Dinheiro</option><option>Cartão</option><option>Transferência</option><option>Outro</option></select></label>
+    <label class="full">Itens em formato JSON<textarea name="items" rows="5" required placeholder='[{"id":"roupa-01","name":"Camiseta","size":"M","qty":1,"price":49.9}]'></textarea></label>
+    <label>Total da venda (R$)<input name="total" type="number" min="0" step=".01" required></label>
+    <label>Observações<input name="notes"></label>
+    <div class="full"><button class="gold" type="submit">Registrar venda</button></div>
+    <p class="muted full">Informe o ID real do produto. Após o registro, o sistema tenta atualizar o estoque.</p>
+    <p id="saleMessage" class="message full"></p>
+  </form>
+  <article class="panel"><h2>Histórico recente</h2><div class="table-wrap"><table><thead><tr><th>Data</th><th>Cliente</th><th>Pagamento</th><th>Itens</th><th>Total</th></tr></thead><tbody id="saleRows"></tbody></table></div></article>
+</section>
+
+<section id="reports" class="tab hidden">
+  <div class="heading"><div><p class="eyebrow">DESEMPENHO</p><h1>Relatórios</h1></div><button id="exportSales" class="gold">Exportar CSV</button></div>
+  <article class="panel"><p id="reportSummary">Carregando…</p><p class="muted">Os relatórios dependem das vendas registradas manualmente.</p></article>
+</section>
+</main>
+</div>
+<div id="toast" class="toast" role="status"></div>
+<script src="/admin/admin.js"></script>
+</body>
+</html>
