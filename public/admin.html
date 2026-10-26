@@ -859,7 +859,7 @@ th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8p
   flex: 0 0 auto !important;
 }
 </style>
-\n
+
 <style>
 /* Botão compacto salvar produto N10STORE */
 #productForm button[type="submit"],
@@ -879,7 +879,27 @@ th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.8p
   flex: 0 0 auto !important;
 }
 </style>
-\n</head>
+
+<style>
+/* Botões Salvar e Cancelar com o mesmo tamanho */
+#productForm button[type="submit"],
+#productForm button[type="button"],
+#productForm input[type="submit"],
+#productForm input[type="button"] {
+  box-sizing: border-box;
+  min-width: 110px !important;
+  width: 110px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  padding: 0 12px !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+  border-radius: 10px !important;
+  flex: 0 0 110px !important;
+}
+</style>
+
+</head>
 <body>
 
 <section id="loginScreen">
