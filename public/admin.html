@@ -1155,8 +1155,14 @@ function toast(message){
 async function api(url, options={}){
   const response=await fetch(url,{
     credentials:"same-origin",
+    cache:"no-store",
     ...options,
-    headers:{"Content-Type":"application/json",...(options.headers||{})}
+    headers:{
+      "Content-Type":"application/json",
+      "Cache-Control":"no-cache",
+      "Pragma":"no-cache",
+      ...(options.headers||{})
+    }
   });
   const raw=await response.text();
   let data=null;

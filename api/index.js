@@ -243,6 +243,9 @@ async function supabase(table, query = "", options = {}) {
 }
 
 app.get("/api/admin/status", (req, res) => {
+  res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
+  res.set("Pragma", "no-cache");
+  res.set("Expires", "0");
   res.json({
     configured: missingConfig().length === 0,
     authenticated: tokenIsValid(getCookie(req, COOKIE))
@@ -405,6 +408,9 @@ async function callAdminUsersFunction(method, body) {
 }
 
 app.get("/api/admin/users", configured, adminOnly, async (req, res) => {
+  res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
+  res.set("Pragma", "no-cache");
+  res.set("Expires", "0");
   try {
     const data = await callAdminUsersFunction("GET");
     return res.json({ users: Array.isArray(data.users) ? data.users : [] });
