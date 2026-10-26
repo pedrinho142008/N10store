@@ -2355,3 +2355,186 @@ h1, h2, h3, p { margin-top: 0; }
   overflow: visible;
   text-overflow: clip;
 }
+
+
+/* N10STORE — identidade premium do cabeçalho */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 2vw, 30px);
+  background: #fffdf9;
+  box-shadow: 0 4px 18px rgba(20, 16, 10, .07);
+  border-bottom: 1px solid #eee5d6;
+}
+
+.header .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 1 auto;
+  min-width: 0;
+  text-decoration: none;
+}
+
+.header .brand img {
+  display: block;
+  flex: 0 0 auto;
+  width: clamp(44px, 5vw, 62px);
+  height: clamp(44px, 5vw, 62px);
+  object-fit: contain;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.header .brand .brand-wordmark {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none !important;
+  color: #171512 !important;
+  -webkit-text-fill-color: transparent !important;
+  background-image: linear-gradient(
+    105deg,
+    #8e5a17 0%,
+    #f6d98a 18%,
+    #bd852e 32%,
+    #171717 48%,
+    #4a4439 66%,
+    #080808 100%
+  ) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  font-family: Inter, Montserrat, Arial, sans-serif !important;
+  font-size: clamp(23px, 3.1vw, 43px) !important;
+  font-weight: 900 !important;
+  font-style: normal !important;
+  line-height: 1.05 !important;
+  letter-spacing: clamp(-1.5px, -.08vw, -.5px) !important;
+  text-transform: uppercase;
+  text-shadow:
+    0 1px 0 #f5d99b,
+    0 2px 0 #b98739,
+    0 3px 0 #80541e,
+    0 4px 5px rgba(0, 0, 0, .18) !important;
+  filter: none !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+.header .brand .brand-wordmark::before,
+.header .brand .brand-wordmark::after {
+  content: none !important;
+  display: none !important;
+}
+
+.header .brand .brand-tagline {
+  display: block;
+  margin: 5px 0 0;
+  padding: 0;
+  border: 0;
+  background: none !important;
+  color: #51483b !important;
+  -webkit-text-fill-color: #51483b !important;
+  font-family: Inter, Montserrat, Arial, sans-serif !important;
+  font-size: clamp(7px, .9vw, 11px) !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  line-height: 1.4 !important;
+  letter-spacing: clamp(1px, .22vw, 2.4px) !important;
+  text-transform: uppercase;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.header #openCart.bag-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 9px 14px;
+  border: 1px solid #e4d4b8;
+  border-radius: 999px;
+  background: #171512;
+  color: #f2cf82;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+  transition: background .2s ease, transform .2s ease;
+}
+
+.header #openCart.bag-button:hover {
+  background: #29231a;
+  transform: translateY(-1px);
+}
+
+.header #openCart.bag-button svg {
+  width: 23px;
+  height: 23px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.header #openCart .bag-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f8df9c, #b7832c);
+  color: #20170b;
+  font-size: 10px;
+  font-weight: 800;
+  box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .header {
+    gap: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .header .brand {
+    gap: 7px;
+  }
+
+  .header .brand img {
+    width: 39px;
+    height: 39px;
+  }
+
+  .header .brand .brand-wordmark {
+    font-size: clamp(19px, 5.6vw, 28px) !important;
+    letter-spacing: -1px !important;
+  }
+
+  .header .brand .brand-tagline {
+    margin-top: 3px;
+    font-size: 6px !important;
+    letter-spacing: .8px !important;
+  }
+
+  .header #openCart.bag-button {
+    gap: 5px;
+    min-height: 39px;
+    padding: 7px 9px;
+  }
+
+  .header #openCart.bag-button svg {
+    width: 20px;
+    height: 20px;
+  }
+}
