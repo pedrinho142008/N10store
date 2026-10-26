@@ -78,20 +78,33 @@
           <h2>Nossa coleção <span id="productCount">(0)</span></h2>
           <p class="section-subtitle">Explore as peças e toque em um produto para ver os detalhes.</p>
         </div>
-        <label class="search-box">
+        <!-- N10STORE_SEARCH_FILTER_BUTTON_V2 -->
+        <div class="search-filter-row">
+                  <label class="search-box">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="10.8" cy="10.8" r="6.8"/>
             <path d="m16 16 5 5"/>
           </svg>
           <input id="searchInput" type="search" placeholder="Buscar peça..." autocomplete="off">
         </label>
+          <button type="button" class="filter-toggle" id="toggleFilters"
+            aria-expanded="false" aria-controls="filterOptions">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 7h9M17 7h3M4 17h3M11 17h9"/>
+              <circle cx="15" cy="7" r="2"/>
+              <circle cx="9" cy="17" r="2"/>
+            </svg>
+            <span>Filtrar</span>
+          </button>
+        </div>
       </div>
 
       <div class="filter-bar">
         <div class="category-list" id="categoryList">
           <button class="category-chip active" data-category="Todos">Todos</button>
         </div>
-        <label class="sort-control">
+        <div class="filter-options" id="filterOptions" hidden>
+          <label class="sort-control">
           <span>Marca:</span>
           <select id="brandFilter">
             <option value="Todas">Todas as marcas</option>
@@ -106,8 +119,8 @@
             <option value="price-desc">Maior preço</option>
           </select>
         </label>
+        </div>
       </div>
-
       <div class="product-grid" id="productGrid">
         <div class="loading-state">Carregando coleção...</div>
       </div>

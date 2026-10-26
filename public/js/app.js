@@ -770,3 +770,19 @@ init();
   show(current);
   start();
 })();
+
+
+/* N10STORE_SEARCH_FILTER_BUTTON_V2 */
+(() => {
+  const button = document.getElementById('toggleFilters');
+  const panel = document.getElementById('filterOptions');
+  if (!button || !panel || button.dataset.ready === '1') return;
+  button.dataset.ready = '1';
+
+  button.addEventListener('click', () => {
+    const open = panel.hidden;
+    panel.hidden = !open;
+    button.setAttribute('aria-expanded', String(open));
+    button.classList.toggle('is-open', open);
+  });
+})();

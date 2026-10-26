@@ -2186,3 +2186,69 @@ h1, h2, h3, p { margin-top: 0; }
 
 /* Ocultar a faixa superior da marca */
 .topline { display: none !important; }
+
+
+/* N10STORE_SEARCH_FILTER_BUTTON_V2 */
+#colecao .section-heading {
+  display: block;
+}
+#colecao .search-filter-row {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  width: 100%;
+  margin-top: 22px;
+}
+#colecao .search-filter-row .search-box {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+  height: 48px;
+}
+#colecao .filter-toggle {
+  flex: 0 0 auto;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 17px;
+  border: 0;
+  border-radius: 15px;
+  background: #d97736;
+  color: white;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+#colecao .filter-toggle svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+#colecao .filter-toggle.is-open { background: #8c542f; }
+#colecao .filter-options {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+#colecao .filter-options[hidden] { display: none !important; }
+#colecao .filter-bar { align-items: center; }
+@media (max-width: 520px) {
+  #colecao .search-filter-row { gap: 8px; }
+  #colecao .search-filter-row .search-box {
+    min-width: 0;
+    padding: 0 11px;
+    gap: 8px;
+  }
+  #colecao .filter-toggle { padding: 0 12px; }
+}
