@@ -2485,3 +2485,77 @@ button.zoom-close:hover,
     max-height: 42dvh !important;
   }
 }
+
+/* ===== FILTROS: MARCA E ORDENAR LEGÍVEIS ===== */
+#colecao .filter-options {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  padding: 12px !important;
+}
+
+#colecao .filter-options .sort-control {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 12px !important;
+  gap: 8px !important;
+  overflow: visible !important;
+}
+
+#colecao .filter-options .sort-control span {
+  display: block !important;
+  width: 100% !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  white-space: nowrap !important;
+}
+
+#colecao .filter-options .sort-control select,
+#colecao .filter-options #brandFilter,
+#colecao .filter-options #sortSelect {
+  display: block !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  height: 44px !important;
+  padding: 0 26px 0 10px !important;
+  margin: 0 !important;
+  font-size: 13px !important;
+  line-height: normal !important;
+  text-indent: 0 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  appearance: auto !important;
+  -webkit-appearance: menulist !important;
+}
+
+@media (max-width: 600px) {
+  #colecao .filter-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    padding: 10px !important;
+  }
+
+  #colecao .filter-options .sort-control {
+    padding: 10px !important;
+  }
+
+  #colecao .filter-options .sort-control span {
+    font-size: 12px !important;
+  }
+
+  #colecao .filter-options .sort-control select,
+  #colecao .filter-options #brandFilter,
+  #colecao .filter-options #sortSelect {
+    height: 42px !important;
+    padding-left: 8px !important;
+    padding-right: 22px !important;
+    font-size: 12px !important;
+  }
+}
