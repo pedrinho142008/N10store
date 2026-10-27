@@ -1367,3 +1367,115 @@ main {
   border-color: #8f713e !important;
   text-align: center !important;
 }
+
+/* ===== IDENTIDADE VISUAL FINAL ===== */
+
+/* Logo e nome em duas linhas, totalmente dourados */
+.header .brand {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-shrink: 0 !important;
+}
+
+.header .brand > img {
+  width: 66px !important;
+  height: 66px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  flex-shrink: 0 !important;
+}
+
+.header .brand .brand-wordmark {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  color: #c6a15d !important;
+  line-height: .9 !important;
+  text-transform: lowercase !important;
+}
+
+.header .brand .brand-nt10 {
+  display: block !important;
+  color: #c6a15d !important;
+  -webkit-text-fill-color: #c6a15d !important;
+  font-size: 30px !important;
+  font-weight: 900 !important;
+  letter-spacing: 1.5px !important;
+}
+
+.header .brand .brand-store {
+  display: block !important;
+  margin: 0 !important;
+  color: #c6a15d !important;
+  -webkit-text-fill-color: #c6a15d !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  letter-spacing: 5px !important;
+}
+
+/* Botão Como Chegar no tema preto e dourado */
+.store-location .map-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  padding: 13px 22px !important;
+  color: #f4e7c9 !important;
+  background: #211d17 !important;
+  border: 1px solid #b89555 !important;
+  border-radius: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 1px !important;
+  text-decoration: none !important;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease !important;
+}
+
+.store-location .map-link span {
+  color: #d5b36d !important;
+}
+
+.store-location .map-link:hover,
+.store-location .map-link:focus-visible {
+  color: #fff5df !important;
+  background: #34291b !important;
+  border-color: #e0c17f !important;
+  transform: translateY(-1px);
+}
+
+/* Ícone oficial do WhatsApp no rodapé */
+.footer-socials a[href*="wa.me"] svg {
+  width: 25px !important;
+  height: 25px !important;
+  display: block !important;
+}
+
+/* Rodapé: redes centralizadas sem o nome duplicado */
+.footer-socials {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+}
+
+@media (max-width: 480px) {
+  .header .brand {
+    gap: 7px !important;
+  }
+
+  .header .brand > img {
+    width: 52px !important;
+    height: 52px !important;
+  }
+
+  .header .brand .brand-nt10 {
+    font-size: 24px !important;
+  }
+
+  .header .brand .brand-store {
+    font-size: 15px !important;
+    letter-spacing: 4px !important;
+  }
+}
