@@ -1646,3 +1646,77 @@ main {
     font-size: 20px !important;
   }
 }
+
+/* N10STORE — marca 3D metálica, sem sombras */
+.header .brand span.brand-wordmark,
+.header .brand span.brand-nt10,
+.header .brand span.brand-store {
+  font-family: "Pacifico", cursive !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-text-stroke: 0 !important;
+  letter-spacing: 0 !important;
+}
+
+.header .brand span.brand-nt10 {
+  color: #d9b45b !important;
+  background: linear-gradient(
+    180deg,
+    #fff4bd 0%,
+    #e8c76a 22%,
+    #b7862d 48%,
+    #f5df91 68%,
+    #9b6b20 100%
+  ) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+.header .brand span.brand-store {
+  color: #d9b45b !important;
+  background: linear-gradient(
+    180deg,
+    #fff4bd 0%,
+    #e8c76a 22%,
+    #b7862d 48%,
+    #f5df91 68%,
+    #9b6b20 100%
+  ) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* WhatsApp mais visível, verde vivo e sem moldura */
+.footer-socials a.social-whatsapp,
+.footer-socials a[href*="wa.me"],
+.footer-socials a[href*="whatsapp"] {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.footer-socials a.social-whatsapp .social-original-icon,
+.footer-socials a[href*="wa.me"] .social-original-icon,
+.footer-socials a[href*="whatsapp"] .social-original-icon {
+  width: 38px !important;
+  height: 38px !important;
+  background: #25D366 !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  padding: 5px !important;
+  box-sizing: border-box !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+.footer-socials a.social-whatsapp .social-original-icon path,
+.footer-socials a[href*="wa.me"] .social-original-icon path,
+.footer-socials a[href*="whatsapp"] .social-original-icon path {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
