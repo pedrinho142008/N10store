@@ -2014,3 +2014,25 @@ main {
   font-kerning: none !important;
   font-variant-ligatures: none !important;
 }
+
+/* Correção definitiva do espaçamento da marca */
+.header .brand .brand-wordmark {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 2px !important;
+  width: max-content !important;
+}
+
+.header .brand .brand-wordmark .brand-nt10,
+.header .brand .brand-wordmark .brand-store {
+  display: block !important;
+  width: max-content !important;
+  letter-spacing: 2px !important;
+  word-spacing: normal !important;
+  font-kerning: normal !important;
+  font-variant-ligatures: none !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
