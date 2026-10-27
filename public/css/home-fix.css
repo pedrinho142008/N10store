@@ -2303,3 +2303,115 @@ button.zoom-close:hover,
     font-size: 11px !important;
   }
 }
+
+/* ===== N10STORE — CARD DA SACOLA NO CABEÇALHO ===== */
+.header #openCart.bag-button {
+  position: relative !important;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 9px !important;
+
+  width: auto !important;
+  min-width: 104px !important;
+  max-width: 120px !important;
+  height: 46px !important;
+  min-height: 46px !important;
+
+  padding: 8px 15px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  flex: 0 0 auto !important;
+
+  border: 1px solid #b89555 !important;
+  border-radius: 14px !important;
+  background: linear-gradient(145deg, #29231a, #171512) !important;
+  color: #f4e7c9 !important;
+
+  white-space: nowrap !important;
+  overflow: visible !important;
+  line-height: 1 !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, .18) !important;
+  transition: background .2s ease, border-color .2s ease,
+              transform .2s ease !important;
+}
+
+.header #openCart.bag-button svg {
+  display: block !important;
+  width: 21px !important;
+  height: 21px !important;
+  min-width: 21px !important;
+  flex: 0 0 21px !important;
+  fill: none !important;
+  stroke: #d5b36d !important;
+  stroke-width: 1.7 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+.header #openCart.bag-button > span:not(.bag-count) {
+  display: inline-block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  letter-spacing: .2px !important;
+}
+
+.header #openCart.bag-button .bag-count {
+  position: absolute !important;
+  top: -7px !important;
+  right: -6px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  min-width: 19px !important;
+  width: auto !important;
+  height: 19px !important;
+  padding: 0 5px !important;
+  box-sizing: border-box !important;
+
+  border: 1px solid #171512 !important;
+  border-radius: 999px !important;
+  background: #e4c47d !important;
+  color: #171512 !important;
+
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .25) !important;
+}
+
+.header #openCart.bag-button:hover,
+.header #openCart.bag-button:focus-visible {
+  background: linear-gradient(145deg, #382e1e, #211b13) !important;
+  border-color: #e0c17f !important;
+  color: #fff5df !important;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+  .header #openCart.bag-button {
+    gap: 6px !important;
+    min-width: 88px !important;
+    max-width: 100px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 7px 10px !important;
+    border-radius: 12px !important;
+  }
+
+  .header #openCart.bag-button svg {
+    width: 19px !important;
+    height: 19px !important;
+    min-width: 19px !important;
+    flex-basis: 19px !important;
+  }
+
+  .header #openCart.bag-button > span:not(.bag-count) {
+    font-size: 11px !important;
+  }
+}
