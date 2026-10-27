@@ -2762,3 +2762,59 @@ button.zoom-close:hover,
     font-size: 11px !important;
   }
 }
+
+/* N10STORE — correção final dos filtros no Android */
+@media (max-width: 600px) {
+  #colecao .filter-options:not([hidden]) {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    padding: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  #colecao .filter-options .sort-control {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 8px !important;
+    gap: 8px !important;
+    box-sizing: border-box !important;
+  }
+
+  #colecao .filter-options .sort-control > span {
+    display: block !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    white-space: normal !important;
+  }
+
+  #colecao .filter-options select#brandFilter,
+  #colecao .filter-options select#sortSelect {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: 46px !important;
+    padding: 0 28px 0 8px !important;
+    box-sizing: border-box !important;
+    font-size: 12px !important;
+    text-align: left !important;
+    text-indent: 0 !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    background-color: #151515 !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23d6ad55' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 8px center !important;
+    background-size: 12px !important;
+    color: #fffaf0 !important;
+    -webkit-text-fill-color: #fffaf0 !important;
+  }
+}
