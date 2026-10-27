@@ -1312,3 +1312,58 @@ main {
     letter-spacing: 3px !important;
   }
 }
+
+/* ===== CORREÇÃO: NOME DOURADO ===== */
+.header .brand-wordmark,
+.header .brand-wordmark span,
+.header .brand-nt10,
+.header .brand-store {
+  color: #c6a15d !important;
+  -webkit-text-fill-color: #c6a15d !important;
+  opacity: 1 !important;
+}
+
+/* ===== SACOLA: CONTROLE DE QUANTIDADE PRETO E DOURADO ===== */
+#cartOverlay .quantity-control {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 4px !important;
+  background: #211d17 !important;
+  border: 1px solid #b89555 !important;
+  border-radius: 10px !important;
+}
+
+#cartOverlay .quantity-control button {
+  display: grid !important;
+  place-items: center !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
+  padding: 0 !important;
+  color: #d5b36d !important;
+  background: #211d17 !important;
+  border: 1px solid #8f713e !important;
+  border-radius: 7px !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+}
+
+#cartOverlay .quantity-control button:hover,
+#cartOverlay .quantity-control button:focus-visible {
+  color: #fff4d8 !important;
+  background: #3a2d1b !important;
+  border-color: #e0c17f !important;
+}
+
+#cartOverlay .quantity-control button:active {
+  transform: scale(.96);
+}
+
+#cartOverlay .quantity-control span,
+#cartOverlay .quantity-control strong,
+#cartOverlay .quantity-control input {
+  color: #f4e7c9 !important;
+  background: transparent !important;
+  border-color: #8f713e !important;
+  text-align: center !important;
+}
