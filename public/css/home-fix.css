@@ -999,3 +999,316 @@ main {
     padding: 7px !important;
   }
 }
+
+/* =========================================================
+   NT10STORE — AJUSTES VISUAIS FINAIS
+   Fotos preenchidas, logo maior e botões com contraste
+   ========================================================= */
+
+/* LOGO: maior e com wordmark dourado */
+.header .brand {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 11px !important;
+  flex-shrink: 0;
+}
+
+.header .brand img {
+  width: 58px !important;
+  height: 58px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  flex-shrink: 0;
+}
+
+.header .brand-wordmark {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  color: #c6a15d !important;
+  font-family: Manrope, sans-serif !important;
+  font-weight: 900 !important;
+  line-height: .82 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: lowercase !important;
+}
+
+.header .brand-nt10 {
+  display: block !important;
+  color: #c6a15d !important;
+  font-size: 25px !important;
+  font-weight: 900 !important;
+  letter-spacing: 1.5px !important;
+}
+
+.header .brand-store {
+  display: block !important;
+  margin-top: 5px !important;
+  color: #c6a15d !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  letter-spacing: 5px !important;
+}
+
+/* HOME: imagem ocupa toda a área da foto */
+#productGrid .product-card .product-image {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+#productGrid .product-card .product-image img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+/* DETALHE DO PRODUTO: imagem principal preenchendo a galeria */
+#detailOverlay .gallery-main {
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+#detailOverlay .gallery-main img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+/* Miniaturas da galeria */
+#detailOverlay .detail-thumb img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* SACOLA: botão do cabeçalho */
+.header #openCart.bag-button {
+  color: #f4e7c9 !important;
+  background: #211d17 !important;
+  border: 1px solid #b89555 !important;
+  border-radius: 13px !important;
+}
+
+.header #openCart.bag-button svg {
+  color: #d5b36d !important;
+  stroke: #d5b36d !important;
+}
+
+.header #openCart.bag-button:hover,
+.header #openCart.bag-button:focus-visible {
+  color: #fff5df !important;
+  background: #34291b !important;
+  border-color: #e0c17f !important;
+}
+
+/* Botões de compra e ações dentro da sacola */
+#cartOverlay .cart-footer .primary-button,
+#cartOverlay #checkoutButton,
+#detailOverlay #detailAdd,
+#productGrid .card-actions .add-button,
+#productGrid .card-actions .primary-button {
+  color: #f9edcf !important;
+  background: #211d17 !important;
+  border: 1px solid #b89555 !important;
+}
+
+#cartOverlay .cart-footer .primary-button:hover,
+#cartOverlay #checkoutButton:hover,
+#detailOverlay #detailAdd:hover,
+#productGrid .card-actions .add-button:hover,
+#productGrid .card-actions .primary-button:hover {
+  color: #fff8e8 !important;
+  background: #3a2d1b !important;
+  border-color: #e0c17f !important;
+}
+
+/* Botões secundários mantêm contraste sem ficar totalmente bege */
+#cartOverlay .cart-footer .outline-button,
+#cartOverlay .cart-footer .text-button,
+#detailOverlay #detailWhatsApp {
+  border-color: #b89555;
+}
+
+/* Mobile: preservar a proporção da logo e evitar cabeçalho apertado */
+@media (max-width: 480px) {
+  .header .brand {
+    gap: 7px !important;
+  }
+
+  .header .brand img {
+    width: 46px !important;
+    height: 46px !important;
+  }
+
+  .header .brand-nt10 {
+    font-size: 21px !important;
+  }
+
+  .header .brand-store {
+    font-size: 14px !important;
+    letter-spacing: 4px !important;
+  }
+}
+
+/* ===== N10STORE: AJUSTES VISUAIS ===== */
+
+/* LOGO MAIOR + NOME DOURADO */
+.header .brand {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-shrink: 0;
+}
+
+.header .brand img {
+  width: 58px !important;
+  height: 58px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  flex-shrink: 0;
+}
+
+.header .brand-wordmark {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  color: #c6a15d !important;
+  font-family: Manrope, sans-serif !important;
+  font-weight: 900 !important;
+  line-height: .9 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: lowercase !important;
+}
+
+.header .brand-nt10 {
+  display: block !important;
+  color: #c6a15d !important;
+  font-size: 25px !important;
+  font-weight: 900 !important;
+}
+
+.header .brand-store {
+  display: block !important;
+  margin-top: 4px !important;
+  color: #c6a15d !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  letter-spacing: 4px !important;
+}
+
+/* HOME: FOTO PREENCHENDO O CARD */
+#productGrid .product-card .product-image {
+  position: relative !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+#productGrid .product-card .product-image img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+/* PRODUTO: FOTO PREENCHENDO A GALERIA */
+#detailOverlay .gallery-main {
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+#detailOverlay .gallery-main img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+/* MINIATURAS DO PRODUTO */
+#detailOverlay .detail-thumb img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+/* SACOLA DO CABEÇALHO: FUNDO ESCURO E DETALHES DOURADOS */
+.header #openCart.bag-button {
+  color: #f4e7c9 !important;
+  background: #211d17 !important;
+  border: 1px solid #b89555 !important;
+  border-radius: 13px !important;
+}
+
+.header #openCart.bag-button svg {
+  color: #d5b36d !important;
+  stroke: #d5b36d !important;
+}
+
+.header #openCart.bag-button:hover,
+.header #openCart.bag-button:focus-visible {
+  color: #fff5df !important;
+  background: #34291b !important;
+  border-color: #e0c17f !important;
+}
+
+/* BOTÕES PRINCIPAIS: EVITAR O VISUAL TODO BEGE */
+#cartOverlay .cart-footer .primary-button,
+#cartOverlay #checkoutButton,
+#detailOverlay #detailAdd,
+#productGrid .card-actions .add-button,
+#productGrid .card-actions .primary-button {
+  color: #f9edcf !important;
+  background: #211d17 !important;
+  border: 1px solid #b89555 !important;
+}
+
+#cartOverlay .cart-footer .primary-button:hover,
+#cartOverlay #checkoutButton:hover,
+#detailOverlay #detailAdd:hover,
+#productGrid .card-actions .add-button:hover,
+#productGrid .card-actions .primary-button:hover {
+  color: #fff8e8 !important;
+  background: #3a2d1b !important;
+  border-color: #e0c17f !important;
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .header .brand {
+    gap: 7px !important;
+  }
+
+  .header .brand img {
+    width: 46px !important;
+    height: 46px !important;
+  }
+
+  .header .brand-nt10 {
+    font-size: 21px !important;
+  }
+
+  .header .brand-store {
+    font-size: 14px !important;
+    letter-spacing: 3px !important;
+  }
+}
