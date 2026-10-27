@@ -8,6 +8,7 @@
   <title>NT10STORE — Vista seu estilo</title>
   <link rel="icon" href="/assets/produtos/logo.png">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/home-fix.css?v=1">
 </head>
 <body>
   <div class="topline">
@@ -179,7 +180,9 @@
   <!-- Detalhes do produto -->
   <div class="overlay" id="detailOverlay" aria-hidden="true">
     <section class="detail-panel" role="dialog" aria-modal="true" aria-labelledby="detailName">
-      <button class="icon-button close-button" id="closeDetail" aria-label="Fechar detalhes">×</button>
+      <div class="detail-modal-header">
+        <button type="button" class="icon-button close-button" id="closeDetail" aria-label="Fechar detalhes">×</button>
+      </div>
       <div class="detail-layout">
         <div class="detail-gallery">
           <button class="gallery-main" id="zoomTrigger" aria-label="Ampliar imagem do produto">
