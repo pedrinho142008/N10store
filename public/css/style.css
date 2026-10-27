@@ -2538,3 +2538,40 @@ h1, h2, h3, p { margin-top: 0; }
     height: 20px;
   }
 }
+
+
+/* N10STORE — tema preto e dourado */
+:root {
+  --n10-black: #101010;
+  --n10-gold: #c9a45c;
+  --n10-gold-light: #e5cc8b;
+  --n10-text: #f5f0e5;
+}
+body { background: var(--n10-black); color: var(--n10-text); }
+.header {
+  background: #101010 !important;
+  border-bottom: 1px solid rgba(201,164,92,.4);
+}
+.header .brand {
+  display: inline-flex !important;
+  color: var(--n10-gold-light) !important;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-shadow: none !important;
+}
+.header #openCart {
+  background: #191919 !important;
+  color: var(--n10-gold-light) !important;
+  border: 1px solid var(--n10-gold) !important;
+  box-shadow: none !important;
+}
+input, select, textarea {
+  background: #191919;
+  color: var(--n10-text);
+  border-color: rgba(201,164,92,.45);
+}
+@media (max-width:600px) {
+  .header .brand { font-size: 1.15rem; }
+}
