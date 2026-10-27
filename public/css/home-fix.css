@@ -1909,3 +1909,49 @@ main {
   height: 36px !important;
   object-fit: contain !important;
 }
+
+/* Correção final: todas as letras da marca com a mesma fonte */
+.header .brand .brand-wordmark,
+.header .brand .brand-wordmark span,
+.header .brand span.brand-nt10,
+.header .brand span.brand-store {
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 25px !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0 !important;
+  line-height: 1.15 !important;
+  color: #d6ad55 !important;
+  background: transparent !important;
+  -webkit-text-fill-color: #d6ad55 !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  text-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+  -webkit-text-stroke: 0 !important;
+}
+
+.header .brand .brand-wordmark {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 0 !important;
+}
+
+/* WhatsApp: imagem inteira, sem fundo verde por trás */
+.footer-socials a .whatsapp-custom-icon {
+  display: block !important;
+  width: 36px !important;
+  height: 36px !important;
+  object-fit: contain !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
