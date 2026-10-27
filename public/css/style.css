@@ -2575,3 +2575,233 @@ input, select, textarea {
 @media (max-width:600px) {
   .header .brand { font-size: 1.15rem; }
 }
+
+
+/* N10STORE — correção visual preto e dourado */
+:root {
+  --n10-bg: #0b0b0b;
+  --n10-card: #171717;
+  --n10-card-hover: #202020;
+  --n10-gold: #d4af37;
+  --n10-gold-light: #f0d879;
+  --n10-white: #f7f3e8;
+  --n10-muted: #c5bfae;
+}
+
+html, body {
+  background: var(--n10-bg) !important;
+  color: var(--n10-white) !important;
+}
+
+.header, .topline, footer, .footer {
+  background: #080808 !important;
+  color: var(--n10-white) !important;
+  border-color: rgba(212,175,55,.4) !important;
+}
+
+.header .brand {
+  display: inline-flex !important;
+  align-items: center;
+  color: var(--n10-gold-light) !important;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: clamp(22px, 4vw, 32px) !important;
+  font-weight: 900 !important;
+  letter-spacing: 1.5px !important;
+  text-decoration: none !important;
+  text-shadow: 0 1px 0 #6f5512, 0 2px 8px rgba(212,175,55,.18) !important;
+}
+
+main, section, .hero, .collection, #colecao, #destaques, #sobre {
+  background-color: var(--n10-bg);
+  color: var(--n10-white);
+}
+
+.product-card, .product-item, .product, .product-tile,
+.product-card a, .product-item a, .product-info,
+.product-details, .product-content, .product-meta,
+.product-card .product-info, .product-card .product-details {
+  background-color: var(--n10-card) !important;
+  color: var(--n10-white) !important;
+  border-color: rgba(212,175,55,.48) !important;
+}
+
+.product-card, .product-item, .product-tile {
+  border: 1px solid rgba(212,175,55,.48) !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  box-shadow: 0 5px 18px rgba(0,0,0,.25) !important;
+}
+
+.product-card:hover, .product-item:hover, .product-tile:hover {
+  background-color: var(--n10-card-hover) !important;
+  border-color: var(--n10-gold) !important;
+}
+
+h1, h2, h3, h4, .price, .product-price,
+.price-value, .section-title, .eyebrow {
+  color: var(--n10-gold-light);
+}
+
+p, .description, .section-subtitle, .muted {
+  color: var(--n10-muted);
+}
+
+button, .btn, .button, .filter-btn, .category-btn,
+#openCart, .add-to-cart {
+  border-color: var(--n10-gold) !important;
+}
+
+#openCart, .add-to-cart, .btn-primary, .button-primary {
+  background: var(--n10-gold) !important;
+  color: #111 !important;
+}
+
+button:hover, .btn:hover, .button:hover {
+  border-color: var(--n10-gold-light) !important;
+}
+
+input, select, textarea, .search-box {
+  background: var(--n10-card) !important;
+  color: var(--n10-white) !important;
+  border-color: rgba(212,175,55,.55) !important;
+}
+
+a { text-decoration-color: var(--n10-gold); }
+
+@media (max-width: 600px) {
+  .header .brand {
+    font-size: 22px !important;
+    letter-spacing: 1px !important;
+  }
+}
+
+
+/* N10STORE — preto e dourado em toda a loja */
+:root {
+  color-scheme: dark;
+  --n10-bg: #0a0a0a;
+  --n10-surface: #141414;
+  --n10-surface-2: #1d1d1d;
+  --n10-gold: #d4af37;
+  --n10-gold-light: #f0d879;
+  --n10-text: #f5f5f5;
+  --n10-muted: #c7c7c7;
+}
+
+html, body {
+  background: var(--n10-bg) !important;
+  color: var(--n10-text) !important;
+}
+
+.header, .topline, footer, .footer {
+  background: #080808 !important;
+  color: var(--n10-text) !important;
+  border-color: rgba(212,175,55,.45) !important;
+}
+
+.header .brand {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+  color: var(--n10-gold-light) !important;
+  font-size: clamp(20px, 3.8vw, 29px) !important;
+  font-weight: 900 !important;
+  letter-spacing: 1px !important;
+  text-decoration: none !important;
+  text-shadow: 0 1px 0 #715916 !important;
+}
+
+.header .brand img {
+  display: block !important;
+  width: 43px !important;
+  height: 43px !important;
+  object-fit: contain !important;
+  border-radius: 8px !important;
+}
+
+.header .brand-tagline {
+  display: none !important;
+}
+
+/* Fundos gerais */
+main, section, .hero, .hero-copy, .collection,
+#colecao, #destaques, #sobre, .section-heading {
+  background-color: var(--n10-bg) !important;
+  color: var(--n10-text) !important;
+}
+
+/* Cards: várias classes comuns e componentes descendentes */
+.product-card, .product-item, .product, .product-tile,
+.product-card *, .product-item *, .product-tile *,
+.product-info, .product-content, .product-details,
+.product-meta, .product-description, .product-actions,
+.products-grid .card, .products-grid .product,
+#products .card, #products .product-card {
+  color: var(--n10-text);
+  border-color: rgba(212,175,55,.42);
+}
+
+.product-card, .product-item, .product, .product-tile,
+.products-grid .card, .products-grid .product,
+#products .card, #products .product-card {
+  background: var(--n10-surface) !important;
+  border: 1px solid rgba(212,175,55,.5) !important;
+  border-radius: 15px !important;
+  box-shadow: 0 5px 18px rgba(0,0,0,.3) !important;
+  overflow: hidden;
+}
+
+.product-card:hover, .product-item:hover,
+.product-tile:hover, .products-grid .product:hover {
+  background: var(--n10-surface-2) !important;
+  border-color: var(--n10-gold) !important;
+}
+
+/* Remove bege/off-white de painéis internos */
+.product-card .product-info,
+.product-card .product-content,
+.product-card .product-details,
+.product-item .product-info,
+.product-item .product-content,
+.product-tile .product-info,
+.product-tile .product-content,
+.product-card .card-body,
+.product-item .card-body {
+  background: var(--n10-surface) !important;
+  color: var(--n10-text) !important;
+}
+
+/* Textos e preços */
+h1, h2, h3, h4, .price, .product-price,
+.price-value, .eyebrow, .section-title {
+  color: var(--n10-gold-light) !important;
+}
+p, .description, .section-subtitle, .muted {
+  color: var(--n10-muted);
+}
+
+/* Botões e filtros */
+button, .btn, .button, .filter-btn, .category-btn,
+#openCart, .add-to-cart {
+  border-color: var(--n10-gold) !important;
+}
+#openCart, .add-to-cart, .btn-primary, .button-primary {
+  background: var(--n10-gold) !important;
+  color: #111 !important;
+}
+input, select, textarea, .search-box {
+  background: var(--n10-surface) !important;
+  color: var(--n10-text) !important;
+  border-color: rgba(212,175,55,.55) !important;
+}
+
+@media (max-width: 600px) {
+  .header .brand img {
+    width: 36px !important;
+    height: 36px !important;
+  }
+  .header .brand {
+    font-size: 20px !important;
+    gap: 6px !important;
+  }
+}
