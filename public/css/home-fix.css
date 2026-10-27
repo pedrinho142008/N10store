@@ -1826,3 +1826,44 @@ main {
   filter: none !important;
   opacity: 1 !important;
 }
+
+/* Correção: nome inteiro da loja visível em dourado */
+.header .brand span.brand-wordmark,
+.header .brand span.brand-nt10,
+.header .brand span.brand-store {
+  color: #d6ad55 !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: #d6ad55 !important;
+  text-shadow: none !important;
+  filter: none !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-style: normal !important;
+}
+
+/* WhatsApp verde com símbolo branco visível */
+.footer-socials a .social-original-icon {
+  display: block !important;
+  width: 36px !important;
+  height: 36px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Mantém o fundo verde apenas no ícone do WhatsApp */
+.footer-socials a.social-whatsapp .social-original-icon,
+.footer-socials a[href*="wa.me"] .social-original-icon,
+.footer-socials a[href*="whatsapp"] .social-original-icon {
+  background: #25D366 !important;
+  border-radius: 50% !important;
+  padding: 3px !important;
+  box-sizing: border-box !important;
+}
+
+/* Contraste do símbolo */
+.footer-socials a.social-whatsapp .social-original-icon path,
+.footer-socials a[href*="wa.me"] .social-original-icon path,
+.footer-socials a[href*="whatsapp"] .social-original-icon path {
+  opacity: 1 !important;
+}
