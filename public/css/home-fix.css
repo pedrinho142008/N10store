@@ -2643,3 +2643,53 @@ button.zoom-close:hover,
     font-size: 11px !important;
   }
 }
+
+/* Ajuste de proporção dos cards Marca e Ordenar */
+#colecao .filter-options:not([hidden]) {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  align-items: start !important;
+  gap: 10px !important;
+  padding: 10px !important;
+}
+
+#colecao .filter-options .sort-control {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 10px 8px !important;
+  border-radius: 12px !important;
+  overflow: visible !important;
+}
+
+#colecao .filter-options .sort-control > span {
+  width: 100% !important;
+  margin-bottom: 4px !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+}
+
+#colecao .filter-options .sort-control select {
+  width: 100% !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  padding: 0 6px !important;
+  font-size: 12px !important;
+  line-height: normal !important;
+  border-radius: 8px !important;
+}
+
+@media (max-width: 380px) {
+  #colecao .filter-options:not([hidden]) {
+    gap: 6px !important;
+    padding: 6px !important;
+  }
+
+  #colecao .filter-options .sort-control {
+    padding: 8px 5px !important;
+  }
+
+  #colecao .filter-options .sort-control select {
+    font-size: 11px !important;
+    padding-left: 3px !important;
+  }
+}
