@@ -1867,3 +1867,45 @@ main {
 .footer-socials a[href*="whatsapp"] .social-original-icon path {
   opacity: 1 !important;
 }
+
+/* Nome da loja: tipografia uniforme e sem efeitos */
+.header .brand span.brand-wordmark,
+.header .brand span.brand-nt10,
+.header .brand span.brand-store {
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-variant: normal !important;
+  font-stretch: normal !important;
+  text-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+  -webkit-text-stroke: 0 !important;
+  letter-spacing: 0 !important;
+  color: #d6ad55 !important;
+  background: none !important;
+  -webkit-text-fill-color: #d6ad55 !important;
+}
+
+/* WhatsApp no mesmo tamanho do Instagram */
+.footer-socials a .social-original-icon {
+  display: block !important;
+  width: 36px !important;
+  height: 36px !important;
+  max-width: 36px !important;
+  max-height: 36px !important;
+  object-fit: contain !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+.footer-socials a .whatsapp-custom-icon {
+  width: 36px !important;
+  height: 36px !important;
+  object-fit: contain !important;
+}
