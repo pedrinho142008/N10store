@@ -1479,3 +1479,126 @@ main {
     letter-spacing: 4px !important;
   }
 }
+
+
+
+/* N10STORE BRAND SOCIAL OVERRIDE START */
+
+/* Logo maior */
+.header .brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.header .brand > img {
+  width: 88px !important;
+  height: 88px !important;
+  max-width: none !important;
+  flex: 0 0 88px !important;
+  object-fit: contain !important;
+}
+
+/* Wordmark com tipografia mais moderna e leitura clara */
+.header .brand-wordmark {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  font-family: "Manrope", "Segoe UI", Arial, sans-serif !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  letter-spacing: -0.045em !important;
+  text-shadow: none !important;
+}
+
+.header .brand-nt10 {
+  display: block !important;
+  color: #c6a15d !important;
+  font-family: "Manrope", "Segoe UI", Arial, sans-serif !important;
+  font-size: 29px !important;
+  font-weight: 800 !important;
+  line-height: 0.95 !important;
+  letter-spacing: -0.065em !important;
+}
+
+.header .brand-store {
+  display: block !important;
+  color: #c6a15d !important;
+  font-family: "Manrope", "Segoe UI", Arial, sans-serif !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.11em !important;
+  margin-top: 2px !important;
+}
+
+/* Ícones das redes nas cores originais, sem filtros */
+.footer-socials a {
+  background: transparent !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+.footer-socials a .social-original-icon {
+  display: block !important;
+  width: 36px !important;
+  height: 36px !important;
+  color: initial !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+.footer-socials .social-instagram .ig-bg {
+  fill: url(#n10-ig-gradient) !important;
+  stroke: none !important;
+}
+
+.footer-socials .social-instagram .ig-outline {
+  fill: none !important;
+  stroke: #ffffff !important;
+}
+
+.footer-socials .social-instagram .ig-dot {
+  fill: #ffffff !important;
+  stroke: none !important;
+}
+
+.footer-socials .social-whatsapp .wa-bg {
+  fill: #25D366 !important;
+  stroke: none !important;
+}
+
+.footer-socials .social-whatsapp .wa-phone {
+  fill: #ffffff !important;
+  stroke: none !important;
+}
+
+@media (max-width: 600px) {
+  .header .brand {
+    gap: 9px !important;
+  }
+
+  .header .brand > img {
+    width: 72px !important;
+    height: 72px !important;
+    flex-basis: 72px !important;
+  }
+
+  .header .brand-nt10 {
+    font-size: 25px !important;
+  }
+
+  .header .brand-store {
+    font-size: 16px !important;
+    letter-spacing: 0.1em !important;
+  }
+
+  .footer-socials a .social-original-icon {
+    width: 34px !important;
+    height: 34px !important;
+  }
+}
+
+/* N10STORE BRAND SOCIAL OVERRIDE END */
