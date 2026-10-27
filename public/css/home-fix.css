@@ -1800,3 +1800,29 @@ main {
   box-shadow: none !important;
   filter: none !important;
 }
+
+/* Ajuste solicitado: fonte normal, sem cursiva ou efeito 3D */
+.header .brand span.brand-wordmark,
+.header .brand span.brand-nt10,
+.header .brand span.brand-store {
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  text-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+  -webkit-text-stroke: 0 !important;
+}
+
+/* Novo ícone WhatsApp */
+.footer-socials a .social-original-icon {
+  width: 36px !important;
+  height: 36px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
