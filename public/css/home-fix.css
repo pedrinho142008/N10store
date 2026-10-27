@@ -2003,3 +2003,14 @@ main {
   box-shadow: none !important;
   filter: none !important;
 }
+
+/* Corrige somente o espaçamento do nome da loja */
+.header .brand .brand-wordmark,
+.header .brand .brand-wordmark span,
+.header .brand span.brand-nt10,
+.header .brand span.brand-store {
+  letter-spacing: 3px !important;
+  word-spacing: 3px !important;
+  font-kerning: none !important;
+  font-variant-ligatures: none !important;
+}
