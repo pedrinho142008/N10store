@@ -2693,3 +2693,72 @@ button.zoom-close:hover,
     padding-left: 3px !important;
   }
 }
+
+/* FIX: texto dos seletores Marca e Ordenar sem conflito com a seta */
+#colecao .filter-options:not([hidden]) {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+#colecao .filter-options .sort-control {
+  min-width: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+#colecao .filter-options select#brandFilter,
+#colecao .filter-options select#sortSelect {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  height: 46px !important;
+  box-sizing: border-box !important;
+
+  /* Evita a sobreposição da seta nativa com o texto */
+  appearance: none !important;
+  -webkit-appearance: none !important;
+
+  /* Seta personalizada à direita */
+  background-color: #151515 !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23d6ad55' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 9px center !important;
+  background-size: 12px 12px !important;
+
+  /* Espaço separado para texto e seta */
+  padding: 0 30px 0 9px !important;
+  margin: 0 !important;
+
+  color: #fffaf0 !important;
+  -webkit-text-fill-color: #fffaf0 !important;
+  border: 1px solid rgba(232, 189, 88, .65) !important;
+  border-radius: 9px !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: normal !important;
+  text-indent: 0 !important;
+  text-overflow: clip !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+
+#colecao .filter-options select#brandFilter option,
+#colecao .filter-options select#sortSelect option {
+  color: #fffaf0 !important;
+  background-color: #151515 !important;
+}
+
+@media (max-width: 380px) {
+  #colecao .filter-options select#brandFilter,
+  #colecao .filter-options select#sortSelect {
+    height: 44px !important;
+    padding-left: 7px !important;
+    padding-right: 25px !important;
+    background-position: right 7px center !important;
+    font-size: 11px !important;
+  }
+}
