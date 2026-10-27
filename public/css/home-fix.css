@@ -2818,3 +2818,32 @@ button.zoom-close:hover,
     -webkit-text-fill-color: #fffaf0 !important;
   }
 }
+
+/* N10STORE — correção estrutural da largura dos filtros no celular */
+@media (max-width: 600px) {
+  #colecao .filter-options:not([hidden]) {
+    grid-column: 1 / -1 !important;
+    justify-self: stretch !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  #colecao .filter-options > .sort-control {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  #colecao .filter-options > .sort-control select {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
